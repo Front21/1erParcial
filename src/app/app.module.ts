@@ -1,20 +1,26 @@
-// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { routing } from "./app.routing";
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-
-import { AppComponent } from "./app.component";
-import { LoginComponent } from "./login/login.component";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FichaComponent } from './ficha/ficha.component';
+import {HttpClientModule} from '@angular/common/http';
+import { ServicefichaService } from './service/serviceficha.service';
 import { FormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
-  imports: [BrowserModule, routing,FormsModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    FichaComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+
+  ],
+  providers: [ServicefichaService],
   bootstrap: [AppComponent]
-  
 })
-export class AppModule {}
+export class AppModule { }

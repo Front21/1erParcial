@@ -1,0 +1,45 @@
+<div *ngIf="fichas.length>0">
+    <table border="1">
+      <tr>
+        <td>motivoConsulta</td>
+        <td>diagnostico</td>
+        <td>observacion</td>
+        <td>idEmpleado</td>
+        <td>idCliente</td>
+        <td>idTipoProducto</td>
+      </tr>
+      <tr *ngFor="let f of fichas">
+        <td>{{f.motivoConsulta}}</td>
+        <td>{{f.diagnostico}}</td>
+        <td>{{f.observacion}}</td>
+        <td>{{f.idEmpleado.idPersona}}</td>
+        <td>{{f.idCliente.idPersona}}</td>
+        <td>{{f.idTipoProducto.idTipoProducto}}</td>
+      </tr>
+    </table>
+  
+      <select name="miselect" [(ngModel)]="categoriaSelec">
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.descripcion}}</option>
+      </select>
+      <button  (click)="buscar()">Buscar</button>
+    <table border="1">
+      <tr>
+        <td>motivoConsulta</td>
+        <td>diagnostico</td>
+        <td>observacion</td>
+        <td>idEmpleado</td>
+        <td>idCliente</td>
+        <td>idTipoProducto</td>
+      </tr>
+      <tr *ngFor="let c of FichaFiltroCategoria">
+        <td>{{c.motivoConsulta}}</td>
+        <td>{{c.diagnostico}}</td>
+        <td>{{c.observacion}}</td>
+        <td>{{c.idEmpleado.idPersona}}</td>
+        <td>{{c.idCliente.idPersona}}</td>
+        <td>{{c.idTipoProducto.idTipoProducto}}</td>
+      </tr>
+    </table>
+      {{categoriaSelec.idCategoria}}
+  </div>
+  
