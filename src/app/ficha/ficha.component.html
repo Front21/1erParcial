@@ -21,6 +21,22 @@
       <select name="miselect" [(ngModel)]="categoriaSelec">
       <option [ngValue]="item" *ngFor="let item of categorias">{{item.descripcion}}</option>
       </select>
+
+      <select name="miselect" [(ngModel)]="subcategoriaSelec">
+      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.descripcion}}</option>
+      </select>
+
+      <select name="miselect" [(ngModel)]="empleadoSelec">
+      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+      </select>
+
+      <select name="miselect" [(ngModel)]="clienteSelec">
+      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+      </select>
+
+      <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
+
+
        <button (click)="buscar()">Buscar</button>
     <table border="1">
       <tr>
@@ -31,7 +47,7 @@
         <td>idCliente</td>
         <td>idTipoProducto</td>
       </tr>
-      <tr *ngFor="let c of FichaFiltroCategoria">
+      <tr *ngFor="let c of FichaFiltroSubcategoria">
         <td>{{c.motivoConsulta}}</td>
         <td>{{c.diagnostico}}</td>
         <td>{{c.observacion}}</td>
@@ -41,5 +57,9 @@
       </tr>
     </table>
       {{categoriaSelec.idCategoria}}
+      {{subcategoriaSelec.idTipoProducto}}
+      {{empleadoSelec.idPersona}}
+      {{clienteSelec.idPersona}}
+      {{fechadesde}}
   </div>
   

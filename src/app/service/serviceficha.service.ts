@@ -8,6 +8,9 @@ import { Ficha } from '../model/ficha';
   providedIn: 'root'
 })
 export class ServicefichaService {
+  getFichasSubCategorias(idTipoProducto: number) {
+    throw new Error('Method not implemented.');
+  }
   private api: string ="http://181.123.243.5:8080/stock-pwfe/fichaClinica";
 
 
@@ -17,14 +20,42 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api);
   }
 
-  getFichasCategoria(id:number): Observable<listadatos<Ficha>> {
+  getFichasCategoria(idC:number): Observable<listadatos<Ficha>> {
     const filtro = {
       idTipoProducto: {
-        idTipoProducto : id
+        idTipoProducto : idC
       }
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
-   
+  getFichasSubCategoria(idS:number): Observable<listadatos<Ficha>> {
+    const filtro = {
+      idTipoProducto: {
+        idTipoProducto : idS
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+  }
+  getFichasEmpleados(idP:number): Observable<listadatos<Ficha>> {
+    const filtro = {
+      idEmpleado: {
+        idPersona : idP
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+  }
+
+  getFichasClientes(idCL:number): Observable<listadatos<Ficha>> {
+    const filtro = {
+      idCliente: {
+        idPersona : idCL
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+  }
+
 }
