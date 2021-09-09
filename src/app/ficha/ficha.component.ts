@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Categoria } from '../model/categoria';
 import { Ficha } from '../model/ficha';
 import { ServiceCategoriaService } from '../service/servicecategoria.service';
@@ -32,10 +32,10 @@ export class FichaComponent implements OnInit {
   }
 
   buscar(): void{
-    this.servicioFicha.getFichasCategoria(this.categoriaSelec.toString()).subscribe(
+    this.servicioFicha.getFichasCategoria(this.categoriaSelec.idCategoria).subscribe(
       entity => this.FichaFiltroCategoria = entity.lista,
-      error =>console.log('no se pudieron conseguir los paises')
-    );
+      error =>console.log('no se pudieron conseguir los paises'), 
+    )
   }
 
 }

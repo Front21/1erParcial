@@ -21,7 +21,7 @@
       <select name="miselect" [(ngModel)]="categoriaSelec">
       <option [ngValue]="item" *ngFor="let item of categorias">{{item.descripcion}}</option>
       </select>
-      <button  (click)="buscar()">Buscar</button>
+       <button (click)="buscar()">Buscar</button>
     <table border="1">
       <tr>
         <td>motivoConsulta</td>

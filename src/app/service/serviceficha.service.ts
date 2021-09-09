@@ -17,9 +17,14 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api);
   }
 
-  getFichasCategoria(id: string): Observable<listadatos<Ficha>> {
-    return this.http.get<listadatos<Ficha>>(this.api + '?ejemplo={"idTipoProducto":{"idTipoProducto":'+id+'}}');
+  getFichasCategoria(id:number): Observable<listadatos<Ficha>> {
+    const filtro = {
+      idTipoProducto: {
+        idTipoProducto : id
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
-   
    
 }
