@@ -1,29 +1,9 @@
-<div *ngIf="fichas.length>0">
-    <table border="1">
-      <tr>
-        <td>motivoConsulta</td>
-        <td>diagnostico</td>
-        <td>observacion</td>
-        <td>idEmpleado</td>
-        <td>idCliente</td>
-        <td>idTipoProducto</td>
-      </tr>
-      <tr *ngFor="let f of fichas">
-        <td>{{f.motivoConsulta}}</td>
-        <td>{{f.diagnostico}}</td>
-        <td>{{f.observacion}}</td>
-        <td>{{f.idEmpleado.idPersona}}</td>
-        <td>{{f.idCliente.idPersona}}</td>
-        <td>{{f.idTipoProducto.idTipoProducto}}</td>
-      </tr>
-    </table>
-  
       <select name="miselect" [(ngModel)]="categoriaSelec">
-      <option [ngValue]="item" *ngFor="let item of categorias">{{item.descripcion}}</option>
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
       </select>
 
-      <select name="miselect" [(ngModel)]="subcategoriaSelec">
-      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.descripcion}}</option>
+      <select name="miselect" [(ngModel)]="subcategoriaSelec">Subcategoria
+      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
       </select>
 
       <select name="miselect" [(ngModel)]="empleadoSelec">
@@ -35,9 +15,14 @@
       </select>
 
       <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
+      <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta">
+
+      <button (click)="buscar()">Buscar</button>
 
 
-       <button (click)="buscar()">Buscar</button>
+
+
+<div *ngIf="fichasResultado.length>0; else sinresultado">
     <table border="1">
       <tr>
         <td>motivoConsulta</td>
@@ -47,7 +32,27 @@
         <td>idCliente</td>
         <td>idTipoProducto</td>
       </tr>
-      <tr *ngFor="let c of FichaFiltroSubcategoria">
+      <tr *ngFor="let f of fichasResultado">
+        <td>{{f.motivoConsulta}}</td>
+        <td>{{f.diagnostico}}</td>
+        <td>{{f.observacion}}</td>
+        <td>{{f.idEmpleado.idPersona}}</td>
+        <td>{{f.idCliente.idPersona}}</td>
+        <td>{{f.idTipoProducto.idTipoProducto}}</td>
+      </tr>
+    </table>
+</div>
+  <ng-template #sinresultado>
+    <table border="1">
+      <tr>
+        <td>motivoConsulta</td>
+        <td>diagnostico</td>
+        <td>observacion</td>
+        <td>idEmpleado</td>
+        <td>idCliente</td>
+        <td>idTipoProducto</td>
+      </tr>
+      <tr *ngFor="let c of fichas">
         <td>{{c.motivoConsulta}}</td>
         <td>{{c.diagnostico}}</td>
         <td>{{c.observacion}}</td>
@@ -56,10 +61,9 @@
         <td>{{c.idTipoProducto.idTipoProducto}}</td>
       </tr>
     </table>
-      {{categoriaSelec.idCategoria}}
-      {{subcategoriaSelec.idTipoProducto}}
-      {{empleadoSelec.idPersona}}
-      {{clienteSelec.idPersona}}
-      {{fechadesde}}
-  </div>
-  
+  </ng-template>
+
+
+    
+    
+     

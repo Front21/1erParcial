@@ -57,5 +57,14 @@ export class ServicefichaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
+  getFichasFechas(fd:string, ff:string): Observable<listadatos<Ficha>> {
+    const filtro = {
+      fechaDesdeCadena: fd,
+      fechaHastaCadena: ff
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+  }
+
 
 }
