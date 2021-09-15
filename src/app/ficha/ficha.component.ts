@@ -22,7 +22,6 @@ export class FichaComponent implements OnInit {
   subcategorias: SubCategoria[] =[];
   categoriaSelec: Categoria = new Categoria();
   subcategoriaSelec: SubCategoria= new SubCategoria();
-  FichaFiltroCategoria: Ficha[] = [];
   FichaFiltroSubcategoria: Ficha[] =[];
   empleados: Persona [] = [];
   empleadoSelec: Persona = new Persona();
@@ -44,6 +43,8 @@ export class FichaComponent implements OnInit {
   band: boolean=false;
   band2: boolean=false;
   cont: number=0;
+  FichaFiltroCategoria: Ficha[] = [];
+  descripcionSelec: string = "";
 
 
   constructor(private servicioFicha: ServicefichaService, 
@@ -116,6 +117,8 @@ export class FichaComponent implements OnInit {
     );
     this.fichasResultado=[];
     this.cont=0;
+
+    
     for (var ficha in this.fichas) {
       
       if(this.FichaFiltroCategoria.length>0){

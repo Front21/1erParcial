@@ -1,0 +1,29 @@
+      Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+      <option>Empleados</option>
+      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+      </select>
+
+      Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+      <option>Clientes</option>
+      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+      </select><br/>
+
+      Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
+      <option>Categoria</option>
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
+      </select>
+
+      SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+      <option>SubCategoria</option>
+      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+      </select><br/>
+
+
+      Motivo: <textarea name="motivo" rows="10" cols="40" [(ngModel)]="motivo" ></textarea>
+      Diagnostico: <textarea name="dignostico" rows="10" cols="40" [(ngModel)]="diagnostico" ></textarea><br/>
+      Observacion: <textarea name="observacion" rows="10" cols="40" [(ngModel)]="observacion" ></textarea><br/>
+
+
+      <br/>
+      <button (click)="crearFicha()">Crear</button><br/>
+      <br/>

@@ -1,24 +1,34 @@
-      <select name="miselect" [(ngModel)]="categoriaSelec">
-      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
-      </select>
-
-      <select name="miselect" [(ngModel)]="subcategoriaSelec">Subcategoria
-      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
-      </select>
-
-      <select name="miselect" [(ngModel)]="empleadoSelec">
+     
+      
+      
+      Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
+      Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
+      
+       Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+      <option>Empleados</option>
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
       </select>
 
-      <select name="miselect" [(ngModel)]="clienteSelec">
+      Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+      <option>Clientes</option>
       <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+      </select><br/>
+
+      Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
+      <option>Categoria</option>
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
       </select>
 
-      <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
-      <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta">
+      SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+      <option>SubCategoria</option>
+      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+      </select><br/>
 
-      <button (click)="buscar()">Buscar</button>
+      <br/>
+      <button (click)="buscar()">Buscar</button><br/>
+      <br/>
 
+      
 
 
 

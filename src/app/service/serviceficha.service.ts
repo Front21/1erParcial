@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { listadatos } from '../model/datos';
 import { Ficha } from '../model/ficha';
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,19 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
 
+  
+
+  headers = new HttpHeaders({ "Content-Type": "application/json" });
+ 
+  postFicha(body: any): Observable<Ficha>{
+    return this.http.post<Ficha>(this.api, body,{
+      headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('agregado '+data),
+        error => console.log("error: "+error)
+      )
+    );
+
+  }
 
 }

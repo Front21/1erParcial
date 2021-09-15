@@ -7,11 +7,15 @@ import { FichaComponent } from './ficha/ficha.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ServicefichaService } from './service/serviceficha.service';
 import { FormsModule } from '@angular/forms';
+import { AgregarfichaComponent } from './agregarficha/agregarficha.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FichaComponent
+    FichaComponent,
+    AgregarfichaComponent,
+    CategoriaComponent
   ],
   imports: [
     BrowserModule,
