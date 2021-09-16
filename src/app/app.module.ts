@@ -14,6 +14,8 @@ import { EliminarcategoriaComponent } from './categoria/eliminarcategoria/elimin
 import { EditarcategoriaComponent } from './categoria/editarcategoria/editarcategoria.component';
 import { EditarfichaComponent } from './ficha/editarficha/editarficha.component';
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
+import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
+import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.comp
     EliminarcategoriaComponent,
     EditarcategoriaComponent,
     EditarfichaComponent,
-    EliminarfichaComponent
+    EliminarfichaComponent,
+    SubcategoriaComponent,
+    AgregarsubcategoriaComponent
   ],
   imports: [
     BrowserModule,

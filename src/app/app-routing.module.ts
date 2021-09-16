@@ -8,6 +8,8 @@ import { EliminarcategoriaComponent } from './categoria/eliminarcategoria/elimin
 import { EditarcategoriaComponent } from './categoria/editarcategoria/editarcategoria.component';
 import { EditarfichaComponent } from './ficha/editarficha/editarficha.component';
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
+import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
+import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
 
 
 const routes: Routes = [
@@ -24,7 +26,6 @@ const routes: Routes = [
   {path:'eliminarficha',
   component:EliminarfichaComponent
   },
-  
   {path:'categoria',
   component:CategoriaComponent
   },
@@ -36,6 +37,12 @@ const routes: Routes = [
   },
   {path:'editarcategoria',
   component:EditarcategoriaComponent
+  },
+  {path:'subcategoria',
+  component:SubcategoriaComponent
+  },
+  {path:'agregarsubcategoria',
+  component:AgregarsubcategoriaComponent
   },
   
   /**  {

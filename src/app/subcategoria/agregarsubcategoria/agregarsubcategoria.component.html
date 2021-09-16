@@ -1,0 +1,11 @@
+    
+    Categoria: <select name="miselect" [(ngModel)]="idCategoriaSelec">
+      <option>Categoria</option>
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
+      </select><br/>
+    Descripcion: <textarea name="descripcion" rows="10" cols="40" [(ngModel)]="descripcionSelec" ></textarea><br/>
+
+    <br/>
+    <button (click)="crearSubCategoria()">Confirmar</button><br/>
+    <br/>
+

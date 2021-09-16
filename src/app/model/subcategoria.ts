@@ -1,6 +1,8 @@
+import { Categoria } from "./categoria";
+
 export class SubCategoria {
 
     idTipoProducto!: number;
-    idCategoria!: number;
+    idCategoria!: Categoria;
     descripcion!: string;
 }

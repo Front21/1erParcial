@@ -18,7 +18,7 @@ export class ServiceCategoriaService {
     return this.http.get<listadatos<Categoria>>(this.api);
   }
 
-  headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
+  headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
   postCategorias(body: any): Observable<Categoria>{
     return this.http.post<Categoria>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
