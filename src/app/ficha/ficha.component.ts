@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, ɵɵqueryRefresh } from '@angular/core';
 import { Categoria } from '../model/categoria';
 import { Ficha } from '../model/ficha';
 import { ServiceCategoriaService } from '../service/servicecategoria.service';
@@ -8,6 +8,7 @@ import { ServicefichaService } from '../service/serviceficha.service';
 import { SubCategoria } from '../model/subcategoria';
 import { Persona } from '../model/persona';
 import { ServiceclienteService } from '../service/servicecliente.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -45,15 +46,18 @@ export class FichaComponent implements OnInit {
   cont: number=0;
   FichaFiltroCategoria: Ficha[] = [];
   descripcionSelec: string = "";
+  //id: number=0;
+  mensaje: string="";
 
 
   constructor(private servicioFicha: ServicefichaService, 
     private servicioCategoria: ServiceCategoriaService, 
     private serviciosubcategoria: ServicesubcategoriaService,
     private servicioEmpleado: ServiceempleadoService,
-    private servicioCliente: ServiceclienteService  ) { }
+    private servicioCliente: ServiceclienteService) { }
 
   ngOnInit(): void {
+    
     this.servicioFicha.getFichas().subscribe(
       entity => this.fichas = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Fichas')
@@ -78,6 +82,9 @@ export class FichaComponent implements OnInit {
       entity => this.clientes = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Clientes')
     );
+
+    //this.route.queryParams.subscribe(params => {this.id = params['id'];})
+    //this.eliminarFicha();
 
   }
 
@@ -198,4 +205,16 @@ export class FichaComponent implements OnInit {
       this.band=false; 
     };  
   };
+
+
+  eliminarFicha(id: number): void{
+    console.log('el id es '+id);
+    this.servicioFicha.deleteFicha(id).subscribe(
+      () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
+      this.refresh();
+  }
+
+  refresh(): void { window.location.reload(); }
+
+
 };

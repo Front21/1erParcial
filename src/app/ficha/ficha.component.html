@@ -35,45 +35,56 @@
 <div *ngIf="fichasResultado.length>0; else sinresultado">
     <table border="1">
       <tr>
+        <td>idFichaClinica</td>
         <td>motivoConsulta</td>
         <td>diagnostico</td>
         <td>observacion</td>
         <td>idEmpleado</td>
         <td>idCliente</td>
         <td>idTipoProducto</td>
+         <td>Acciones</td>
       </tr>
       <tr *ngFor="let f of fichasResultado">
+        <td>{{f.idFichaClinica}}</td>
         <td>{{f.motivoConsulta}}</td>
         <td>{{f.diagnostico}}</td>
         <td>{{f.observacion}}</td>
         <td>{{f.idEmpleado.idPersona}}</td>
         <td>{{f.idCliente.idPersona}}</td>
         <td>{{f.idTipoProducto.idTipoProducto}}</td>
+         <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: f.idFichaClinica}">Editar</a>
+              <a [routerLink]="['/ficha']" (click)="eliminarFicha(f.idFichaClinica)" [queryParams]="{ id: f.idFichaClinica}" >Eliminar</a></td>
       </tr>
     </table>
 </div>
   <ng-template #sinresultado>
     <table border="1">
       <tr>
+        <td>idFichaClinica</td>
         <td>motivoConsulta</td>
         <td>diagnostico</td>
         <td>observacion</td>
         <td>idEmpleado</td>
         <td>idCliente</td>
         <td>idTipoProducto</td>
+         <td>Acciones</td>
       </tr>
       <tr *ngFor="let c of fichas">
+        <td>{{c.idFichaClinica}}</td>
         <td>{{c.motivoConsulta}}</td>
         <td>{{c.diagnostico}}</td>
         <td>{{c.observacion}}</td>
         <td>{{c.idEmpleado.idPersona}}</td>
         <td>{{c.idCliente.idPersona}}</td>
         <td>{{c.idTipoProducto.idTipoProducto}}</td>
+        <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: c.idFichaClinica}">Editar</a><br/>
+            <a [routerLink]="['/ficha']" (click)="eliminarFicha(c.idFichaClinica)" [queryParams]="{ id: c.idFichaClinica}" >Eliminar</a></td>
+
+
+
       </tr>
     </table>
   </ng-template>
-
-
-    
+  
     
      

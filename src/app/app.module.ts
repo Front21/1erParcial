@@ -9,13 +9,23 @@ import { ServicefichaService } from './service/serviceficha.service';
 import { FormsModule } from '@angular/forms';
 import { AgregarfichaComponent } from './agregarficha/agregarficha.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { AgregarcategoriaComponent } from './categoria/agregarcategoria/agregarcategoria.component';
+import { EliminarcategoriaComponent } from './categoria/eliminarcategoria/eliminarcategoria.component';
+import { EditarcategoriaComponent } from './categoria/editarcategoria/editarcategoria.component';
+import { EditarfichaComponent } from './ficha/editarficha/editarficha.component';
+import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FichaComponent,
     AgregarfichaComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    AgregarcategoriaComponent,
+    EliminarcategoriaComponent,
+    EditarcategoriaComponent,
+    EditarfichaComponent,
+    EliminarfichaComponent
   ],
   imports: [
     BrowserModule,

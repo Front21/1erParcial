@@ -67,9 +67,12 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
 
-  
+  getFicha(id: number): Observable<Ficha>{
+    this.api = `${this.api}/${id}`;
+    return this.http.get<Ficha>(this.api);
+  }
 
-  headers = new HttpHeaders({ "Content-Type": "application/json" });
+  headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
  
   postFicha(body: any): Observable<Ficha>{
     return this.http.post<Ficha>(this.api, body,{
@@ -81,5 +84,23 @@ export class ServicefichaService {
     );
 
   }
+
+  putFicha(body: any): Observable<Ficha>{
+    return this.http.put<Ficha>(this.api, body,{
+      headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    );
+
+  }
+  deleteFicha(idCat: number): Observable<{}>{
+   
+    this.api = `${this.api}/${idCat}`;
+    return this.http.delete(this.api);
+  }
+
+
 
 }

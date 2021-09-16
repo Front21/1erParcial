@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from '../model/categoria';
-import { Ficha } from '../model/ficha';
-import { Persona } from '../model/persona';
-import { SubCategoria } from '../model/subcategoria';
-import { ServiceCategoriaService } from '../service/servicecategoria.service';
-import { ServicesubcategoriaService } from '../service/servicesubcategoria.service';
+import { Categoria } from 'src/app/model/categoria';
+import { Ficha } from 'src/app/model/ficha';
+import { Persona } from 'src/app/model/persona';
+import { SubCategoria } from 'src/app/model/subcategoria';
+import { ServiceCategoriaService } from 'src/app/service/servicecategoria.service';
+import { ServicesubcategoriaService } from 'src/app/service/servicesubcategoria.service';
 
 @Component({
-  selector: 'app-categoria',
-  templateUrl: './categoria.component.html',
-  styleUrls: ['./categoria.component.css']
+  selector: 'app-eliminarcategoria',
+  templateUrl: './eliminarcategoria.component.html',
+  styleUrls: ['./eliminarcategoria.component.css']
 })
-export class CategoriaComponent implements OnInit {
+export class EliminarcategoriaComponent implements OnInit {
   categorias: Categoria[] = [];
   nuevaCategoria: Categoria = new Categoria();
   mensaje: string = "";
@@ -44,11 +44,13 @@ export class CategoriaComponent implements OnInit {
   band: boolean=false;
   band2: boolean=false;
   cont: number=0;
+  idCat: number=0;
+  elicategoriaSelec: Categoria = new Categoria();
   constructor(private servicioCategoria: ServiceCategoriaService, 
-    private serviciosubcategoria: ServicesubcategoriaService,
-    ) { }
+    private serviciosubcategoria: ServicesubcategoriaService) { }
 
   ngOnInit(): void {
+
     this.servicioCategoria.getCategorias().subscribe(
       entity => this.categorias = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
@@ -56,23 +58,9 @@ export class CategoriaComponent implements OnInit {
 
   }
 
-  crearCategoria(): void{
-    this.nuevaCategoria.idCategoria = this.idCategoriaSelec;
-    this.nuevaCategoria.descripcion = this.descripcionSelec;
-  
-    this.servicioCategoria.postCategorias({descripcion: this.nuevaCategoria.descripcion}).subscribe(
-      () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
-
-  }
-
-  eliminarCategoria(id: number): void{
-    this.servicioCategoria.deleteCategoria(id).subscribe(
+  eliminarCategoria(): void{
+    this.servicioCategoria.deleteCategoria(this.elicategoriaSelec.idCategoria).subscribe(
       () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
-      this.refresh();
   }
-
-  refresh(): void { window.location.reload(); }
-
 
 }
-

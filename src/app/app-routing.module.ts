@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { FichaComponent } from './ficha/ficha.component';
 import { AgregarfichaComponent } from './agregarficha/agregarficha.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { AgregarcategoriaComponent } from './categoria/agregarcategoria/agregarcategoria.component';
+import { EliminarcategoriaComponent } from './categoria/eliminarcategoria/eliminarcategoria.component';
+import { EditarcategoriaComponent } from './categoria/editarcategoria/editarcategoria.component';
+import { EditarfichaComponent } from './ficha/editarficha/editarficha.component';
+import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 
 
 const routes: Routes = [
@@ -13,10 +18,27 @@ const routes: Routes = [
   {path:'agregarficha',
   component:AgregarfichaComponent
   },
+  {path:'editarficha',
+  component:EditarfichaComponent
+  },
+  {path:'eliminarficha',
+  component:EliminarfichaComponent
+  },
+  
   {path:'categoria',
   component:CategoriaComponent
   },
-   /**  {
+  {path:'agregarcategoria',
+  component:AgregarcategoriaComponent
+  },
+  {path:'eliminarcategoria',
+  component:EliminarcategoriaComponent
+  },
+  {path:'editarcategoria',
+  component:EditarcategoriaComponent
+  },
+  
+  /**  {
       //path:'nuevopais',
       //component:PaisAgregarComponent
     }*/
