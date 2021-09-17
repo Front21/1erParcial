@@ -11,12 +11,12 @@ import { SubCategoria } from '../model/subcategoria';
   styleUrls: ['./presentacionproducto.component.css']
 })
 export class PresentacionproductoComponent implements OnInit {
-  listaPresentacion: PresentacionProducto[]= [];
+  listaPresentacion: PresentacionProducto [] = [];
   presentacionProductoSelec: PresentacionProducto = new PresentacionProducto();
   mensaje: string = "";
   presProductSelec: PresentacionProducto = new PresentacionProducto();
   id : number = 0;
-  subcategorias: SubCategoria = new SubCategoria();
+  subcategorias: SubCategoria [] = [];
 
   constructor(private servicioPresentacionproducto: PresentacionproductoService, private route: ActivatedRoute) { }
 
@@ -26,12 +26,12 @@ export class PresentacionproductoComponent implements OnInit {
         error =>console.log('No se pudo acceder a la lista de Categorias')
       );
       this.route.queryParams.subscribe(params => {this.id = params['id'];});
-     /*
+     
       this.servicioPresentacionproducto.getsubcategorias().subscribe(
         entity => this.subcategorias = entity.lista,
         error =>console.log('No se pudo acceder a la lista de Categorias')
-      );*/
-      
+      );
+    
   }
 
   Buscar(): void{
@@ -42,13 +42,6 @@ export class PresentacionproductoComponent implements OnInit {
     );
     
   }
-
-
-  
-  
-
-
-
 
 }
 

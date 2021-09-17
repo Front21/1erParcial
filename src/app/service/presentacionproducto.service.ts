@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { listadatos } from '../model/datos';
 import { PresentacionProducto } from '../model/presentacionproducto';
 import { tap } from 'rxjs/operators';
+import { SubCategoria } from '../model/subcategoria';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class PresentacionproductoService {
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<PresentacionProducto>(this.api, {params:{ejemplo}});
+  }
+
+  getsubcategorias(): Observable<listadatos<SubCategoria>> {
+    return this.http.get<listadatos<SubCategoria>>(this.api);
   }
  
 

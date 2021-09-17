@@ -1,4 +1,12 @@
 
+SubCategoria: <select name="miselect" [(ngModel)]="presentacionProductoSelec">
+
+  <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+  </select><br/>
+  
+<br/>
+<button (click)="Buscar()">Buscar</button><br/>
+<br/>
   
 <div *ngIf="listaPresentacion.length>0; else sinresultado">
     <table border="1">
