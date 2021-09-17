@@ -1,0 +1,23 @@
+
+  
+<div *ngIf="listaPresentacion.length>0; else sinresultado">
+    <table border="1">
+      <tr>
+        <td>idPresentacionProducto</td>
+        <td>idProducto</td>
+        <td>idTipoProducto</td>
+        <td>nombre</td>
+        <td> descripcion</td>
+
+      <tr *ngFor="let f of listaPresentacion">
+        <td>{{f.idPresentacionProducto}}</td>
+        <td>{{f.idProducto.idProducto}}</td>
+        <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
+        <td>{{f.nombre}}</td>
+        <td>{{f.descripcion}}</td>
+      </tr>
+    </table>
+</div>
+ <ng-template #sinresultado>
+    No existe
+  </ng-template>

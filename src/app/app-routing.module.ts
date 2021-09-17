@@ -10,6 +10,8 @@ import { EditarfichaComponent } from './ficha/editarficha/editarficha.component'
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
+import { PresentacionproductoComponent } from './presentacionproducto/presentacionproducto.component';
+
 
 
 const routes: Routes = [
@@ -43,6 +45,9 @@ const routes: Routes = [
   },
   {path:'agregarsubcategoria',
   component:AgregarsubcategoriaComponent
+  },
+  {path:'presentacionproducto',
+  component:PresentacionproductoComponent
   },
   
   /**  {

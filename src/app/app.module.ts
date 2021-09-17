@@ -16,6 +16,7 @@ import { EditarfichaComponent } from './ficha/editarficha/editarficha.component'
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
+import { PresentacionproductoComponent } from './presentacionproducto/presentacionproducto.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria
     EditarfichaComponent,
     EliminarfichaComponent,
     SubcategoriaComponent,
-    AgregarsubcategoriaComponent
+    AgregarsubcategoriaComponent,
+    PresentacionproductoComponent,
   ],
   imports: [
     BrowserModule,
