@@ -10,6 +10,10 @@ import { EditarfichaComponent } from './ficha/editarficha/editarficha.component'
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
+import {PersonahorarioagendaComponent} from "./personahorarioagenda/personahorarioagenda.component";
+import {AgregarpersonahorarioagendaComponent} from "./personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component";
+import {EditarpersonahorarioagendaComponent} from "./personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component";
+import {EliminarpersonahorarioagendaComponent} from "./personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component";
 
 
 const routes: Routes = [
@@ -44,7 +48,19 @@ const routes: Routes = [
   {path:'agregarsubcategoria',
   component:AgregarsubcategoriaComponent
   },
-  
+  {path:'personahorarioagenda',
+    component:PersonahorarioagendaComponent
+  },
+  {path:'agregarpersonahorarioagenda',
+    component:AgregarpersonahorarioagendaComponent
+  },
+  {path:'editarpersonahorarioagenda',
+    component:EditarpersonahorarioagendaComponent
+  },
+  {path:'eliminarpersonahorarioagenda',
+    component:EliminarpersonahorarioagendaComponent
+  },
+
   /**  {
       //path:'nuevopais',
       //component:PaisAgregarComponent

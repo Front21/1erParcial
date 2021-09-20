@@ -1,0 +1,103 @@
+
+Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+              <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
+            </select>
+
+Dias: <select name="miselect" [(ngModel)]="diaSelec">
+              <option [ngValue]="item3" *ngFor="let item3 of numeros">{{dias[item3]}}</option>
+      </select><br/>
+
+<br/>
+<button (click)="buscar()">Buscar</button><br/>
+<br/>
+
+
+<div *ngIf="AgendaResultado.length>0; else sinresultado">
+  <table border="1">
+    <tr>
+      <td>idPersonaHorarioAgenda</td>
+      <td>Dia</td>
+      <td>horaApertura</td>
+      <td>horaCierre</td>
+      <td>idEmpleado</td>
+      <td>Acciones</td>
+    </tr>
+    <tr *ngFor="let a of AgendaResultado">
+      <td>{{a.idPersonaHorarioAgenda}}</td>
+      <div *ngIf="a.dia==0">
+        <td>Domingo</td>
+      </div>
+      <div *ngIf="a.dia==1">
+        <td>Lunes</td>
+      </div>
+      <div *ngIf="a.dia==2">
+        <td>Martes</td>
+      </div>
+      <div *ngIf="a.dia==3">
+        <td>Miercoles</td>
+      </div>
+      <div *ngIf="a.dia==4">
+        <td>Jueves</td>
+      </div>
+      <div *ngIf="a.dia==5">
+        <td>Viernes</td>
+      </div>
+      <div *ngIf="a.dia==6">
+        <td>Sabado</td>
+      </div>
+      <div *ngIf="a.dia==7">
+        <td>Sabado</td>
+      </div>
+      <td>{{a.horaAperturaCadena}}</td>
+      <td>{{a.horaCierreCadena}}</td>
+      <td>{{a.idEmpleado.nombre}}</td>
+      <td><a [routerLink]="['/editarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Editar</a><br>
+        <a class="nav-link" [routerLink]="['/eliminarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Eliminar</a></td>
+    </tr>
+  </table>
+</div>
+<ng-template #sinresultado>
+  <table border="1">
+    <tr>
+      <td>idPersonaHorarioAgenda</td>
+      <td>Dia</td>
+      <td>horaApertura</td>
+      <td>horaCierre</td>
+      <td>idEmpleado</td>
+      <td>Acciones</td>
+    </tr>
+    <tr *ngFor="let a of agendas">
+      <td>{{a.idPersonaHorarioAgenda}}</td>
+      <div *ngIf="a.dia==0">
+        <td>Domingo</td>
+      </div>
+      <div *ngIf="a.dia==1">
+        <td>Lunes</td>
+      </div>
+      <div *ngIf="a.dia==2">
+        <td>Martes</td>
+      </div>
+      <div *ngIf="a.dia==3">
+        <td>Miercoles</td>
+      </div>
+      <div *ngIf="a.dia==4">
+        <td>Jueves</td>
+      </div>
+      <div *ngIf="a.dia==5">
+        <td>Viernes</td>
+      </div>
+      <div *ngIf="a.dia==6">
+        <td>Sabado</td>
+      </div>
+      <div *ngIf="a.dia==7">
+        <td>Sabado</td>
+      </div>
+      <td>{{a.horaAperturaCadena}}</td>
+      <td>{{a.horaCierreCadena}}</td>
+      <td>{{a.idEmpleado.nombre}}</td>
+      <td><a [routerLink]="['/editarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Editar</a><br>
+        <a class="nav-link" [routerLink]="['/eliminarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Eliminar</a></td>
+    </tr>
+  </table>
+</ng-template>
+

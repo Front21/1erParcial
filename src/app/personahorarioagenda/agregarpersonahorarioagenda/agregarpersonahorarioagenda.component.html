@@ -1,0 +1,20 @@
+Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+  <option>Empleados</option>
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+</select>
+
+Dias: <select name="miselect" [(ngModel)]="diaSelec">
+  <option [ngValue]="item3" *ngFor="let item3 of numeros">{{dias[item3]}}</option>
+</select><br/>
+
+Hora de Apertura: <input [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/>
+Hora de Cierre: <input [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/>
+
+Intervalo en Minutos: <input [(ngModel)]="intervaloSelec" type="number" id="intervaloSelec" name="intervaloSelec"><br/>
+
+
+<br/>
+<button (click)="crearAgenda()">Crear</button><br/>
+<br/>
+
+

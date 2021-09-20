@@ -1,9 +1,9 @@
-     
-      
-      
+
+
+
       Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
       Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
-      
+
        Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
       <option>Empleados</option>
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
@@ -28,7 +28,7 @@
       <button (click)="buscar()">Buscar</button><br/>
       <br/>
 
-      
+
 
 
 
@@ -53,7 +53,7 @@
         <td>{{f.idCliente.idPersona}}</td>
         <td>{{f.idTipoProducto.idTipoProducto}}</td>
          <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: f.idFichaClinica}">Editar</a>
-              <a [routerLink]="['/ficha']" (click)="eliminarFicha(f.idFichaClinica)" [queryParams]="{ id: f.idFichaClinica}" >Eliminar</a></td>
+              <a [routerLink]="['/eliminarficha']" [queryParams]="{ id: f.idFichaClinica}" >Eliminar</a></td>
       </tr>
     </table>
 </div>
@@ -85,6 +85,5 @@
       </tr>
     </table>
   </ng-template>
-  
-    
-     
+
+

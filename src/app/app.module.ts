@@ -16,6 +16,10 @@ import { EditarfichaComponent } from './ficha/editarficha/editarficha.component'
 import { EliminarfichaComponent } from './ficha/eliminarficha/eliminarficha.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria/agregarsubcategoria.component';
+import { PersonahorarioagendaComponent } from './personahorarioagenda/personahorarioagenda.component';
+import { AgregarpersonahorarioagendaComponent } from './personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component';
+import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component';
+import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { AgregarsubcategoriaComponent } from './subcategoria/agregarsubcategoria
     EditarfichaComponent,
     EliminarfichaComponent,
     SubcategoriaComponent,
-    AgregarsubcategoriaComponent
+    AgregarsubcategoriaComponent,
+    PersonahorarioagendaComponent,
+    AgregarpersonahorarioagendaComponent,
+    EditarpersonahorarioagendaComponent,
+    EliminarpersonahorarioagendaComponent,
   ],
   imports: [
     BrowserModule,

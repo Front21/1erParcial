@@ -10,22 +10,28 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./eliminarficha.component.css']
 })
 export class EliminarfichaComponent implements OnInit {
-  fichas : Ficha[] = []; 
   mensaje: string ="";
   id: number = 0;
   constructor(private route: ActivatedRoute, private servicioFicha: ServicefichaService, private router: Router,private zone:NgZone) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     this.route.queryParams.subscribe(params => {this.id = params['id'];})
-    this.eliminarFicha();
+    await this.eliminarFicha();
     //this.router.navigate( [routerLink]="['/ficha']");
     //this.ngZone.run(() => this.router.navigateByUrl('/ficha'))
+    /*
     this.zone.run(() => {
       this.router.navigate(['/ficha'] );
-    });
+    });*/
+    await this.irListadoFicha();
 
   }
+
+  async irListadoFicha(): Promise<boolean>{
+    return this.router.navigateByUrl('ficha');
+  }
+
 
   eliminarFicha(): void{
     this.servicioFicha.deleteFicha(this.id).subscribe(
