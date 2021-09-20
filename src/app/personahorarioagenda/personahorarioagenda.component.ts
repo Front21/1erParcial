@@ -56,6 +56,7 @@ export class PersonahorarioagendaComponent implements OnInit {
   dias: string[] = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
   diaSelec: number = 0;
   cont2: number = 0;
+  clickBuscar: boolean = false;
 
   constructor(private servicioPersonaHorarioAgenda: PersonahorarioagendaService,
               public servicioEmpleado: ServiceempleadoService,
@@ -77,6 +78,7 @@ export class PersonahorarioagendaComponent implements OnInit {
   }
 
   async buscar(): Promise<void>{
+    this.clickBuscar = true;
 
     console.log('LLEGUE A BUSCAR');
     console.log(this.empleadoSelec.idPersona);
