@@ -98,11 +98,6 @@ export class PersonahorarioagendaComponent implements OnInit {
       error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
     );
 
-    console.log(this.AgendaFiltroEmpleado.length);
-    console.log(this.AgendaFiltroDia.length);
-
-    console.log(this.dias.length) ;
-    console.log(this.AgendaResultado.length);
     this.actualizarResultado();
   };
 
@@ -117,16 +112,13 @@ export class PersonahorarioagendaComponent implements OnInit {
           if (this.agendas[agenda].idPersonaHorarioAgenda == this.AgendaFiltroEmpleado[a1].idPersonaHorarioAgenda) {
             this.band = true;
             break;
-          }
-          ;
-        }
-        ;
+          };
+        };
         if (this.band == false) {
           continue;
-        }
-        ;
-      }
-      ;
+        };
+        this.band = false;
+      };
 
       if (this.AgendaFiltroDia.length > 0) {
         this.band2 = true;
@@ -135,14 +127,11 @@ export class PersonahorarioagendaComponent implements OnInit {
           if (this.agendas[agenda].idPersonaHorarioAgenda == this.AgendaFiltroDia[a1].idPersonaHorarioAgenda) {
             this.band = true;
             break;
-          }
-          ;
-        }
-        ;
+          };
+        };
         if (this.band == false) {
           continue;
-        }
-        ;
+        };
       }
 
       if (this.band == true && this.band2 == true) {
@@ -150,8 +139,18 @@ export class PersonahorarioagendaComponent implements OnInit {
       }
       this.band2 = false;
       this.band = false;
-    }
-    ;
+    };
+
+    console.log(this.AgendaFiltroEmpleado.length);
+    console.log(this.AgendaFiltroDia.length);
+
+    console.log(this.dias.length) ;
+    console.log(this.AgendaResultado.length);
+  }
+
+  limpiar(): void{
+    this.clickBuscar = false;
+    this.AgendaResultado = [];
   }
 
   /*

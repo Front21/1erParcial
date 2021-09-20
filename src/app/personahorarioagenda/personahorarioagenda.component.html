@@ -10,9 +10,13 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
 <br/>
 <button (click)="buscar()">Buscar</button><br/>
 <br/>
+<br/>
+<button (click)="limpiar()">Limpiar</button><br/>
+<br/>
 
 
-<div *ngIf="AgendaResultado.length>0; else sinresultado"></div>
+<div *ngIf="AgendaResultado.length>0; else sinresultado">
+  reusultado
   <table border="1">
     <tr>
       <td>idPersonaHorarioAgenda</td>
@@ -55,11 +59,13 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
         <a class="nav-link" [routerLink]="['/eliminarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Eliminar</a></td>
     </tr>
   </table>
-
+</div>
 <ng-template #sinresultado>
-  <div *ngIf="clickBuscar==true; else noBuscar"></div>
+  <div *ngIf="clickBuscar==true; else noBuscar">
       NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+  </div>
     <ng-template #noBuscar>
+      agenda
       <table border="1">
         <tr>
           <td>idPersonaHorarioAgenda</td>
@@ -107,3 +113,5 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
 
 </ng-template>
 
+{{clickBuscar}}
+{{AgendaResultado.length}}
