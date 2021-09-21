@@ -20,6 +20,11 @@ import { PersonahorarioagendaComponent } from './personahorarioagenda/personahor
 import { AgregarpersonahorarioagendaComponent } from './personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component';
 import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component';
 import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
+import { HorarioexcepcionComponent } from './horarioexcepcion/horarioexcepcion.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { AgregarreservaComponent } from './reserva/agregarreserva/agregarreserva.component';
+import { AgregarhorarioexcepcionComponent } from './horarioexcepcion/agregarhorarioexcepcion/agregarhorarioexcepcion.component';
+import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorarioexcepcion/editarhorarioexcepcion.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,11 @@ import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/el
     AgregarpersonahorarioagendaComponent,
     EditarpersonahorarioagendaComponent,
     EliminarpersonahorarioagendaComponent,
+    HorarioexcepcionComponent,
+    ReservaComponent,
+    AgregarreservaComponent,
+    AgregarhorarioexcepcionComponent,
+    EditarhorarioexcepcionComponent,
   ],
   imports: [
     BrowserModule,

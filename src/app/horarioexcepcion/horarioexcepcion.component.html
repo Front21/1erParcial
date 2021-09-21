@@ -1,0 +1,69 @@
+        Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fecha" name="fecha"><br/>
+      
+        Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+        <option>Empleados</option>
+        <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+        </select>
+        
+        
+        <br/>
+        <button (click)="buscarhorarioexcepcion()">Buscar Horario Excepcion</button><br/>
+        <br/>
+
+<div *ngIf="horariosResultado.length>0; else sinresultado">
+    <table border="1">
+      <tr>
+        <td>idhorarioExcepcion</td>
+        <td>fechaCadena</td>
+        <td>horaAperturaCadena</td>
+        <td>horaCierreCadena</td>
+        <td>iflagEsHabilitar</td>
+        <td>idEmpleado</td>
+        <td>intervaloMinutos</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let f of horariosResultado">
+        <td>{{f.idHorarioExcepcion}}</td>
+        <td>{{f.fechaCadena}}</td>
+        <td>{{f.horaAperturaCadena}}</td>
+        <td>{{f.horaCierreCadena}}</td>
+        <td>{{f.flagEsHabilitar}}</td>
+        <td>{{f.idEmpleado.idPersona}}</td>
+        <td>{{f.intervaloMinutos}}</td>
+        <td><a class="nav-link" [routerLink]="['/editarhorarioexcepcion']" (click)="editarHorarioExcepcion()">Editar</a></td><br/>
+        <td><a class="nav-link" [routerLink]="['/eliminarhorarioexcepcion']" (click)="eliminarHorarioExcepcion(f.idHorarioExcepcion)">Eliminar</a></td>
+        
+      </tr>
+    </table>
+</div>
+  <ng-template #sinresultado>
+    <table border="1">
+      <tr>
+        <td>idhorarioExcepcion</td>
+        <td>fechaCadena</td>
+        <td>horaAperturaCadena</td>
+        <td>horaCierreCadena</td>
+        <td>iflagEsHabilitar</td>
+        <td>idEmpleado</td>
+         <td>intervaloMinutos</td>
+         <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let c of horarios">
+        <td>{{c.idHorarioExcepcion}}</td>
+        <td>{{c.fechaCadena}}</td>
+        <td>{{c.horaAperturaCadena}}</td>
+        <td>{{c.horaCierreCadena}}</td>
+        <td>{{c.flagEsHabilitar}}</td>
+        <td>{{c.idEmpleado.idPersona}}</td>
+        <td>{{c.intervaloMinutos}}</td>
+        <td><a class="nav-link" [routerLink]="['/editarHorarioExcepcion']" (click)=" editarHorarioExcepcion()">Editar</a></td><br/>
+        <td><a class="nav-link" [routerLink]="['/eliminarhorarioexcepcion']" (click)="eliminarHorarioExcepcion(c.idHorarioExcepcion)">Eliminar</a></td>
+         
+      </tr>
+    </table>
+  </ng-template>
+  
+    
+<br/>
+<button [routerLink]="['/agregarhorarioexcepcion']" >Agregar Horario Excepcion</button><br/>
+<br/>

@@ -14,6 +14,11 @@ import {PersonahorarioagendaComponent} from "./personahorarioagenda/personahorar
 import {AgregarpersonahorarioagendaComponent} from "./personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component";
 import {EditarpersonahorarioagendaComponent} from "./personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component";
 import {EliminarpersonahorarioagendaComponent} from "./personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component";
+import { HorarioexcepcionComponent } from './horarioexcepcion/horarioexcepcion.component';
+import { AgregarhorarioexcepcionComponent } from './horarioexcepcion/agregarhorarioexcepcion/agregarhorarioexcepcion.component';
+import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorarioexcepcion/editarhorarioexcepcion.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { AgregarreservaComponent } from './reserva/agregarreserva/agregarreserva.component';
 
 
 const routes: Routes = [
@@ -59,6 +64,21 @@ const routes: Routes = [
   },
   {path:'eliminarpersonahorarioagenda',
     component:EliminarpersonahorarioagendaComponent
+  },
+  {path:'horarioexcepcion',
+  component:HorarioexcepcionComponent
+  },
+  {path:'agregarhorarioexcepcion',
+  component:AgregarhorarioexcepcionComponent
+  },
+  {path:'editarhorarioexcepcion',
+  component:EditarhorarioexcepcionComponent
+  },
+  {path:'reserva',
+  component:ReservaComponent
+  },
+  {path:'agregarreserva',
+  component:AgregarreservaComponent
   },
 
   /**  {

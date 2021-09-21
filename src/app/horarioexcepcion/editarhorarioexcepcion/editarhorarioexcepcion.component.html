@@ -1,0 +1,24 @@
+    
+{{horario.idHorarioExcepcion}}
+    
+    Fecha: <input [(ngModel)]="horario.fechaCadena" type="date" id="horario.fechaCadena" name="horario.fechaCadena"><br/>
+    Hora de Apertura: <input [(ngModel)]="horario.horaAperturaCadena" type="time" id="horario.horaAperturaCadena" name="horario.horaAperturaCadena"><br/>
+    Hora de Cierre: <input [(ngModel)]="horario.horaCierreCadena" type="time" id="horario.horaAperturaCadena" name="horario.horaAperturaCadena"><br/>
+
+    Habilitado: <select name="miselect" [(ngModel)]="horario.flagEsHabilitar">
+      <option >S</option>
+      <option >N</option>
+      </select><br/>
+
+    Empleados: <select name="miselect" [(ngModel)]="horario.idEmpleado">
+      <option>{{horario.idEmpleado}}</option>
+     
+      </select><br/>
+
+    Intervalo en Minutos: <input [(ngModel)]="horario.intervaloMinutos" type="number" id="horario.intervaloMinutos" name="horario.intervaloMinutos"><br/>
+
+      <br/>
+       <button class="nav-link" [routerLink]="['/horarioExcepcion']" (click)="editarHorarioExcepcion(horario.idHorarioExcepcion)">Confirmar</button>
+      <br/>
+
+
