@@ -16,8 +16,8 @@ export class PresentacionproductoService {
   
   constructor(private http: HttpClient) {}
 
-  getPresentacionProductos(): Observable<listadatos<PresentacionProducto>> {
-    return this.http.get<listadatos<PresentacionProducto>>(this.api);
+  getPresentacionProductos(): Promise<listadatos<PresentacionProducto>> {
+    return this.http.get<listadatos<PresentacionProducto>>(this.api).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
@@ -30,7 +30,7 @@ export class PresentacionproductoService {
     );
   }
   
-  getPresentacionProducto(idP:number): Observable<PresentacionProducto> {
+  getPresentacionProductoSubCategoria(idP:number): Promise<listadatos<PresentacionProducto>> {
     const filtro = {
       idProducto: {
         idTipoProducto : {
@@ -39,8 +39,20 @@ export class PresentacionproductoService {
       }
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<PresentacionProducto>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<PresentacionProducto>>(this.api, {params:{ejemplo}}).toPromise();
   }
+  
+  getPresentacionProductoSubCategoria2(nameP:string): Promise<listadatos<PresentacionProducto>> {
+    const filtro = {
+      nombre: nameP
+      
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<PresentacionProducto>>(this.api, {params:{ejemplo}}).toPromise();
+  }
+
+
+
 
   getsubcategorias(): Observable<listadatos<SubCategoria>> {
     return this.http.get<listadatos<SubCategoria>>(this.api);

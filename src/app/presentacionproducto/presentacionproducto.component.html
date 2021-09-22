@@ -1,14 +1,19 @@
 
-SubCategoria: <select name="miselect" [(ngModel)]="presentacionProductoSelec">
+SubCategoria: <select name="miselect" [(ngModel)]="subCategoriaSelec">
 
-  <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
-  </select><br/>
-  
+<option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+</select> <br>
+
+
+Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
+  <option [ngValue]="item1" *ngFor="let item1 of nombres">{{item1}}</option>
+</select>
+<br>
+<button (click)="Buscar()">Buscar</button>
 <br/>
-<button (click)="Buscar()">Buscar</button><br/>
-<br/>
+
   
-<div *ngIf="listaPresentacion.length>0; else sinresultado">
+<div *ngIf="presentaciondeProductosResultados.length>0; else sinresultado">
     <table border="1">
       <tr>
         <td>idPresentacionProducto</td>
@@ -16,16 +21,38 @@ SubCategoria: <select name="miselect" [(ngModel)]="presentacionProductoSelec">
         <td>idTipoProducto</td>
         <td>nombre</td>
         <td> descripcion</td>
+        <td> precioVenta</td>
 
-      <tr *ngFor="let f of listaPresentacion">
+
+      <tr *ngFor="let f of presentaciondeProductosResultados">
         <td>{{f.idPresentacionProducto}}</td>
         <td>{{f.idProducto.idProducto}}</td>
         <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
         <td>{{f.nombre}}</td>
         <td>{{f.descripcion}}</td>
+        <td>{{f.existenciaProducto.precioVenta}}</td>
+        
+
       </tr>
     </table>
 </div>
  <ng-template #sinresultado>
-    No existe
+  <table border="1">
+    <tr>
+      <td>idPresentacionProducto</td>
+      <td>idProducto</td>
+      <td>idTipoProducto</td>
+      <td>nombre</td>
+      <td> descripcion</td>
+
+    <tr *ngFor="let f of listaPresentacion">
+      <td>{{f.idPresentacionProducto}}</td>
+      <td>{{f.idProducto.idProducto}}</td>
+      <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
+      <td>{{f.nombre}}</td>
+      <td>{{f.descripcion}}</td>
+      <td>{{f.existenciaProducto.precioVenta}}</td>
+
+    </tr>
+  </table>
   </ng-template>

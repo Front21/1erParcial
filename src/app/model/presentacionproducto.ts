@@ -1,5 +1,6 @@
 import { Producto } from "./producto";
 import { SubCategoria } from "./subcategoria";
+import { ExistenciaProducto } from "./existenciaProducto";
 
 
 export class PresentacionProducto {
@@ -9,6 +10,7 @@ export class PresentacionProducto {
     idTipoProducto!: SubCategoria;
     nombre!:string;
     descripcion!: string;
+    existenciaProducto!: ExistenciaProducto;
     
  
 }
