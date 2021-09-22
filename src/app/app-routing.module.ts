@@ -14,6 +14,8 @@ import {PersonahorarioagendaComponent} from "./personahorarioagenda/personahorar
 import {AgregarpersonahorarioagendaComponent} from "./personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component";
 import {EditarpersonahorarioagendaComponent} from "./personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component";
 import {EliminarpersonahorarioagendaComponent} from "./personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component";
+import { PresentacionproductoComponent } from './presentacionproducto/presentacionproducto.component';
+
 
 
 const routes: Routes = [
@@ -61,6 +63,10 @@ const routes: Routes = [
     component:EliminarpersonahorarioagendaComponent
   },
 
+  {path:'presentacionproducto',
+  component:PresentacionproductoComponent
+  },
+  
   /**  {
       //path:'nuevopais',
       //component:PaisAgregarComponent
