@@ -37,6 +37,11 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
     </table>
 </div>
  <ng-template #sinresultado>
+    <div *ngIf="clickBuscar==true; else noBuscar">
+      NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+    </div>
+    <ng-template #noBuscar>
+      total
   <table border="1">
     <tr>
       <td>idPresentacionProducto</td>
