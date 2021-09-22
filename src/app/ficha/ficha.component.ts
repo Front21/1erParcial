@@ -50,14 +50,14 @@ export class FichaComponent implements OnInit {
   mensaje: string="";
 
 
-  constructor(private servicioFicha: ServicefichaService, 
-    private servicioCategoria: ServiceCategoriaService, 
+  constructor(private servicioFicha: ServicefichaService,
+    private servicioCategoria: ServiceCategoriaService,
     private serviciosubcategoria: ServicesubcategoriaService,
     private servicioEmpleado: ServiceempleadoService,
     private servicioCliente: ServiceclienteService) { }
 
   ngOnInit(): void {
-    
+
     this.servicioFicha.getFichas().subscribe(
       entity => this.fichas = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Fichas')
@@ -66,8 +66,8 @@ export class FichaComponent implements OnInit {
      this.servicioCategoria.getCategorias().subscribe(
       entity => this.categorias = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
-    ); 
-    
+    );
+
     this.serviciosubcategoria.getSubCategorias().subscribe(
       entity => this.subcategorias= entity.lista,
       error =>console.log('No se pudo acceder a la lista de SubCategorias')
@@ -88,46 +88,46 @@ export class FichaComponent implements OnInit {
 
   }
 
-  buscar(): void{
+  async buscar(): Promise<void>{
     this.servicioFicha.getFichasCategoria(this.categoriaSelec.idCategoria).subscribe(
       entity => this.FichaFiltroCategoria = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'), 
+      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
     );
 
     this.servicioFicha.getFichasSubCategoria(this.subcategoriaSelec.idTipoProducto).subscribe(
       entity => this.FichaFiltroSubcategoria = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'), 
+      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
     );
 
-    this.servicioFicha.getFichasEmpleados(this.empleadoSelec.idPersona).subscribe(
+    await this.servicioFicha.getFichasEmpleados(this.empleadoSelec.idPersona).then(
       entity => this.FichaFiltroEmpleado = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Empleados'), 
+      error =>console.log('No se pudo acceder a la lista de Fichas por Empleados'),
     );
-    
-    this.servicioFicha.getFichasClientes(this.clienteSelec.idPersona).subscribe(
+
+    await this.servicioFicha.getFichasClientes(this.clienteSelec.idPersona).then(
       entity => this.FichaFiltroCliente = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Fechas'), 
+      error =>console.log('No se pudo acceder a la lista de Fichas por Fechas'),
     );
-    
-    this.anod= this.fechadesde.toString().substr(0,4); 
+
+    this.anod= this.fechadesde.toString().substr(0,4);
     this.mesd= this.fechadesde.toString().substr(5,2);
     this.diad= this.fechadesde.toString().substr(8,2);
     this.fechacadenad= this.anod+this.mesd+this.diad;
-    this.anof= this.fechahasta.toString().substr(0,4); 
+    this.anof= this.fechahasta.toString().substr(0,4);
     this.mesf= this.fechahasta.toString().substr(5,2);
     this.diaf= this.fechahasta.toString().substr(8,2);
     this.fechacadenaf= this.anof+this.mesf+this.diaf;
-      
+
     this.servicioFicha.getFichasFechas(this.fechacadenad,this.fechacadenaf).subscribe(
       entity => this.FichaFiltroFecha = entity.lista,
-      error =>console.log('1no se pudieron conseguir los paises'), 
+      error =>console.log('1no se pudieron conseguir los paises'),
     );
     this.fichasResultado=[];
     this.cont=0;
 
-    
+
     for (var ficha in this.fichas) {
-      
+
       if(this.FichaFiltroCategoria.length>0){
         this.band2=true;
         this.band=false;
@@ -141,7 +141,7 @@ export class FichaComponent implements OnInit {
           continue;
         };
       };
-      
+
       if(this.FichaFiltroSubcategoria.length>0){
         this.band2=true;
         this.band=false;
@@ -155,7 +155,7 @@ export class FichaComponent implements OnInit {
           continue;
         };
       };
-      
+
       if(this.FichaFiltroEmpleado.length>0){
         this.band2=true;
         this.band=false;
@@ -169,7 +169,7 @@ export class FichaComponent implements OnInit {
           continue;
         };
       };
-      
+
       if(this.FichaFiltroCliente.length>0){
         this.band2=true;
         this.band=false;
@@ -183,7 +183,7 @@ export class FichaComponent implements OnInit {
           continue;
         };
       };
-      
+
       if(this.FichaFiltroFecha.length>0){
         this.band2=true;
         this.band=false;
@@ -199,11 +199,11 @@ export class FichaComponent implements OnInit {
       };
       if(this.band==true && this.band2==true){
         this.fichasResultado[this.cont]=this.fichas[ficha];
-        this.cont=this.cont+1; 
+        this.cont=this.cont+1;
       };
       this.band2=false;
-      this.band=false; 
-    };  
+      this.band=false;
+    };
   };
 
 

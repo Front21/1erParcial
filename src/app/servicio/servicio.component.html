@@ -82,8 +82,10 @@ SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
         <td>{{a.idFichaClinica.idCliente.idPersona}}</td>
         <td>{{a.idFichaClinica.idTipoProducto.idCategoria.idCategoria}}</td>
         <td>{{a.idFichaClinica.idTipoProducto.idTipoProducto}}</td>
-        <td><a>Editar</a><br>
-          <a>Eliminar</a></td>
+        <td><a [routerLink]="['/editarservicio']" [queryParams]="{ id: a.idServicio}">Ver/Editar Servicio</a><br>
+          <a [routerLink]="['/eliminarservicio']" [queryParams]="{ id: a.idServicio}">Eliminar</a></td>
+
+
       </tr>
     </table>
   </ng-template>
@@ -91,8 +93,6 @@ SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
 
 </ng-template>
 
-{{serviciosResultado.length}}
-{{servicios.length}}
-EmpleadoSelec: {{empleadoSelec.idPersona}}
-SubcategoriaSelec: {{subcategoriaSelec.idTipoProducto}}
-ClienteSelec: {{clienteSelec.idPersona}}
+<br/>
+<button [routerLink]="['/agregarservicio']" >Agregar Servicio</button><br/>
+<br/>

@@ -1,0 +1,77 @@
+Observacion: <textarea ng-model="textarea" class="textarea"  [(ngModel)]="observacion" ></textarea><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+</select>
+
+Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+  <option>Clientes</option>
+  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+</select><br/>
+
+<br/>
+<button (click)="buscar()">Buscar Fichas</button><br/>
+<br/>
+
+<div *ngIf="FichaResultado.length>0; else sinresultado2">
+  reusultado
+  <table border="1">
+    <tr>
+      <td>idFichaClinica</td>
+      <td>Fecha Ficha</td>
+      <td>Profesional</td>
+      <td>Cliente</td>
+      <td>Categoria</td>
+      <td>Subcategoria</td>
+      <td>Acciones</td>
+    </tr>
+    <tr *ngFor="let a of FichaResultado">
+      <td>{{a.idFichaClinica}}</td>
+      <td>{{a.fechaHora}}</td>
+      <td>{{a.idEmpleado.idPersona}}</td>
+      <td>{{a.idCliente.idPersona}}</td>
+      <td>{{a.idTipoProducto.idCategoria.idCategoria}}</td>
+      <td>{{a.idTipoProducto.idTipoProducto}}</td>
+      <td><input type="radio" value="{{a.idFichaClinica}}" name="gender" [(ngModel)]="fichaSelec" ></td>
+    </tr>
+  </table>
+</div>
+<ng-template #sinresultado2>
+  <div *ngIf="clickBuscar==true; else noBuscar">
+    NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+  </div>
+  <ng-template #noBuscar>
+    total
+    <table border="1">
+      <tr>
+        <td>idFichaClinica</td>
+        <td>Fecha Ficha</td>
+        <td>Profesional</td>
+        <td>Cliente</td>
+        <td>Categoria</td>
+        <td>Subcategoria</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let a of fichas">
+        <td>{{a.idFichaClinica}}</td>
+        <td>{{a.fechaHora}}</td>
+        <td>{{a.idEmpleado.idPersona}}</td>
+        <td>{{a.idCliente.idPersona}}</td>
+        <td>{{a.idTipoProducto.idCategoria.idCategoria}}</td>
+        <td>{{a.idTipoProducto.idTipoProducto}}</td>
+        <td><input type="radio" value="{{a.idFichaClinica}}" name="gender" [(ngModel)]="fichaSelec" ></td>
+      </tr>
+    </table>
+  </ng-template>
+
+
+</ng-template>
+
+<br/>
+<button (click)="crearServicio()">Confirmar</button><br/>
+<br/>
+
+{{fichaSelec}}

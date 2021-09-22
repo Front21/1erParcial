@@ -59,7 +59,8 @@ export class ServicioComponent implements OnInit {
               private servicioCategoria: ServiceCategoriaService,
               private serviciosubcategoria: ServicesubcategoriaService,
               private servicioEmpleado: ServiceempleadoService,
-              private servicioCliente: ServiceclienteService) { }
+              private servicioCliente: ServiceclienteService,
+              private router: Router) { }
 
   ngOnInit(): void {
 

@@ -3,7 +3,9 @@ import {Observable} from "rxjs";
 import {listadatos} from "../model/datos";
 import {Ficha} from "../model/ficha";
 import {Servicio} from "../model/servicio";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {tap} from "rxjs/operators";
+import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,10 @@ export class ServiceservicioService {
 
   getServicios(): Observable<listadatos<Servicio>> {
     return this.http.get<listadatos<Servicio>>(this.api);
+  }
+
+  async getServicio(id: number): Promise<Servicio>{
+    return this.http.get<Servicio>(this.api+'/'+id).toPromise();
   }
 
   async getServiciosEmpleados(idP:number): Promise<listadatos<Servicio>> {
@@ -61,4 +67,17 @@ export class ServiceservicioService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Servicio>>(this.api, {params:{ejemplo}}).toPromise();
   }
+
+  headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
+
+  async postServicio(body: any): Promise<Servicio>{
+    return this.http.post<Servicio>(this.api, body,{
+      headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('agregado '+data),
+        error => console.log("error: "+error)
+      )
+    ).toPromise();
+  }
+
 }

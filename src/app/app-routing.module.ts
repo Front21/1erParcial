@@ -15,6 +15,8 @@ import {AgregarpersonahorarioagendaComponent} from "./personahorarioagenda/agreg
 import {EditarpersonahorarioagendaComponent} from "./personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component";
 import {EliminarpersonahorarioagendaComponent} from "./personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component";
 import {ServicioComponent} from "./servicio/servicio.component";
+import {AgregarservicioComponent} from "./servicio/agregarservicio/agregarservicio.component";
+import {EditarservicioComponent} from "./servicio/editarservicio/editarservicio.component";
 
 
 const routes: Routes = [
@@ -63,6 +65,12 @@ const routes: Routes = [
   },
   {path:'servicio',
     component:ServicioComponent
+  },
+  {path:'agregarservicio',
+    component:AgregarservicioComponent
+  },
+  {path:'editarservicio',
+    component:EditarservicioComponent
   },
   /**  {
       //path:'nuevopais',
