@@ -20,6 +20,7 @@ import { PersonahorarioagendaComponent } from './personahorarioagenda/personahor
 import { AgregarpersonahorarioagendaComponent } from './personahorarioagenda/agregarpersonahorarioagenda/agregarpersonahorarioagenda.component';
 import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component';
 import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
+import { ServicioComponent } from './servicio/servicio.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/el
     AgregarpersonahorarioagendaComponent,
     EditarpersonahorarioagendaComponent,
     EliminarpersonahorarioagendaComponent,
+    ServicioComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { listadatos } from '../model/datos';
 import { Categoria } from '../model/categoria';
 import { SubCategoria } from '../model/subcategoria';
 import { tap } from 'rxjs/operators';
+import {Ficha} from "../model/ficha";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,16 @@ export class ServicesubcategoriaService {
     return this.http.get<listadatos<SubCategoria>>(this.api);
   }
 
+  getSubcategoriasCategoria(idC:number): Observable<listadatos<SubCategoria>> {
+    const filtro = {
+      idCategoria: {
+        idCategoria : idC
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<SubCategoria>>(this.api, {params:{ejemplo}});
+  }
+
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
   postSubcategorias(body: any): Observable<SubCategoria>{
     return this.http.post<SubCategoria>(this.api, body,{headers: this.headers}).pipe(
@@ -29,7 +40,7 @@ export class ServicesubcategoriaService {
       )
     );
   }
-  
+
   deleteSubcategoria(idSubcat: number): Observable<{}>{
     this.api = `${this.api}/${idSubcat}`;
     return this.http.delete(this.api);
@@ -39,7 +50,7 @@ export class ServicesubcategoriaService {
     this.api = `${this.api}/${id}`;
     return this.http.get<SubCategoria>(this.api);
   }
- 
+
   putSubcategoria(body: any): Observable<SubCategoria>{
     return this.http.put<SubCategoria>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
