@@ -19,22 +19,22 @@ export class ServicehorarioexcepcionService {
     return this.http.get<listadatos<HorarioExcepcion>>(this.api);
   }
 
-  gethorarioexcepcionEmpleados(idP:number): Observable<listadatos<HorarioExcepcion>> {
+  async gethorarioexcepcionEmpleados(idP:number): Promise<listadatos<HorarioExcepcion>> {
     const filtro = {
       idEmpleado: {
         idPersona : idP
       }
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<HorarioExcepcion>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<HorarioExcepcion>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
-  gethorarioexcepcionFechas(fd:string): Observable<listadatos<HorarioExcepcion>> {
+  async gethorarioexcepcionFechas(fd:string): Promise<listadatos<HorarioExcepcion>> {
     const filtro = {
       fechaCadena: fd
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<HorarioExcepcion>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<HorarioExcepcion>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
@@ -49,16 +49,15 @@ export class ServicehorarioexcepcionService {
 
   }
   getHorarioexcepcion(id: number): Observable<HorarioExcepcion>{
-    this.api = `${this.api}/${id}`;
-    return this.http.get<HorarioExcepcion>(this.api);
+    return this.http.get<HorarioExcepcion>(this.api+'/'+id);
   }
 
-  deleteHorarioexcepcion(idCat: number): Observable<{}>{
-    this.api = `${this.api}/${idCat}`;
-    return this.http.delete(this.api);
+  async deleteHorarioexcepcion(idCat: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+idCat).toPromise();
   }
 
   putHorarioExcepcion(body: any): Observable<HorarioExcepcion>{
+    console.log(body);
     return this.http.put<HorarioExcepcion>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),

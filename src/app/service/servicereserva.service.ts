@@ -11,15 +11,25 @@ import { Reserva } from '../model/reserva';
 export class ServicereservaService {
 
   status: string="";
+ 
   private api: string ="http://181.123.243.5:8080/stock-pwfe/reserva";
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {   }
 
   getReservas(): Observable<listadatos<Reserva>> {
     return this.http.get<listadatos<Reserva>>(this.api);
   }
 
-  getReservaEmpleados(idP:number): Observable<listadatos<Reserva>> {
+  async getReservaEmpleados(idP:number): Promise<listadatos<Reserva>> {
+    const filtro = {
+      idEmpleado: {
+        idPersona : idP
+      }
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
+  }
+  getReservaEmpleadosenCrear(idP:number): Observable<listadatos<Reserva>> {
     const filtro = {
       idEmpleado: {
         idPersona : idP
@@ -28,54 +38,51 @@ export class ServicereservaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}});
   }
-  getReservaEmpleadosenCrear(idP:number,fechadesdeSelec: string): Observable<listadatos<Reserva>> {
-    const filtro = {
-      idEmpleado: {
-        idPersona : idP
-      },
-      fechaDesdeCadena:fechadesdeSelec
-    }
-    const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}});
-  }
 
-  getReservaClientes(idCL:number): Observable<listadatos<Reserva>> {
+  async getReservaClientes(idCL:number): Promise<listadatos<Reserva>> {
     const filtro = {
       idCliente: {
         idPersona : idCL
       }
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
   }
-  getReservaFechas(fd:string, ff:string): Observable<listadatos<Reserva>> {
+  
+  async getReservaFechaencrear(fd:string): Promise<listadatos<Reserva>> {
+    const filtro = {
+      fechaDesdeCadena: fd
+    }
+    const ejemplo = JSON.stringify(filtro)
+    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
+  }
+  
+  async getReservaFechas(fd:string, ff:string): Promise<listadatos<Reserva>> {
     const filtro = {
       fechaDesdeCadena: fd,
       fechaHastaCadena: ff
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
-  postReservas(body: any): Observable<Reserva>{
+  async postReservas(body: any): Promise<Reserva>{
     return this.http.post<Reserva>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('agregado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
   
  
-  deleteReserva(idCat: number): Observable<{}>{
-    this.api = `${this.api}/${idCat}`;
-    return this.http.delete(this.api);
+  async deleteReserva(idCat: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+idCat).toPromise();
   }
 
   getReserva(id: number): Observable<Reserva>{
-    this.api = `${this.api}/${id}`;
-    return this.http.get<Reserva>(this.api);
+    return this.http.get<Reserva>(this.api+'/'+id);
   }
  
   putReserva(body: any): Observable<Reserva>{
@@ -87,15 +94,26 @@ export class ServicereservaService {
     );
   }
 
-  putReservaCancelar(body: any): Observable<Reserva>{
+  async putReservaCancelar(body: any): Promise<Reserva>{
+    console.log(body);
     return this.http.put<Reserva>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
-  putReservaAsistio(body: any): Observable<Reserva>{
+  async putReservaAsistio(body: any): Promise<Reserva>{
+    return this.http.put<Reserva>(this.api, body,{headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    ).toPromise();
+  }
+
+  putReservaObservacion(body: any): Observable<Reserva>{
+    console.log(body);
     return this.http.put<Reserva>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
@@ -104,4 +122,6 @@ export class ServicereservaService {
     );
   }
 
+
+ 
 }

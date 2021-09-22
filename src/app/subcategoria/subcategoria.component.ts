@@ -33,22 +33,6 @@ export class SubcategoriaComponent implements OnInit {
 
   }
 
-  crearSubcategoria(): void{
-    this.nuevaSubcategoria.descripcion = this.descripcionSelec;
-  
-    this.servicioSubCategoria.postSubcategorias({idTipoProducto: this.nuevaSubcategoria.idTipoProducto,idCategoria: this.nuevaSubcategoria.idCategoria,descripcion: this.nuevaSubcategoria.descripcion}).subscribe(
-      () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
-
-  }
-
-  eliminarSubcategoria(id: number): void{
-    this.servicioSubCategoria.deleteSubcategoria(id).subscribe(
-      () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
-      this.refresh();
-  }
-
-  refresh(): void { window.location.reload(); }
-
 
 }
 

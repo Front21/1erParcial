@@ -56,23 +56,5 @@ export class CategoriaComponent implements OnInit {
 
   }
 
-  crearCategoria(): void{
-    this.nuevaCategoria.idCategoria = this.idCategoriaSelec;
-    this.nuevaCategoria.descripcion = this.descripcionSelec;
-  
-    this.servicioCategoria.postCategorias({descripcion: this.nuevaCategoria.descripcion}).subscribe(
-      () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
-
-  }
-
-  eliminarCategoria(id: number): void{
-    this.servicioCategoria.deleteCategoria(id).subscribe(
-      () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
-      this.refresh();
-  }
-
-  refresh(): void { window.location.reload(); }
-
-
 }
 

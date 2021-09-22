@@ -19,6 +19,11 @@ import { AgregarhorarioexcepcionComponent } from './horarioexcepcion/agregarhora
 import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorarioexcepcion/editarhorarioexcepcion.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { AgregarreservaComponent } from './reserva/agregarreserva/agregarreserva.component';
+import { EditarsubcategoriaComponent } from './subcategoria/editarsubcategoria/editarsubcategoria.component';
+import { EliminarsubcategoriaComponent } from './subcategoria/eliminarsubcategoria/eliminarsubcategoria.component';
+import { EliminarhorarioexcepcionComponent } from './horarioexcepcion/eliminarhorarioexcepcion/eliminarhorarioexcepcion.component';
+import { EditarreservaComponent } from './reserva/editarreserva/editarreserva.component';
+import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva.component';
 
 
 const routes: Routes = [
@@ -50,6 +55,12 @@ const routes: Routes = [
   {path:'subcategoria',
   component:SubcategoriaComponent
   },
+  {path:'editarsubcategoria',
+  component:EditarsubcategoriaComponent
+  },
+  {path:'eliminarsubcategoria',
+  component:EliminarsubcategoriaComponent
+  },
   {path:'agregarsubcategoria',
   component:AgregarsubcategoriaComponent
   },
@@ -74,11 +85,20 @@ const routes: Routes = [
   {path:'editarhorarioexcepcion',
   component:EditarhorarioexcepcionComponent
   },
+  {path:'eliminarhorarioexcepcion',
+  component:EliminarhorarioexcepcionComponent
+  },
   {path:'reserva',
   component:ReservaComponent
   },
   {path:'agregarreserva',
   component:AgregarreservaComponent
+  },
+  {path:'editarreserva',
+  component:EditarreservaComponent
+  },
+  {path:'eliminarreserva',
+  component:EliminareservaComponent
   },
 
   /**  {

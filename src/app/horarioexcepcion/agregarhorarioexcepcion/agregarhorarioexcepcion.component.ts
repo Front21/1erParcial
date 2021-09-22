@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HorarioExcepcion } from 'src/app/model/horarioExcepcion';
 import { Persona } from 'src/app/model/persona';
 import { ServiceempleadoService } from 'src/app/service/serviceempleado.service';
@@ -14,6 +15,7 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
   nuevohorario: HorarioExcepcion= new HorarioExcepcion();
   empleados: Persona[]=[];
   fechaSelec: Date = new Date();
+  fechaSelecc: Date = new Date();
   dia : string="";
   mes: string="";
   ano: string="";
@@ -32,7 +34,7 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
   mincie: string="";
 
 
-  constructor(private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService) { }
+  constructor( private router: Router, private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService) { }
 
   ngOnInit(): void {
     
@@ -42,7 +44,7 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
     );
   }
 
-  crearHorarioexcepcion(): void{
+  async crearHorarioexcepcion(): Promise<void>{
 
     this.horaaper= this.horaAperturaSelec.toString().substr(0,2);
     this.minaper= this.horaAperturaSelec.toString().substr(3,5);
@@ -53,11 +55,14 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
 
     //console.log(this.horaapercadenaSelec);
     //console.log(this.horaciecadenaSelec);
+    console.log(this.fechaSelecc);
 
-    this.ano= this.fechaSelec.toString().substr(0,4); 
-    this.mes= this.fechaSelec.toString().substr(5,2);
-    this.dia= this.fechaSelec.toString().substr(8,2);
+
+    this.ano= this.fechaSelecc.toString().substr(0,4); 
+    this.mes= this.fechaSelecc.toString().substr(5,2);
+    this.dia= this.fechaSelecc.toString().substr(8,2);
     this.fechacadenaSelec= this.ano+this.mes+this.dia;
+    console.log(this.fechacadenaSelec);
 
     this.nuevohorario.fechaCadena = this.fechacadenaSelec;
     this.nuevohorario.horaAperturaCadena = this.horaapercadenaSelec;
@@ -86,7 +91,11 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
       intervaloMinutos: this.nuevohorario.intervaloMinutos}).subscribe(
       () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 
+    await this.irHorarioExcepcion();
   }
 
+  
+  async irHorarioExcepcion(): Promise<boolean>{
+    return this.router.navigateByUrl('horarioexcepcion');
+  }
 }
-

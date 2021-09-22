@@ -17,6 +17,7 @@ export class EditarcategoriaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
   this.route.queryParams.subscribe(params => {this.id = params['id'];});
   this.servicioCategoria.getCategoria(this.id).subscribe(
     entity => {this.categoria.idCategoria = entity.idCategoria,
@@ -28,7 +29,7 @@ export class EditarcategoriaComponent implements OnInit {
   editarCategoria(): void{
     console.log(this.categoria.idCategoria );
     console.log(this.categoria.descripcion);
-     this.servicioCategoria.putCategoria({idCategoria: this.categoria.idCategoria ,descripcion: this.categoria.descripcion}).subscribe(
+     this.servicioCategoria.putCategoria({idCategoria:this.categoria.idCategoria,descripcion:this.categoria.descripcion}).subscribe(
        () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
  
    }

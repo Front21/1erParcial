@@ -95,10 +95,10 @@ export class AgregarreservaComponent implements OnInit {
     this.fechacadenad= this.anod+this.mesd+this.diad;
 
     
-    this.servicioReserva.getReservaEmpleadosenCrear(this.empleadoSelec.idPersona,this.fechacadenad).subscribe(
-      entity => this.reservaResultado = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Reservas por Empleados'), 
-    );
+   // this.servicioReserva.getReservaEmpleadosenCrear(this.empleadoSelec.idPersona,this.fechacadenad).subscribe(
+     // entity => this.reservaResultado = entity.lista,
+      //error =>console.log('No se pudo acceder a la lista de Reservas por Empleados'), 
+    //);
 
 
   }
@@ -125,11 +125,11 @@ export class AgregarreservaComponent implements OnInit {
     this.nuevaReserva.idFichaClinica = this.idFichaClinicaSelec;
     
   
-    this.servicioReserva.postReservas({idReserva: this.nuevaReserva.idReserva, fecha: this.nuevaReserva.fechaCadena, fechaDesdeCadena: this.nuevaReserva.fechaDesdeCadena, 
-      fechaHastaCadena: this.nuevaReserva.fechaHastaCadena, horaInicio: this.nuevaReserva.horaInicioCadena, horaFin: this.nuevaReserva.horaFinCadena, 
-      fechaHoraCreacion: this.nuevaReserva.fechaHoraCreacion, flagEstado: this.nuevaReserva.flagEstado, 
-      flagAsistio: this.nuevaReserva.flagAsistio, observacion: this.nuevaReserva.observacion, idFichaClinica: this.nuevaReserva.idFichaClinica}).subscribe(
-      () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
+    //this.servicioReserva.postReservas({idReserva: this.nuevaReserva.idReserva, fecha: this.nuevaReserva.fechaCadena, fechaDesdeCadena: this.nuevaReserva.fechaDesdeCadena, 
+      //fechaHastaCadena: this.nuevaReserva.fechaHastaCadena, horaInicio: this.nuevaReserva.horaInicioCadena, horaFin: this.nuevaReserva.horaFinCadena, 
+      //fechaHoraCreacion: this.nuevaReserva.fechaHoraCreacion, flagEstado: this.nuevaReserva.flagEstado, 
+      //flagAsistio: this.nuevaReserva.flagAsistio, observacion: this.nuevaReserva.observacion, idFichaClinica: this.nuevaReserva.idFichaClinica}).subscribe(
+      //() => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 
   }
 

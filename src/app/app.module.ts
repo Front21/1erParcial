@@ -25,6 +25,11 @@ import { ReservaComponent } from './reserva/reserva.component';
 import { AgregarreservaComponent } from './reserva/agregarreserva/agregarreserva.component';
 import { AgregarhorarioexcepcionComponent } from './horarioexcepcion/agregarhorarioexcepcion/agregarhorarioexcepcion.component';
 import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorarioexcepcion/editarhorarioexcepcion.component';
+import { EditarsubcategoriaComponent } from './subcategoria/editarsubcategoria/editarsubcategoria.component';
+import { EliminarsubcategoriaComponent } from './subcategoria/eliminarsubcategoria/eliminarsubcategoria.component';
+import { EliminarhorarioexcepcionComponent } from './horarioexcepcion/eliminarhorarioexcepcion/eliminarhorarioexcepcion.component';
+import { EditarreservaComponent } from './reserva/editarreserva/editarreserva.component';
+import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +53,11 @@ import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorari
     AgregarreservaComponent,
     AgregarhorarioexcepcionComponent,
     EditarhorarioexcepcionComponent,
+    EditarsubcategoriaComponent,
+    EliminarsubcategoriaComponent,
+    EliminarhorarioexcepcionComponent,
+    EditarreservaComponent,
+    EliminareservaComponent,
   ],
   imports: [
     BrowserModule,

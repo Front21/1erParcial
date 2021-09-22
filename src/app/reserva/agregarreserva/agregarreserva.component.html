@@ -1,10 +1,13 @@
+   <br/>
+    <button class="nav-link" [routerLink]="['/personahorarioagenda']">Obtener Agenda</button>
+    <br/>
+    
     
     Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fechaSelec" name="fechaSelec">
     <input type="checkbox" [checked]="isChecked$ | async" (change)="toggleChecked()">Mostrar ya reservados<br/>
 
    
     Empleado: <select name="miselect" [(ngModel)]="empleadoSelec">
-    <option>Empleados</option>
     <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
     </select> <br/>
 
@@ -34,7 +37,6 @@
     </ng-template> <br/> <br/>
 
     Cliente: <select name="miselect" [(ngModel)]="clienteSelec">
-    <option>Clientes</option>
     <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre}}</option>
     </select><br/>
     

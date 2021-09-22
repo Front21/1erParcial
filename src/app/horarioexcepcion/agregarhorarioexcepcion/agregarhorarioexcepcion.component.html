@@ -1,18 +1,18 @@
-    Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fechaSelec" name="fechaSelec"><br/>
-    Hora de Apertura: <input [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/>
-    Hora de Cierre: <input [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/>
+    Fecha: <input [(ngModel)]="fechaSelecc" type="date" id="fechaSelecc" name="fechaSelecc"><br/><br/>
+    Hora de Apertura: <input [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/><br/>
+    Hora de Cierre: <input [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/><br/>
 
     Habilitado: <select name="miselect" [(ngModel)]="flagEsHabilitarSelec">
       <option >S</option>
       <option >N</option>
-      </select><br/>
+      </select><br/><br/>
 
     Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
       <option>Empleados</option>
-      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
-      </select><br/>
+      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
+      </select><br/><br/>
 
-    Intervalo en Minutos: <input [(ngModel)]="minutosSelec" type="number" id="minutosSelec" name="minutosSelec"><br/>
+    Intervalo en Minutos: <input [(ngModel)]="minutosSelec" type="number" id="minutosSelec" name="minutosSelec"><br/><br/>
 
       <br/>
        <button class="nav-link" [routerLink]="['/horarioExcepcion']" (click)="crearHorarioexcepcion()">Crear</button>

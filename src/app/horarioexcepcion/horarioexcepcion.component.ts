@@ -30,6 +30,9 @@ export class HorarioexcepcionComponent implements OnInit {
   mensaje: string="";
   id: number = 0;
   horario: HorarioExcepcion = new HorarioExcepcion();
+  clickBuscar: boolean = false;
+  chechFechaDesde: boolean = false;
+  chechFechaHasta: boolean = false;
   
   constructor(private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService,private route: ActivatedRoute ) { }
 
@@ -37,7 +40,7 @@ export class HorarioexcepcionComponent implements OnInit {
 
     this.serviciohorarioexcepcion.gethorarioExcepcion().subscribe(
       entity => this.horarios = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas')
+      error =>console.log('No se pudo acceder a la lista de Horario Excepcion')
     );
 
     this.servicioEmpleado.getEmpleados().subscribe(
@@ -45,98 +48,92 @@ export class HorarioexcepcionComponent implements OnInit {
       error =>console.log('No se pudo acceder a la lista de Empleados')
     );
 
-      
-  this.route.queryParams.subscribe(params => {this.id = params['id'];});
-  this.serviciohorarioexcepcion.getHorarioexcepcion(this.id).subscribe(
-    entity => {this.horario.idHorarioExcepcion = entity.idHorarioExcepcion,this.horario.fechaCadena = entity.fechaCadena,
-      this.horario.horaAperturaCadena = entity.horaAperturaCadena,this.horario.horaCierreCadena = entity.horaCierreCadena,
-      this.horario.flagEsHabilitar = entity.flagEsHabilitar, this.horario.idEmpleado = entity.idEmpleado,
-      this.horario.intervaloMinutos = entity.intervaloMinutos},
-    error => console.log('No se pudo acceder a la Categoria')
-  );
-
   }
 
-  buscarhorarioexcepcion() : void{
+  async buscarhorarioexcepcion() : Promise<void>{
 
-    this.serviciohorarioexcepcion.gethorarioexcepcionEmpleados(this.empleadoSelec.idPersona).subscribe(
-      entity => this.HorarioexcepcionFiltroEmpleado = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Horario Excepcion por Empleados'), 
-    );
+    this.clickBuscar = true;
+
+    if(this.empleadoSelec.idPersona != undefined){
+      await this.serviciohorarioexcepcion.gethorarioexcepcionEmpleados(this.empleadoSelec.idPersona).then(
+        entity => this.HorarioexcepcionFiltroEmpleado= entity.lista,
+        error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
+      );
+    }
 
    
-
     this.ano= this.fechaSelec.toString().substr(0,4); 
     this.mes= this.fechaSelec.toString().substr(5,2);
     this.dia= this.fechaSelec.toString().substr(8,2);
     this.fechacadena= this.ano+this.mes+this.dia;
+   
+    if(this.fechacadena != undefined){
+      await this.serviciohorarioexcepcion.gethorarioexcepcionFechas(this.fechacadena).then(
+        entity => this.HorarioexcepcionFiltroFecha = entity.lista,
+        error =>console.log('No se pudo acceder a la lista de Horario Excepcion por Fecha'), 
+      );
+    }
 
-    this.serviciohorarioexcepcion.gethorarioexcepcionFechas(this.fechacadena).subscribe(
-      entity => this.HorarioexcepcionFiltroFecha = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Horario Excepcion por Fecha'), 
-    );
+    this.horariosResultado=[];
+    this.actualizarResultadoFiltro();
 
-
-
-    for (var horarioExcepcion in this.horarios) {
-      
-      if(this.HorarioexcepcionFiltroEmpleado.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.HorarioexcepcionFiltroEmpleado){
-          if(this.horarios[horarioExcepcion].idHorarioExcepcion==this.HorarioexcepcionFiltroEmpleado[f1].idHorarioExcepcion){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-      
-      if(this.HorarioexcepcionFiltroFecha.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.HorarioexcepcionFiltroFecha){
-          if(this.horarios[horarioExcepcion].idHorarioExcepcion==this.HorarioexcepcionFiltroFecha[f1].idHorarioExcepcion){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-      if(this.band==true && this.band2==true){
-        this.horariosResultado[this.cont]=this.horarios[horarioExcepcion];
-        this.cont=this.cont+1; 
-      };
-      this.band2=false;
-      this.band=false; 
-    };  
-  };
-
-
-  editarHorarioExcepcion(): void{
-    console.log(this.id);
- 
-     this.serviciohorarioexcepcion.putHorarioExcepcion({fechaCadena: this.horario.fechaCadena, horaApertura:
-      this.horario.horaAperturaCadena ,horaCierre: this.horario.horaCierreCadena,flagEsHabilitar: 
-      this.horario.flagEsHabilitar, idEmpleado: this.horario.idEmpleado.idPersona, intervaloMinutos: 
-      this.horario.intervaloMinutos}).subscribe(
-       () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
- 
-   }
-
-  eliminarHorarioExcepcion(id: number): void{
-    this.serviciohorarioexcepcion.deleteHorarioexcepcion(id).subscribe(
-      () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
-      this.refresh();
   }
 
-  refresh(): void { window.location.reload(); }
 
+  actualizarResultadoFiltro(): void{
+    for (var horario in this.horarios) {
+      this.band2 = false; //criterio: asegura que todas las listas no hayan sido vacias por no seleccionar nada
+      if(this.HorarioexcepcionFiltroEmpleado.length>0){
+        this.band2=true;
+        this.band=false; //criterio si no se encuentra en una lista cargada, se debe rechazar
+          for (var s1 in this.HorarioexcepcionFiltroEmpleado){
+            if(this.horarios[horario].idHorarioExcepcion==this.HorarioexcepcionFiltroEmpleado[s1].idHorarioExcepcion){
+              this.band=true;
+              break;
+            }
+          }
+          if(this.band==false){
+            continue;
+          }
+          //this.band = false;
+      }else{
+        if(this.empleadoSelec.idPersona != 0 && this.empleadoSelec.idPersona != undefined){
+          continue;
+        }
+      }
+
+      if(this.HorarioexcepcionFiltroFecha.length>0){
+        console.log("ENTRO A FECHA");
+        this.band2=true;
+        this.band=false;
+        for (var s1 in this.HorarioexcepcionFiltroFecha){
+          if(this.horarios[horario].idHorarioExcepcion==this.HorarioexcepcionFiltroFecha[s1].idHorarioExcepcion){
+            this.band=true;
+            break;
+          };
+        };
+        if(this.band==false){
+          continue;
+        };
+      }else{
+        if(this.fechacadena != ""){
+          continue;
+        }
+      }
+
+      if(this.band2==true){
+        this.horariosResultado.push(this.horarios[horario]);
+      }
+    }
 
   
+  };
+  
+  limpiar(): void{
+    this.clickBuscar = false;
+    this.horariosResultado = [];
+  }
+
+
 }
 
