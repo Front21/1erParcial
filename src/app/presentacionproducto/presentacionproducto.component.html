@@ -16,12 +16,11 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
 <div *ngIf="presentaciondeProductosResultados.length>0; else sinresultado">
     <table border="1">
       <tr>
-        <td>idPresentacionProducto</td>
-        <td>idProducto</td>
-        <td>idTipoProducto</td>
-        <td>nombre</td>
-        <td> descripcion</td>
-        <td> precioVenta</td>
+        <td>id Presentacion Producto</td>
+        <td>id Producto</td>
+        <td>id Tipo Producto</td>
+        <td>Nombre</td>
+        <td>Precio Venta</td>
 
 
       <tr *ngFor="let f of presentaciondeProductosResultados">
@@ -29,7 +28,6 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
         <td>{{f.idProducto.idProducto}}</td>
         <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
         <td>{{f.nombre}}</td>
-        <td>{{f.descripcion}}</td>
         <td>{{f.existenciaProducto.precioVenta}}</td>
         
 
@@ -44,20 +42,25 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       total
   <table border="1">
     <tr>
-      <td>idPresentacionProducto</td>
-      <td>idProducto</td>
-      <td>idTipoProducto</td>
-      <td>nombre</td>
-      <td> descripcion</td>
+      <td>id Presentacion Producto</td>
+      <td>id Producto</td>
+      <td>id Tipo Producto</td>
+      <td>Nombre</td>
+       <td>Precio Venta</td>
 
     <tr *ngFor="let f of listaPresentacion">
       <td>{{f.idPresentacionProducto}}</td>
       <td>{{f.idProducto.idProducto}}</td>
       <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
       <td>{{f.nombre}}</td>
-      <td>{{f.descripcion}}</td>
       <td>{{f.existenciaProducto.precioVenta}}</td>
 
     </tr>
   </table>
   </ng-template>
+
+
+    
+<br/>
+<button [routerLink]="['/agregarpresentacionproducto']" >Agregar Presentacion Producto</button><br/>
+<br/>

@@ -6,6 +6,8 @@ import { listadatos } from '../model/datos';
 import { PresentacionProducto } from '../model/presentacionproducto';
 import { tap } from 'rxjs/operators';
 import { SubCategoria } from '../model/subcategoria';
+import { Producto } from '../model/producto';
+import { ExistenciaProducto } from '../model/existenciaProducto';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +58,15 @@ export class PresentacionproductoService {
 
   getsubcategorias(): Observable<listadatos<SubCategoria>> {
     return this.http.get<listadatos<SubCategoria>>(this.api);
+  }
+
+  private api1: string ="http://181.123.243.5:8080/stock-pwfe/producto";
+  getProductos(): Observable<listadatos<Producto>> {
+    return this.http.get<listadatos<Producto>>(this.api1);
+  }
+  private api2: string ="http://181.123.243.5:8080/stock-pwfe/existenciaProducto";
+  getExistenciaproductos(): Observable<listadatos<ExistenciaProducto>> {
+    return this.http.get<listadatos<ExistenciaProducto>>(this.api2);
   }
  
 

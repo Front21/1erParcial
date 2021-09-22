@@ -21,6 +21,9 @@ import { AgregarpersonahorarioagendaComponent } from './personahorarioagenda/agr
 import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component';
 import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
 import { PresentacionproductoComponent } from './presentacionproducto/presentacionproducto.component';
+import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
+import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
+import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { PresentacionproductoComponent } from './presentacionproducto/presentaci
     EditarpersonahorarioagendaComponent,
     EliminarpersonahorarioagendaComponent,
     PresentacionproductoComponent,
+    AgregarpresentacionproductoComponent,
+    EditarpresentacionproductoComponent,
+    EliminarpresentacionproductoComponent,
   ],
   imports: [
     BrowserModule,
