@@ -31,6 +31,16 @@ export class PresentacionproductoService {
       )
     );
   }
+
+
+  putPresentacionProducto(body: any): Observable<PresentacionProducto>{
+    return this.http.put<PresentacionProducto>(this.api, body,{headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    );
+  }
   
   getPresentacionProductoSubCategoria(idP:number): Promise<listadatos<PresentacionProducto>> {
     const filtro = {
@@ -67,6 +77,17 @@ export class PresentacionproductoService {
   private api2: string ="http://181.123.243.5:8080/stock-pwfe/existenciaProducto";
   getExistenciaproductos(): Observable<listadatos<ExistenciaProducto>> {
     return this.http.get<listadatos<ExistenciaProducto>>(this.api2);
+  }
+
+
+  getPresentacionProducto(idP:number): Observable<PresentacionProducto> {
+    
+    return this.http.get<PresentacionProducto>(this.api+'/'+idP);
+  }
+
+
+  async deletePresentacionProducto(id: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+id).toPromise();
   }
  
 

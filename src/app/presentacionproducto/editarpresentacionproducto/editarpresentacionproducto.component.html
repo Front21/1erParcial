@@ -1,1 +1,21 @@
-<p>editarpresentacionproducto works!</p>
+ 
+Codigo: <input [value] = "preproducto.codigo" type="number" name="codigoSelec"  [(ngModel)]="preproducto.codigo" ><br/>
+
+Flag Servicio: <select name="miselect" [(ngModel)]="flagServicioSelec">
+     <option >S</option>
+     <option >N</option>
+     </select><br/><br/>
+
+Producto: <select name="miselect" [(ngModel)]="idProductoSelec">
+<option [ngValue]="item" *ngFor="let item of productos">{{item.idProducto}}</option>
+</select><br/>
+
+Nombre: <textarea name="nombreSelec"  [(ngModel)]="preproducto.nombre" >{{preproducto.nombre}}</textarea><br/> 
+
+
+Precio de Venta: <input [value] = "preproducto.existenciaProducto.precioVenta" type="number" name="precioVentaSelec"  [(ngModel)]="preproducto.existenciaProducto.precioVenta" ><br/>
+
+
+   <br/>
+   <button (click)="editarPresentacionProducto()">Confirmar</button><br/>
+   <br/>

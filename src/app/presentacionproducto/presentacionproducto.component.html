@@ -21,6 +21,8 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
         <td>id Tipo Producto</td>
         <td>Nombre</td>
         <td>Precio Venta</td>
+        <td>Acciones</td>
+
 
 
       <tr *ngFor="let f of presentaciondeProductosResultados">
@@ -29,6 +31,9 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
         <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
         <td>{{f.nombre}}</td>
         <td>{{f.existenciaProducto.precioVenta}}</td>
+        <td><a [routerLink]="['/editarPresentacionProducto']" [queryParams]="{ id: f.idPresentacionProducto}">Editar</a><br>
+          <a class="nav-link" [routerLink]="['/eliminarPresentacionProducto']" [queryParams]="{ id: f.idPresentacionProducto}">Eliminar</a></td>
+  
         
 
       </tr>
@@ -46,7 +51,9 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       <td>id Producto</td>
       <td>id Tipo Producto</td>
       <td>Nombre</td>
-       <td>Precio Venta</td>
+      <td>Precio Venta</td>
+      <td>Acciones</td>
+
 
     <tr *ngFor="let f of listaPresentacion">
       <td>{{f.idPresentacionProducto}}</td>
@@ -54,6 +61,10 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
       <td>{{f.nombre}}</td>
       <td>{{f.existenciaProducto.precioVenta}}</td>
+      <td><a [routerLink]="['/editarPresentacionProducto']" [queryParams]="{ id: f.idPresentacionProducto}">Editar</a><br>
+      <a class="nav-link" [routerLink]="['/eliminarPresentacionProducto']" [queryParams]="{ id: f.idPresentacionProducto}">Eliminar</a></td>
+
+
 
     </tr>
   </table>
