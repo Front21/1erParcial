@@ -10,5 +10,6 @@ export class Persona {
     soloUsuariosDelSistema!: boolean;
     deuda!: number;
     saldo!: number;
+    fechaNacimiento!: string;
 }
   
