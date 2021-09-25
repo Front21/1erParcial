@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { listadatos } from '../model/datos';
 import { Paciente } from '../model/paciente';
 import { Persona } from '../model/persona';
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,25 @@ export class ServicepacientesService {
   async getPacienteFiltro(parametro:any): Promise<listadatos<Persona>> {
     const ejemplo = JSON.stringify(parametro)
     return this.http.get<listadatos<Persona>>(this.api, {params:{ejemplo}}).toPromise();
+  }
+  async getPacienteEditar(id:number): Promise<Persona> {
+    return this.http.get<Persona>(this.api+"/"+id).toPromise();
+  }
+  headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
+  async postPaciente(body: any): Promise<Persona>{
+    return this.http.post<Persona>(this.api, body,{headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('agregado '+data),
+        error => console.log("error: "+error)
+      )
+    ).toPromise();
+  }
+  async putPaciente(body: any): Promise<Persona>{
+    return this.http.put<Persona>(this.api, body,{headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    ).toPromise();
   }
 }

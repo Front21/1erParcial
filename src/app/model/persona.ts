@@ -11,5 +11,7 @@ export class Persona {
     deuda!: number;
     saldo!: number;
     fechaNacimiento!: string;
+    ruc!: string;
+    tipoPersona!: "FISICA";
 }
   

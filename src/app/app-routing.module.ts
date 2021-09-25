@@ -16,6 +16,7 @@ import {EditarpersonahorarioagendaComponent} from "./personahorarioagenda/editar
 import {EliminarpersonahorarioagendaComponent} from "./personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component";
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
+import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,9 @@ const routes: Routes = [
   },
   {path:'agregarpaciente',
     component:AgregarpacienteComponent
+  },
+  {path:'editarpaciente',
+    component:EditarpacienteComponent
   },
 
   /**  {

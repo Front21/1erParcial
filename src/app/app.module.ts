@@ -22,6 +22,7 @@ import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/edit
 import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
+import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpac
     EliminarpersonahorarioagendaComponent,
     PacientesComponent,
     AgregarpacienteComponent,
+    EditarpacienteComponent,
   ],
   imports: [
     BrowserModule,

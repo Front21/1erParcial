@@ -13,7 +13,7 @@ Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
       <button (click)="limpiar()">Limpiar lista</button><br/>
     <br/>
     <br/>
-    <button [routerLink]="['/agregarpaciente']" >Agregar Reserva</button><br/>
+    <button [routerLink]="['/agregarpaciente']" >Agregar Paciente</button><br/>
     <br/>
     <div *ngIf="PacienteResultado.length>0; else sinresultado">
         <table border="1">
@@ -21,11 +21,17 @@ Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
             <td>idPaciente</td>
             <td>nombre</td>
             <td>apellido</td>
+            <td>Acciones</td>
           </tr>
           <tr *ngFor="let f of PacienteResultado">
             <td>{{f.idPersona}}</td>
             <td>{{f.nombre}}</td>
             <td>{{f.apellido}}</td>
+            <td>
+              <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: f.idPersona}" >
+                Editar Paciente
+              </a>
+            </td>
           </tr>
         </table>
     </div>
@@ -39,11 +45,17 @@ Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
               <td>idPersona</td>
               <td>nombre</td>
               <td>apellido</td>
+              <td>Acciones</td>
             </tr>
             <tr *ngFor="let c of listaPacientes">
               <td>{{c.idPersona}}</td>
               <td>{{c.nombre}}</td>
-              <td>{{c.apellido}}</td>   
+              <td>{{c.apellido}}</td>
+              <td>
+                <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: c.idPersona}" >
+                  Editar Paciente
+                </a>
+              </td>   
             </tr>
           </table>
         </ng-template>
