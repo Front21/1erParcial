@@ -68,6 +68,11 @@ export class ServiceservicioService {
     return this.http.get<listadatos<Servicio>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
+  getDetalles(id: number): Observable<listadatos<Servicio>> {
+
+    return this.http.get<listadatos<Servicio>>(this.api);
+  }
+
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
 
   async postServicio(body: any): Promise<Servicio>{

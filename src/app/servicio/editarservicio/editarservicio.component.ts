@@ -35,17 +35,32 @@ export class EditarservicioComponent implements OnInit {
       error => console.log('No se pudo acceder al servicio')
     );
 
+    this.ficha.idEmpleado = new Persona();
+    this.ficha.idCliente = new Persona();
+    this.ficha.idTipoProducto = new SubCategoria();
+    this.ficha.idTipoProducto.idCategoria = new Categoria();
+
     this.servicioFicha.getFicha(this.servicio.idFichaClinica.idFichaClinica).subscribe(
       entity => {this.ficha.idFichaClinica = entity.idFichaClinica,
         this.ficha.fechaHora = entity.fechaHora,
         this.ficha.motivoConsulta = entity.motivoConsulta,
         this.ficha.diagnostico = entity.diagnostico,
         this.ficha.observacion = entity.observacion,
-        this.ficha.idEmpleado = entity.idEmpleado,
-        this.ficha.idCliente = entity.idCliente,
+        this.ficha.idEmpleado.idPersona = entity.idEmpleado.idPersona,
+        this.ficha.idCliente.idPersona = entity.idCliente.idPersona,
         this.ficha.idTipoProducto = entity.idTipoProducto},
       error => console.log('No se pudo acceder al servicio')
     );
+
+    /*
+    this.servicioServicio.getDetalles(this.id).then(
+      entity => {this.servicio.idServicio = entity.idServicio,
+        this.servicio.idFichaClinica = entity.idFichaClinica,
+        this.servicio.observacion = entity.observacion},
+      error => console.log('No se pudo acceder al servicio')
+    );
+    */
+     
   }
 /*
   onChangeCategoria(nuevoSelect: Categoria): void{
