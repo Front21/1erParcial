@@ -11,9 +11,9 @@ import { Reserva } from '../model/reserva';
 export class ServicereservaService {
 
   status: string="";
- 
+
   private api: string ="http://181.123.243.5:8080/stock-pwfe/reserva";
-  
+
   constructor(private http: HttpClient) {   }
 
   getReservas(): Observable<listadatos<Reserva>> {
@@ -48,7 +48,7 @@ export class ServicereservaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
   }
-  
+
   async getReservaFechaencrear(fd:string): Promise<listadatos<Reserva>> {
     const filtro = {
       fechaDesdeCadena: fd
@@ -56,7 +56,7 @@ export class ServicereservaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
   }
-  
+
   async getReservaFechas(fd:string, ff:string): Promise<listadatos<Reserva>> {
     const filtro = {
       fechaDesdeCadena: fd,
@@ -65,6 +65,18 @@ export class ServicereservaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Reserva>>(this.api, {params:{ejemplo}}).toPromise();
   }
+
+  async getAgendasConDisponible(id: number, f: string, d: string): Promise<Reserva[]> {
+    const fecha = f;
+    const disponible = d;
+    return this.http.get<Reserva[]>("http://181.123.243.5:8080/stock-pwfe/persona/"+id+"/agenda", {params:{fecha, disponible}}).toPromise();
+  }
+
+  async getAgendasSinDisponible(id: number, f: string): Promise<Reserva[]> {
+    const fecha = f;
+    return this.http.get<Reserva[]>("http://181.123.243.5:8080/stock-pwfe/persona/"+id+"/agenda", {params:{fecha}}).toPromise();
+  }
+
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
   async postReservas(body: any): Promise<Reserva>{
@@ -75,8 +87,8 @@ export class ServicereservaService {
       )
     ).toPromise();
   }
-  
- 
+
+
   async deleteReserva(idCat: number): Promise<{}>{
     return this.http.delete(this.api+'/'+idCat).toPromise();
   }
@@ -84,7 +96,7 @@ export class ServicereservaService {
   getReserva(id: number): Observable<Reserva>{
     return this.http.get<Reserva>(this.api+'/'+id);
   }
- 
+
   putReserva(body: any): Observable<Reserva>{
     return this.http.put<Reserva>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
@@ -123,5 +135,5 @@ export class ServicereservaService {
   }
 
 
- 
+
 }
