@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/model/categoria';
 import { Ficha } from 'src/app/model/ficha';
 import { Persona } from 'src/app/model/persona';
@@ -12,55 +13,30 @@ import { ServicesubcategoriaService } from 'src/app/service/servicesubcategoria.
   styleUrls: ['./eliminarcategoria.component.css']
 })
 export class EliminarcategoriaComponent implements OnInit {
-  categorias: Categoria[] = [];
-  nuevaCategoria: Categoria = new Categoria();
   mensaje: string = "";
-  descripcionSelec: string = "";
-  idCategoriaSelec: number = 0;
-  fichas: Ficha[] = [];
-  fichasResultado: Ficha[]=[];
-  subcategorias: SubCategoria[] =[];
-  categoriaSelec: Categoria = new Categoria();
-  subcategoriaSelec: SubCategoria= new SubCategoria();
-  FichaFiltroCategoria: Ficha[] = [];
-  FichaFiltroSubcategoria: Ficha[] =[];
-  empleados: Persona [] = [];
-  empleadoSelec: Persona = new Persona();
-  FichaFiltroEmpleado: Ficha[] = [];
-  clientes: Persona [] = [];
-  clienteSelec: Persona = new Persona();
-  FichaFiltroCliente: Ficha[] = [];
-  fechadesde: Date = new Date();
-  fechahasta: Date = new Date();
-  diad : string="";
-  mesd: string="";
-  anod: string="";
-  fechacadenad: string="";
-  diaf : string="";
-  mesf: string="";
-  anof: string="";
-  fechacadenaf: string="";
-  FichaFiltroFecha: Ficha[] = [];
-  band: boolean=false;
-  band2: boolean=false;
-  cont: number=0;
-  idCat: number=0;
-  elicategoriaSelec: Categoria = new Categoria();
+  id: number = 0;
   constructor(private servicioCategoria: ServiceCategoriaService, 
-    private serviciosubcategoria: ServicesubcategoriaService) { }
+    private serviciosubcategoria: ServicesubcategoriaService,
+    private route: ActivatedRoute,
+    private router: Router,private zone:NgZone) { }
 
-  ngOnInit(): void {
 
-    this.servicioCategoria.getCategorias().subscribe(
-      entity => this.categorias = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Categorias')
-    );
-
+  async ngOnInit(): Promise<void> {
+    this.route.queryParams.subscribe(params => {this.id = params['id'];})
+    await this.eliminarCategoria();
+    this.irListadoCategoria();
   }
 
-  eliminarCategoria(): void{
-    this.servicioCategoria.deleteCategoria(this.elicategoriaSelec.idCategoria).subscribe(
+  async irListadoCategoria(): Promise<boolean>{
+    return this.router.navigateByUrl('categoria');
+  }
+
+
+  async eliminarCategoria(): Promise<void>{
+    await this.servicioCategoria.deleteCategoria(this.id).then(
       () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
   }
 
 }
+
+

@@ -2,9 +2,9 @@
 <div *ngIf="subcategorias.length>0; else sinresultado">
     <table border="1">
       <tr>
-       <td>idTipoProducto</td>
-        <td>idCategoria</td>
-        <td>descripcion</td>
+       <td>id Tipo Producto</td>
+        <td>id Categoria</td>
+        <td>Descripcion</td>
          <td>Acciones</td>
       </tr>
       <tr *ngFor="let f of subcategorias">
@@ -12,10 +12,14 @@
         <td>{{f.idCategoria.idCategoria}}</td>
         <td>{{f.descripcion}}</td>
         <td><a [routerLink]="['/editarsubcategoria']" [queryParams]="{ id: f.idTipoProducto}">Editar</a><br>
-        <a class="nav-link" [routerLink]="['/eliminarsubcategoria']" (click)="eliminarSubcategoria(f.idTipoProducto)">Eliminar</a></td>
+         <a class="nav-link" [routerLink]="['/eliminarsubcategoria']" [queryParams]="{ id: f.idTipoProducto}" >Eliminar</a></td>
       </tr>
     </table>
 </div>
  <ng-template #sinresultado>
     No existen Categorias
   </ng-template>
+
+<br/>
+<button [routerLink]="['/agregarsubcategoria']" >Agregar Subcategoria</button><br/>
+<br/>

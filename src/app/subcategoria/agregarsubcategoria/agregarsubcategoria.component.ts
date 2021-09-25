@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Categoria } from 'src/app/model/categoria';
 import { Ficha } from 'src/app/model/ficha';
 import { Persona } from 'src/app/model/persona';
@@ -18,9 +19,9 @@ export class AgregarsubcategoriaComponent implements OnInit {
   nuevaSubCategoria: SubCategoria = new SubCategoria();
   mensaje: string = "";
   descripcionSelec: string = "";
-  idCategoriaSelec: number =0;
+  CategoriaSelec: Categoria = new Categoria();
 
-  constructor(private servicioCategoria: ServiceCategoriaService,private serviciosubcategoria: ServicesubcategoriaService) { }
+  constructor(private servicioCategoria: ServiceCategoriaService,private serviciosubcategoria: ServicesubcategoriaService,private router: Router) { }
  
 
   ngOnInit(): void {
@@ -28,15 +29,27 @@ export class AgregarsubcategoriaComponent implements OnInit {
       entity => this.categorias= entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
+    this.serviciosubcategoria.getSubCategorias().subscribe(
+      entity => this.subcategorias= entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Categorias')
+    );
     
   }
 
-  crearSubCategoria(): void{
-    this.nuevaSubCategoria.idCategoria.idCategoria = this.idCategoriaSelec;
+  async crearSubCategoria(): Promise<void>{
+
+    this.nuevaSubCategoria.idCategoria = this.CategoriaSelec;
     this.nuevaSubCategoria.descripcion = this.descripcionSelec;
   
-    this.serviciosubcategoria.postSubcategorias({idCategoria: this.nuevaSubCategoria.idCategoria.idCategoria, descripcion:  this.nuevaSubCategoria.descripcion}).subscribe(
+    await this.serviciosubcategoria.postSubcategorias({idCategoria: this.nuevaSubCategoria.idCategoria, descripcion:  this.nuevaSubCategoria.descripcion}).then(
       () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 
+    await this.irsubcategorias();
   }
+
+
+  async irsubcategorias(): Promise<boolean>{
+    return this.router.navigateByUrl('subcategoria');
+  }
+
 }

@@ -19,33 +19,27 @@ export class ServiceCategoriaService {
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
-  postCategorias(body: any): Observable<Categoria>{
-    return this.http.post<Categoria>(this.api, body,{headers: this.headers}).pipe(
-      tap( // Log the result or error
-        data => console.log('agregado '+data),
-        error => console.log("error: "+error)
-      )
-    );
+  async postCategorias(body: any): Promise<Categoria>{
+    return this.http.post<Categoria>(this.api, body,{headers: this.headers}).toPromise();
   }
-  
+  async deleteCategoria(id: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+id).toPromise();
+  }
  
-  deleteCategoria(idCat: number): Observable<{}>{
-    this.api = `${this.api}/${idCat}`;
-    return this.http.delete(this.api);
-  }
-
   getCategoria(id: number): Observable<Categoria>{
-    this.api = `${this.api}/${id}`;
-    return this.http.get<Categoria>(this.api);
+    return this.http.get<Categoria>(this.api+'/'+id);
   }
  
-  putCategoria(body: any): Observable<Categoria>{
-    return this.http.put<Categoria>(this.api, body,{headers: this.headers}).pipe(
+  putCategoria(body:any):Observable<Categoria>{
+    console.log(body);
+    return this.http.put<Categoria>(this.api,body,{headers:this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
     );
   }
+
+  
 
 }

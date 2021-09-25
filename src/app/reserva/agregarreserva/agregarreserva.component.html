@@ -1,0 +1,57 @@
+   <br/>
+    <button class="nav-link" [routerLink]="['/personahorarioagenda']">Obtener Agenda</button>
+    <br/>
+
+
+    Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fechaSelec" name="fechaSelec">
+    <input type="checkbox" [checked]="isChecked$ | async" (change)="toggleChecked()">Mostrar ya reservados<br/>
+
+
+    Empleado: <select name="miselect" [(ngModel)]="empleadoSelec">
+    <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+' '+item2.apellido}}</option>
+    </select> <br/>
+
+    <br/>
+    <button (click)="buscarReservaenCrear(false)">Buscar</button>
+    <br/>
+
+    {{mensajeBuscar}}<br>
+   <div *ngIf="agendaFinal.length>0">
+        <table border="1">
+        <tr>
+            <td>Fecha</td>
+            <td>Hora Inicio</td>
+            <td>Hora Fin</td>
+            <td>Cliente</td>
+            <td>Seleccionar</td>
+        </tr>
+        <tr *ngFor="let f of agendaFinal">
+            <td>{{f.fechaCadena}}</td>
+            <td>{{f.horaInicioCadena}}</td>
+            <td>{{f.horaFinCadena}}</td>
+            <td>{{f.cliente}}</td>
+            <td *ngIf="f.cliente == '-'; else lugarYaReservado">
+              <input type="radio" value="{{f.idAgenda}}" name="horaReserva" [(ngModel)]="agendaIdSelec" >
+            </td>
+            <ng-template #lugarYaReservado>
+              -
+            </ng-template>
+        </tr>
+        </table>
+    </div>
+   <div *ngFor="let f of agendaFinal">
+   </div>
+
+
+    Cliente: <select name="miselect" [(ngModel)]="clienteSelec">
+    <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre+' '+item3.apellido}}</option>
+    </select><br/>
+
+    Observacion: <textarea name="observacion" [(ngModel)]="observacionSelec" placeholder="observacion" ></textarea><br/>
+
+
+    <br/>
+    <button class="nav-link" [routerLink]="['/ficha']" (click)="crearReserva()">Agregar Reserva</button>
+    <br/>
+
+

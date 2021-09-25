@@ -1,0 +1,102 @@
+
+       Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
+       Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
+       Empleado: <select name="miselect" [(ngModel)]="empleadoSelec">
+      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
+      </select>
+
+      Cliente: <select name="miselect" [(ngModel)]="clienteSelec">
+      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre}}</option>
+      </select><br/>
+
+      <br/>
+      <button (click)="buscarReserva()">Buscar</button><br/>
+      <br/>
+      <br/>
+      <button (click)="limpiar()">Limpiar</button><br/>
+      <br/>
+
+    
+
+<div *ngIf="reservasResultado.length>0; else sinresultado">
+    <table border="1">
+      <tr>
+        <td>Fecha</td>
+        <td>Hora Inicio</td>
+        <td>Hora Fin</td>
+        <td>Profesional</td>
+        <td>Cliente</td>
+        <td>Estado</td>
+        <td>Asistio</td>
+        <td>Observacion</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let f of reservasResultado">
+        <td>{{f.fechaCadena}}</td>
+        <td>{{f.horaInicioCadena}}</td>
+         <td>{{f.horaFinCadena}}</td>
+        <td>{{f.idEmpleado.nombre}}</td>
+        <td>{{f.idCliente.nombre}}</td>
+        <td>{{f.flagEstado}}</td>
+        <td> <div *ngIf="f.flagAsistio=='N' || f.flagAsistio== null; else siNO">
+            <select name="miselect" [(ngModel)]="asistioSelec" (click)="asistioReserva(f,asistioSelec)">
+              <option>S</option>
+              <option>N</option>
+            </select></div>
+            <ng-template #siNO>{{f.flagAsistio}}
+            </ng-template>
+        </td>
+        <td><input type="text" [(ngModel)]="f.observacion" (ngModelChange)="onChangeObservacion($event,f)"/> 
+        </td>
+         <td><a [routerLink]="['/eliminareserva']"  [queryParams]="{ id: f.idReserva}" >Eliminar</a><br/>
+            <a [routerLink]="['/reserva']"  (click)="cancelarReserva(f)">Cancelar</a><br/>
+            <a [routerLink]="['/agregarficha']" [queryParams]="{ id: f.idReserva}">Nueva Ficha</a></td>
+      </tr>
+    </table>
+</div>
+  <ng-template #sinresultado>
+  <div *ngIf="clickBuscar==true; else noBuscar">
+    NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+  </div>
+    <ng-template #noBuscar>
+      <table border="1">
+        <tr>
+          <td>Fecha</td>
+          <td>Hora Inicio</td>
+          <td>Hora Fin</td>
+          <td>Profesional</td>
+          <td>Cliente</td>
+          <td>Estado</td>
+          <td>Asistio</td>
+          <td>Observacion</td>
+          <td>Acciones</td>
+        </tr>
+        <tr *ngFor="let c of ReservaFiltroFechahoy">
+          <td>{{c.fechaCadena}}</td>
+          <td>{{c.horaInicioCadena}}</td>
+          <td>{{c.horaFinCadena}}</td>
+          <td>{{c.idEmpleado.nombre}}</td>
+          <td>{{c.idCliente.nombre}}</td>
+          <td>{{c.flagEstado}}</td>
+          <td> <div *ngIf="c.flagAsistio=='N' || c.flagAsistio== null; else siNO">
+              <select name="miselect" [(ngModel)]="asistioSelec" (click)="asistioReserva(c,asistioSelec)">
+                <option>S</option>
+                <option>N</option>
+              </select></div>
+              <ng-template #siNO>{{c.flagAsistio}}
+              </ng-template>
+          </td>
+          <td><input type="text" [(ngModel)]="c.observacion" (ngModelChange)="onChangeObservacion($event,c)"/> </td>
+          <td><a [routerLink]="['/eliminareserva']" [queryParams]="{ id: c.idReserva}" >Eliminar</a><br/>
+              <a [routerLink]="['/reserva']"   (click)="cancelarReserva(c)">Cancelar</a><br/>
+              <a [routerLink]="['/agregarficha']" [queryParams]="{ id: c.idReserva}">Nueva Ficha</a></td>
+        </tr>
+      </table>
+    </ng-template>
+  </ng-template>
+
+
+  
+<br/>
+<button [routerLink]="['/agregarreserva']" >Agregar Reserva</button><br/>
+<br/>

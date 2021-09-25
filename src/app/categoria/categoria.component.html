@@ -2,18 +2,22 @@
 <div *ngIf="categorias.length>0; else sinresultado">
     <table border="1">
       <tr>
-        <td>idCategoria</td>
-        <td>descripcion</td>
+        <td>id Categoria</td>
+        <td>Descripcion</td>
          <td>Acciones</td>
       </tr>
       <tr *ngFor="let f of categorias">
         <td>{{f.idCategoria}}</td>
         <td>{{f.descripcion}}</td>
         <td><a [routerLink]="['/editarcategoria']" [queryParams]="{ id: f.idCategoria}">Editar</a><br>
-        <a class="nav-link" [routerLink]="['/eliminarcategoria']" (click)="eliminarCategoria(f.idCategoria)">Eliminar</a></td>
+        <a class="nav-link" [routerLink]="['/eliminarcategoria']" [queryParams]="{ id: f.idCategoria}" >Eliminar</a></td>
       </tr>
     </table>
 </div>
  <ng-template #sinresultado>
     No existen Categorias
   </ng-template>
+
+<br/>
+<button [routerLink]="['/agregarcategoria']" >Agregar Categoria</button><br/>
+<br/>

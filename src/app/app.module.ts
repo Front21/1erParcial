@@ -21,6 +21,17 @@ import { AgregarpersonahorarioagendaComponent } from './personahorarioagenda/agr
 import { EditarpersonahorarioagendaComponent } from './personahorarioagenda/editarpersonahorarioagenda/editarpersonahorarioagenda.component';
 import { EliminarpersonahorarioagendaComponent } from './personahorarioagenda/eliminarpersonahorarioagenda/eliminarpersonahorarioagenda.component';
 import { PresentacionproductoComponent } from './presentacionproducto/presentacionproducto.component';
+import { HorarioexcepcionComponent } from './horarioexcepcion/horarioexcepcion.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { AgregarreservaComponent } from './reserva/agregarreserva/agregarreserva.component';
+import { AgregarhorarioexcepcionComponent } from './horarioexcepcion/agregarhorarioexcepcion/agregarhorarioexcepcion.component';
+import { EditarhorarioexcepcionComponent } from './horarioexcepcion/editarhorarioexcepcion/editarhorarioexcepcion.component';
+import { EditarsubcategoriaComponent } from './subcategoria/editarsubcategoria/editarsubcategoria.component';
+import { EliminarsubcategoriaComponent } from './subcategoria/eliminarsubcategoria/eliminarsubcategoria.component';
+import { EliminarhorarioexcepcionComponent } from './horarioexcepcion/eliminarhorarioexcepcion/eliminarhorarioexcepcion.component';
+import { EditarreservaComponent } from './reserva/editarreserva/editarreserva.component';
+import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva.component';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +51,16 @@ import { PresentacionproductoComponent } from './presentacionproducto/presentaci
     EditarpersonahorarioagendaComponent,
     EliminarpersonahorarioagendaComponent,
     PresentacionproductoComponent,
+    HorarioexcepcionComponent,
+    ReservaComponent,
+    AgregarreservaComponent,
+    AgregarhorarioexcepcionComponent,
+    EditarhorarioexcepcionComponent,
+    EditarsubcategoriaComponent,
+    EliminarsubcategoriaComponent,
+    EliminarhorarioexcepcionComponent,
+    EditarreservaComponent,
+    EliminareservaComponent,
   ],
   imports: [
     BrowserModule,

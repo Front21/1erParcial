@@ -1,0 +1,71 @@
+  Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fecha" name="fecha"><br/>
+
+  Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+  <option>Empleados</option>
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
+  </select>
+  
+  
+  <br/>
+  <button (click)="buscarhorarioexcepcion()">Buscar Horario Excepcion</button><br/>
+  
+  <br/>
+  <button (click)="limpiar()">Limpiar</button><br/>
+  <br/>
+
+<div *ngIf="horariosResultado.length>0; else sinresultado">
+    <table border="1">
+      <tr>
+        <td>id Horario Excepcion</td>
+        <td>Fecha</td>
+        <td>Hora Apertura</td>
+        <td>Hora Cierre</td>
+        <td>Habilitado</td>
+        <td>Empleado</td>
+        <td>Intervalo en Minutos</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let f of horariosResultado">
+        <td>{{f.idHorarioExcepcion}}</td>
+        <td>{{f.fechaCadena}}</td>
+        <td>{{f.horaAperturaCadena}}</td>
+        <td>{{f.horaCierreCadena}}</td>
+        <td>{{f.flagEsHabilitar}}</td>
+        <td>{{f.idEmpleado.nombre}}</td>
+        <td>{{f.intervaloMinutos}}</td>
+        <td><a class="nav-link" [routerLink]="['/editarhorarioexcepcion']" [queryParams]="{ id: f.idHorarioExcepcion}">Editar</a><br/>
+            <a class="nav-link" [routerLink]="['/eliminarhorarioexcepcion']" [queryParams]="{ id: f.idHorarioExcepcion}">Eliminar</a></td>
+        
+      </tr>
+    </table>
+</div>
+  <ng-template #sinresultado>
+    <table border="1">
+      <tr>
+        <td>id Horario Excepcion</td>
+        <td>Fecha</td>
+        <td>Hora Apertura</td>
+        <td>Hora Cierre</td>
+        <td>Habilitado</td>
+        <td>Empleado</td>
+        <td>Intervalo en Minutos</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let c of horarios">
+        <td>{{c.idHorarioExcepcion}}</td>
+        <td>{{c.fechaCadena}}</td>
+        <td>{{c.horaAperturaCadena}}</td>
+        <td>{{c.horaCierreCadena}}</td>
+        <td>{{c.flagEsHabilitar}}</td>
+        <td>{{c.idEmpleado.nombre}}</td>
+        <td>{{c.intervaloMinutos}}</td>
+        <td><a class="nav-link" [routerLink]="['/editarhorarioexcepcion']" [queryParams]="{ id: c.idHorarioExcepcion}">Editar</a><br/>
+            <a class="nav-link" [routerLink]="['/eliminarhorarioexcepcion']" [queryParams]="{ id: c.idHorarioExcepcion}">Eliminar</a></td>
+      </tr>
+    </table>
+  </ng-template>
+  
+    
+<br/>
+<button [routerLink]="['/agregarhorarioexcepcion']" >Agregar Horario Excepcion</button><br/>
+<br/>
