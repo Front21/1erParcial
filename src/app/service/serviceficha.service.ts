@@ -39,24 +39,24 @@ export class ServicefichaService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
-  getFichasEmpleados(idP:number): Observable<listadatos<Ficha>> {
+  async getFichasEmpleados(idP:number): Promise<listadatos<Ficha>> {
     const filtro = {
       idEmpleado: {
         idPersona : idP
       }
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
-  getFichasClientes(idCL:number): Observable<listadatos<Ficha>> {
+  async getFichasClientes(idCL:number): Promise<listadatos<Ficha>> {
     const filtro = {
       idCliente: {
         idPersona : idCL
       }
     }
     const ejemplo = JSON.stringify(filtro)
-    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
+    return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}}).toPromise();
   }
   getFichasFechas(fd:string, ff:string): Observable<listadatos<Ficha>> {
     const filtro = {
@@ -68,12 +68,12 @@ export class ServicefichaService {
   }
 
   getFicha(id: number): Observable<Ficha>{
-    this.api = `${this.api}/${id}`;
-    return this.http.get<Ficha>(this.api);
+    //this.api = `${this.api}/${id}`;
+    return this.http.get<Ficha>(this.api+"/"+id);
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
- 
+
   postFicha(body: any): Observable<Ficha>{
     return this.http.post<Ficha>(this.api, body,{
       headers: this.headers}).pipe(
@@ -96,9 +96,9 @@ export class ServicefichaService {
 
   }
   deleteFicha(idCat: number): Observable<{}>{
-   
-    this.api = `${this.api}/${idCat}`;
-    return this.http.delete(this.api);
+
+    //this.api = `${this.api}/${idCat}`;
+    return this.http.delete(this.api+'/'+idCat);
   }
 
 

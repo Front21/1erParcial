@@ -1,0 +1,98 @@
+Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
+Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
+
+Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+</select>
+
+Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+  <option>Clientes</option>
+  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+</select><br/>
+
+Categoria: <select name="miselect" [(ngModel)]="categoriaSelec"  (ngModelChange)="onChangeCategoria($event)">
+  <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
+</select>
+
+<div *ngIf="subcategorias.length>0; else sinresultado">
+SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+    <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+</select><br/>
+</div>
+<ng-template #sinresultado>
+  SubCategoria: No existen subcategorias para la categoria seleccionada.
+</ng-template>
+
+<br/>
+<button (click)="buscar()">Buscar</button><br/>
+<br/>
+
+<div *ngIf="serviciosResultado.length>0; else sinresultado2">
+  reusultado
+  <table border="1">
+    <tr>
+      <td>idServicio</td>
+      <td>Fecha</td>
+      <td>idFichaClinica</td>
+      <td>Fecha Ficha</td>
+      <td>Profesional</td>
+      <td>Cliente</td>
+      <td>Categoria</td>
+      <td>Subcategoria</td>
+      <td>Acciones</td>
+    </tr>
+    <tr *ngFor="let a of serviciosResultado">
+      <td>{{a.idServicio}}</td>
+      <td>{{a.fechaHora}}</td>
+      <td>{{a.idFichaClinica.idFichaClinica}}</td>
+      <td>{{a.idFichaClinica.fechaHora}}</td>
+      <td>{{a.idFichaClinica.idEmpleado.idPersona}}</td>
+      <td>{{a.idFichaClinica.idCliente.idPersona}}</td>
+      <td>{{a.idFichaClinica.idTipoProducto.idCategoria.idCategoria}}</td>
+      <td>{{a.idFichaClinica.idTipoProducto.idTipoProducto}}</td>
+      <td><a>Editar</a><br>
+        <a>Eliminar</a></td>
+    </tr>
+  </table>
+</div>
+<ng-template #sinresultado2>
+  <div *ngIf="clickBuscar==true; else noBuscar">
+    NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+  </div>
+  <ng-template #noBuscar>
+    total
+    <table border="1">
+      <tr>
+        <td>idServicio</td>
+        <td>Fecha</td>
+        <td>idFichaClinica</td>
+        <td>Fecha Ficha</td>
+        <td>Profesional</td>
+        <td>Cliente</td>
+        <td>Categoria</td>
+        <td>Subcategoria</td>
+        <td>Acciones</td>
+      </tr>
+      <tr *ngFor="let a of servicios">
+        <td>{{a.idServicio}}</td>
+        <td>{{a.fechaHora}}</td>
+        <td>{{a.idFichaClinica.idFichaClinica}}</td>
+        <td>{{a.idFichaClinica.fechaHora}}</td>
+        <td>{{a.idFichaClinica.idEmpleado.idPersona}}</td>
+        <td>{{a.idFichaClinica.idCliente.idPersona}}</td>
+        <td>{{a.idFichaClinica.idTipoProducto.idCategoria.idCategoria}}</td>
+        <td>{{a.idFichaClinica.idTipoProducto.idTipoProducto}}</td>
+        <td><a [routerLink]="['/editarservicio']" [queryParams]="{ id: a.idServicio}">Ver/Editar Servicio</a><br>
+          <a [routerLink]="['/eliminarservicio']" [queryParams]="{ id: a.idServicio}">Eliminar</a></td>
+
+
+      </tr>
+    </table>
+  </ng-template>
+
+
+</ng-template>
+
+<br/>
+<button [routerLink]="['/agregarservicio']" >Agregar Servicio</button><br/>
+<br/>

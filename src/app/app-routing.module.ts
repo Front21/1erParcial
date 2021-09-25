@@ -25,6 +25,9 @@ import { EliminarsubcategoriaComponent } from './subcategoria/eliminarsubcategor
 import { EliminarhorarioexcepcionComponent } from './horarioexcepcion/eliminarhorarioexcepcion/eliminarhorarioexcepcion.component';
 import { EditarreservaComponent } from './reserva/editarreserva/editarreserva.component';
 import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva.component';
+import {ServicioComponent} from "./servicio/servicio.component";
+import {AgregarservicioComponent} from "./servicio/agregarservicio/agregarservicio.component";
+import {EditarservicioComponent} from "./servicio/editarservicio/editarservicio.component";
 
 
 
@@ -106,7 +109,15 @@ const routes: Routes = [
   {path:'presentacionproducto',
   component:PresentacionproductoComponent
   },
-
+  {path:'servicio',
+    component:ServicioComponent
+  },
+  {path:'agregarservicio',
+    component:AgregarservicioComponent
+  },
+  {path:'editarservicio',
+    component:EditarservicioComponent
+  },
   /**  {
       //path:'nuevopais',
       //component:PaisAgregarComponent

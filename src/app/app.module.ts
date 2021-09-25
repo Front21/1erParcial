@@ -31,7 +31,9 @@ import { EliminarsubcategoriaComponent } from './subcategoria/eliminarsubcategor
 import { EliminarhorarioexcepcionComponent } from './horarioexcepcion/eliminarhorarioexcepcion/eliminarhorarioexcepcion.component';
 import { EditarreservaComponent } from './reserva/editarreserva/editarreserva.component';
 import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva.component';
-
+import { ServicioComponent } from './servicio/servicio.component';
+import { AgregarservicioComponent } from './servicio/agregarservicio/agregarservicio.component';
+import { EditarservicioComponent } from './servicio/editarservicio/editarservicio.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,9 @@ import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva
     EliminarhorarioexcepcionComponent,
     EditarreservaComponent,
     EliminareservaComponent,
+    ServicioComponent,
+    AgregarservicioComponent,
+    EditarservicioComponent,
   ],
   imports: [
     BrowserModule,
