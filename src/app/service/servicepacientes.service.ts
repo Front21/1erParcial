@@ -43,4 +43,9 @@ export class ServicepacientesService {
       )
     ).toPromise();
   }
+  async eliminarPaciente(idPersona: number): Promise<{}>{
+   
+    
+    return this.http.delete(this.api+"/"+idPersona).toPromise();
+  }
 }

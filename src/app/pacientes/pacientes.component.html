@@ -30,6 +30,9 @@ Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
             <td>
               <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: f.idPersona}" >
                 Editar Paciente
+              </a><br/>
+              <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: f.idPersona}" >
+                Eliminar Paciente
               </a>
             </td>
           </tr>
@@ -54,6 +57,9 @@ Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
               <td>
                 <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: c.idPersona}" >
                   Editar Paciente
+                </a><br/>
+                <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: c.idPersona}" >
+                  Eliminar Paciente
                 </a>
               </td>   
             </tr>

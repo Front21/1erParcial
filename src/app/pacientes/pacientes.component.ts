@@ -60,4 +60,5 @@ export class PacientesComponent implements OnInit {
     this.clicbuscar = false;
     this.PacienteResultado = [];
   }
+  
 }
