@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { listadatos } from '../model/datos';
 import { HorarioExcepcion } from '../model/horarioExcepcion';
 import {tap} from "rxjs/operators";
+import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicehorarioexcepcionService {
-  
+
   private api: string ="http://181.123.243.5:8080/stock-pwfe/horarioExcepcion";
 
   constructor(private http: HttpClient) { }
@@ -17,6 +18,10 @@ export class ServicehorarioexcepcionService {
 
   gethorarioExcepcion(): Observable<listadatos<HorarioExcepcion>> {
     return this.http.get<listadatos<HorarioExcepcion>>(this.api);
+  }
+
+  async getHorarioExcepcionP(paramas: any): Promise<listadatos<HorarioExcepcion>> {
+    return this.http.get<listadatos<HorarioExcepcion>>(this.api, {params: paramas}).toPromise();
   }
 
   async gethorarioexcepcionEmpleados(idP:number): Promise<listadatos<HorarioExcepcion>> {
@@ -57,6 +62,7 @@ export class ServicehorarioexcepcionService {
   }
 
   putHorarioExcepcion(body: any): Observable<HorarioExcepcion>{
+    console.log('ESSSTO ME LLEGA: ');
     console.log(body);
     return this.http.put<HorarioExcepcion>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error

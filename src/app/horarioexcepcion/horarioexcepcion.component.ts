@@ -4,6 +4,7 @@ import { Persona } from '../model/persona';
 import { ServicehorarioexcepcionService } from '../service/servicehorarioexcepcion.service';
 import { ServiceempleadoService } from '../service/serviceempleado.service';
 import { ActivatedRoute } from '@angular/router';
+import {Sort} from "@angular/material/sort";
 
 
 @Component({
@@ -15,11 +16,11 @@ export class HorarioexcepcionComponent implements OnInit {
 
   horarios: HorarioExcepcion[]=[];
   horariosResultado: HorarioExcepcion[]=[];
-  HorarioexcepcionFiltroEmpleado: HorarioExcepcion[]=[]; 
+  HorarioexcepcionFiltroEmpleado: HorarioExcepcion[]=[];
   HorarioexcepcionFiltroFecha: HorarioExcepcion[]=[];
   empleados: Persona[]=[];
   empleadoSelec: Persona = new Persona();
-  fechacadena: string="";
+  fechacadena: any;
   fechaSelec: Date = new Date();
   dia : string="";
   mes: string="";
@@ -39,102 +40,110 @@ export class HorarioexcepcionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.serviciohorarioexcepcion.gethorarioExcepcion().subscribe(
+    this.serviciohorarioexcepcion.getHorarioExcepcionP({
+      orderBy: "idHorarioExcepcion",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.horarios = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Horario Excepcion')
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
-    this.servicioEmpleado.getEmpleados().subscribe(
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.empleados = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
   }
 
-  async buscarhorarioexcepcion() : Promise<void>{
+  async buscar(active: string, direction: string, desdeSort: boolean): Promise<void>{
 
-    this.clickBuscar = true;
-
-    if(this.empleadoSelec.idPersona != undefined){
-      await this.serviciohorarioexcepcion.gethorarioexcepcionEmpleados(this.empleadoSelec.idPersona).then(
-        entity => this.HorarioexcepcionFiltroEmpleado= entity.lista,
-        error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
-      );
+    if(!desdeSort){
+      this.clickBuscar = true;
     }
 
-   
-    this.ano= this.fechaSelec.toString().substr(0,4); 
+    let params;
+    let ejemplo;
+
+    this.ano= this.fechaSelec.toString().substr(0,4);
     this.mes= this.fechaSelec.toString().substr(5,2);
     this.dia= this.fechaSelec.toString().substr(8,2);
     this.fechacadena= this.ano+this.mes+this.dia;
-   
-    if(this.fechacadena != undefined){
-      await this.serviciohorarioexcepcion.gethorarioexcepcionFechas(this.fechacadena).then(
-        entity => this.HorarioexcepcionFiltroFecha = entity.lista,
-        error =>console.log('No se pudo acceder a la lista de Horario Excepcion por Fecha'), 
+
+    if(this.empleadoSelec.idPersona != undefined && this.fechacadena != undefined){
+      ejemplo = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
+        },
+        fechaCadena: this.fechacadena
+      }
+    }
+
+    if(this.empleadoSelec.idPersona == undefined && this.fechacadena != undefined){
+      ejemplo = {
+        fechaCadena: this.fechacadena
+      }
+    }
+
+    if(this.empleadoSelec.idPersona != undefined && this.fechacadena == undefined){
+      ejemplo = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
+        }
+      }
+    }
+
+    if(this.empleadoSelec.idPersona == undefined && this.fechacadena == undefined && this.clickBuscar == true){
+      this.mensaje = "Es necesario marcar opciones de busqueda."
+    }else{
+      if(this.clickBuscar){
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+          ejemplo: JSON.stringify(ejemplo)
+        }
+      }else{
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+        }
+      }
+
+      console.log(params);
+      await this.serviciohorarioexcepcion.getHorarioExcepcionP(params).then(
+        entity => {this.horarios = entity.lista
+          console.log("Resultado Actualziado")},
+        error =>console.log('No se pudo acceder a la lista de Categorias')
       );
+
     }
 
-    this.horariosResultado=[];
-    this.actualizarResultadoFiltro();
 
   }
 
-
-  actualizarResultadoFiltro(): void{
-    for (var horario in this.horarios) {
-      this.band2 = false; //criterio: asegura que todas las listas no hayan sido vacias por no seleccionar nada
-      if(this.HorarioexcepcionFiltroEmpleado.length>0){
-        this.band2=true;
-        this.band=false; //criterio si no se encuentra en una lista cargada, se debe rechazar
-          for (var s1 in this.HorarioexcepcionFiltroEmpleado){
-            if(this.horarios[horario].idHorarioExcepcion==this.HorarioexcepcionFiltroEmpleado[s1].idHorarioExcepcion){
-              this.band=true;
-              break;
-            }
-          }
-          if(this.band==false){
-            continue;
-          }
-          //this.band = false;
-      }else{
-        if(this.empleadoSelec.idPersona != 0 && this.empleadoSelec.idPersona != undefined){
-          continue;
-        }
-      }
-
-      if(this.HorarioexcepcionFiltroFecha.length>0){
-        console.log("ENTRO A FECHA");
-        this.band2=true;
-        this.band=false;
-        for (var s1 in this.HorarioexcepcionFiltroFecha){
-          if(this.horarios[horario].idHorarioExcepcion==this.HorarioexcepcionFiltroFecha[s1].idHorarioExcepcion){
-            this.band=true;
-            break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      }else{
-        if(this.fechacadena != ""){
-          continue;
-        }
-      }
-
-      if(this.band2==true){
-        this.horariosResultado.push(this.horarios[horario]);
-      }
-    }
-
-  
-  };
-  
-  limpiar(): void{
-    this.clickBuscar = false;
-    this.horariosResultado = [];
+  async sortData(sort: Sort): Promise<void> {
+    console.log(sort.active);
+    console.log(sort.direction);
+    this.buscar(sort.active, sort.direction, true);
   }
 
+  async Limpiar(): Promise<void>{
+    this.clickBuscar = true;
+    await this.serviciohorarioexcepcion.getHorarioExcepcionP({
+      orderBy: "idHorarioExcepcion",
+      orderDir: "asc",
+      like: "S"
+    }).then(
+      entity => this.horarios = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Categorias')
+    );
+  }
 
 }
 

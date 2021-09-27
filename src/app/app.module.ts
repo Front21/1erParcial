@@ -36,7 +36,8 @@ import { AgregarservicioComponent } from './servicio/agregarservicio/agregarserv
 import { EditarservicioComponent } from './servicio/editarservicio/editarservicio.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/Table'
+import { MatTableModule } from '@angular/material/Table';
+import {MatSortModule} from '@angular/material/sort';
 import { DetallesComponent } from './servicio/detalles/detalles.component';
 import { EliminarservicioComponent } from './servicio/eliminarservicio/eliminarservicio.component';
 import { EditardetalleComponent } from './servicio/editardetalle/editardetalle.component';
@@ -87,7 +88,8 @@ import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedet
     FormsModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
 
   ],
   providers: [ServicefichaService],

@@ -11,11 +11,15 @@ import { tap } from 'rxjs/operators';
 export class ServiceCategoriaService {
   status: string="";
   private api: string ="http://181.123.243.5:8080/stock-pwfe/categoria";
-  
+
   constructor(private http: HttpClient) {}
 
   getCategorias(): Observable<listadatos<Categoria>> {
     return this.http.get<listadatos<Categoria>>(this.api);
+  }
+
+  getCategoriasP(params: any): Observable<listadatos<Categoria>> {
+    return this.http.get<listadatos<Categoria>>(this.api, {params:params});
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
@@ -25,21 +29,21 @@ export class ServiceCategoriaService {
   async deleteCategoria(id: number): Promise<{}>{
     return this.http.delete(this.api+'/'+id).toPromise();
   }
- 
+
   getCategoria(id: number): Observable<Categoria>{
     return this.http.get<Categoria>(this.api+'/'+id);
   }
- 
-  putCategoria(body:any):Observable<Categoria>{
+
+  async putCategoria(body:any):Promise<Categoria>{
     console.log(body);
     return this.http.put<Categoria>(this.api,body,{headers:this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
 
-  
+
 
 }

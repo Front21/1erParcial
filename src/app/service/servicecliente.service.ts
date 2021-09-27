@@ -12,9 +12,13 @@ export class ServiceclienteService {
 
   getClientes(): Observable<listadatos<Persona>> {
     const filtro = {
-      soloUsuariosDelSistema: false 
+      soloUsuariosDelSistema: false
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Persona>>(this.api, {params:{ejemplo}});
+  }
+
+  async getClientesP(params: any): Promise<listadatos<Persona>> {
+    return this.http.get<listadatos<Persona>>(this.api, {params: params}).toPromise();
   }
 }

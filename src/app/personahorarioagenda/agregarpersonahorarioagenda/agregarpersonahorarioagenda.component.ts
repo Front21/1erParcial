@@ -67,9 +67,13 @@ export class AgregarpersonahorarioagendaComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.servicioEmpleado.getEmpleados().subscribe(
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.empleados = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
 

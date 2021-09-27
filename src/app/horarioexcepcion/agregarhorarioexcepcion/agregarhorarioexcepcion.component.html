@@ -8,7 +8,6 @@
       </select><br/><br/>
 
     Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-      <option>Empleados</option>
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
       </select><br/><br/>
 

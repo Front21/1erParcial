@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import { HorarioExcepcion } from 'src/app/model/horarioExcepcion';
 import { Persona } from 'src/app/model/persona';
 import { ServicehorarioexcepcionService } from 'src/app/service/servicehorarioexcepcion.service';
@@ -33,7 +33,8 @@ export class EditarhorarioexcepcionComponent implements OnInit {
   mincie: string="";
   horaAperturaCadenaSelec: string="";
   horaCierreCadenaSelec: string="";
-  constructor(private route: ActivatedRoute, private servicioHorarioexcepcion: ServicehorarioexcepcionService) { }
+  constructor(private route: ActivatedRoute, private servicioHorarioexcepcion: ServicehorarioexcepcionService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -49,15 +50,15 @@ export class EditarhorarioexcepcionComponent implements OnInit {
 
   }
 
-  editarHorarioExcepcion(): void{
+  async editarHorarioExcepcion(): Promise<void>{
 
 
     console.log(this.fechaCadenaSelec);
-    this.ano= this.fechaCadenaSelec.toString().substr(0,4); 
+    this.ano= this.fechaCadenaSelec.toString().substr(0,4);
     this.mes= this.fechaCadenaSelec.toString().substr(5,2);
     this.dia= this.fechaCadenaSelec.toString().substr(8,2);
     this.fechaCadena= this.ano+this.mes+this.dia;
-    console.log(this.fechaCadena);
+    console.log('ACAAAAAAAAAAAAAAAAAAAAA '+this.fechaCadena);
 
     this.horaaper= this.horaAperturaCadenaSelec.toString().substr(0,2);
     this.minaper= this.horaAperturaCadenaSelec.toString().substr(3,5);
@@ -66,25 +67,31 @@ export class EditarhorarioexcepcionComponent implements OnInit {
     this.horaAperturaCadena= this.horaaper+this.minaper;
     this.horaCierreCadena= this.horacie+this.mincie;
 
-    console.log(this.horaapercadenaSelec);
-    console.log(this.horaciecadenaSelec);
+    console.log(this.horaAperturaCadena);
+    console.log(this.horaCierreCadena);
 
 
     console.log(this.horario.idHorarioExcepcion );
     console.log(this.horario.idEmpleado);
- 
+
      this.servicioHorarioexcepcion.putHorarioExcepcion(
-      {idHorarioExcepcion:this.horario.idHorarioExcepcion, 
-        fechaCadena:this.horario.fechaCadena, 
-        horaAperturaCadena:this.horario.horaAperturaCadena,
-        horaCierreCadena:this.horario.horaCierreCadena,
-        flagEsHabilitar:this.horario.flagEsHabilitar, 
+      {idHorarioExcepcion:this.horario.idHorarioExcepcion,
+        fechaCadena:this.fechaCadena,
+        horaAperturaCadena:this.horaAperturaCadena,
+        horaCierreCadena:this.horaCierreCadena,
+        flagEsHabilitar:this.horario.flagEsHabilitar,
       idEmpleado:{
-        idPersona: this.horario.idEmpleado.idPersona}, 
+        idPersona: this.horario.idEmpleado.idPersona},
       intervaloMinutos:this.horario.intervaloMinutos}).subscribe(
        () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
- 
-   }
+
+    await this.irHorarioExcepcion();
+  }
+
+
+  async irHorarioExcepcion(): Promise<boolean>{
+    return this.router.navigateByUrl('horarioexcepcion');
+  }
   }
 
 
