@@ -6,5 +6,6 @@ export class Servicio {
   idFichaClinica!: Ficha;
   fechaHora!: string;
   observacion!: string;
+  presupuesto!: number;
 
 }

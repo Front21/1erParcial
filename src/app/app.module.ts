@@ -37,6 +37,11 @@ import { EditarservicioComponent } from './servicio/editarservicio/editarservici
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/Table'
+import { DetallesComponent } from './servicio/detalles/detalles.component';
+import { EliminarservicioComponent } from './servicio/eliminarservicio/eliminarservicio.component';
+import { EditardetalleComponent } from './servicio/editardetalle/editardetalle.component';
+import { ReporteresumidoComponent } from './reporte/reporteresumido/reporteresumido.component';
+import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedetallado.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +74,11 @@ import { MatTableModule } from '@angular/material/Table'
     ServicioComponent,
     AgregarservicioComponent,
     EditarservicioComponent,
+    DetallesComponent,
+    EliminarservicioComponent,
+    EditardetalleComponent,
+    ReporteresumidoComponent,
+    ReportedetalladoComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +86,7 @@ import { MatTableModule } from '@angular/material/Table'
     HttpClientModule,
     FormsModule,
     NgxPaginationModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     MatTableModule
 
   ],

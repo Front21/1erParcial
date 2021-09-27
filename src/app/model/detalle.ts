@@ -1,8 +1,10 @@
-import {Ficha} from "./ficha";
+import {PresentacionProducto} from "./presentacionproducto";
+import {Servicio} from "./servicio";
 
 
 export class Detalle {
+  idServicioDetalle!: number;
   cantidad!: number;
-  idPresentacionProducto!: Ficha;
-  idServicio!: string;
+  idPresentacionProducto!: PresentacionProducto;
+  idServicio!: Servicio;
 }

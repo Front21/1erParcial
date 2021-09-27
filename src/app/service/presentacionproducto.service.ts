@@ -13,11 +13,15 @@ import { SubCategoria } from '../model/subcategoria';
 export class PresentacionproductoService {
   status: string="";
   private api: string ="http://181.123.243.5:8080/stock-pwfe/presentacionProducto";
-  
+
   constructor(private http: HttpClient) {}
 
   getPresentacionProductos(): Promise<listadatos<PresentacionProducto>> {
     return this.http.get<listadatos<PresentacionProducto>>(this.api).toPromise();
+  }
+
+  async getPresentacion(idP: number): Promise<PresentacionProducto> {
+    return this.http.get<PresentacionProducto>(this.api+'/'+idP).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json" , "usuario": "usuario2" });
@@ -29,8 +33,8 @@ export class PresentacionproductoService {
       )
     );
   }
-  
-  getPresentacionProductoSubCategoria(idP:number): Promise<listadatos<PresentacionProducto>> {
+
+  async getPresentacionProductoSubCategoria(idP:number): Promise<listadatos<PresentacionProducto>> {
     const filtro = {
       idProducto: {
         idTipoProducto : {
@@ -41,11 +45,11 @@ export class PresentacionproductoService {
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<PresentacionProducto>>(this.api, {params:{ejemplo}}).toPromise();
   }
-  
-  getPresentacionProductoSubCategoria2(nameP:string): Promise<listadatos<PresentacionProducto>> {
+
+  async getPresentacionProductoSubCategoria2(nameP:string): Promise<listadatos<PresentacionProducto>> {
     const filtro = {
       nombre: nameP
-      
+
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<PresentacionProducto>>(this.api, {params:{ejemplo}}).toPromise();
@@ -57,6 +61,6 @@ export class PresentacionproductoService {
   getsubcategorias(): Observable<listadatos<SubCategoria>> {
     return this.http.get<listadatos<SubCategoria>>(this.api);
   }
- 
+
 
 }

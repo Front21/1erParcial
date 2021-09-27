@@ -1,0 +1,69 @@
+FICHA CORRESPONDIENTE AL SERVICIO <br>
+<table border="1">
+  <tr>
+    <td>idFichaClinica</td>
+    <td>Fecha Ficha</td>
+    <td>Profesional</td>
+    <td>Cliente</td>
+    <td>Categoria</td>
+    <td>Subcategoria</td>
+  </tr>
+  <tr>
+    <td>{{ficha.idFichaClinica}}</td>
+    <td>{{ficha.fechaHora}}</td>
+    <td>{{ficha.idEmpleado.idPersona}}</td>
+    <td>{{ficha.idCliente.idPersona}}</td>
+    <td>{{ficha.idTipoProducto.idCategoria.idCategoria}}</td>
+    <td>{{ficha.idTipoProducto.idTipoProducto}}</td>
+  </tr>
+</table>
+
+-----------------DETALLES-------------------------------------
+<br>
+Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
+  <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.idCategoria}}</option>
+</select>
+
+SubCategorias: <select name="miselect" [(ngModel)]="subCategoriaSelec" (ngModelChange)="onChangeSubCategoria($event)">
+  <option [ngValue]="item2" *ngFor="let item2 of subcategorias">{{item2.idTipoProducto}}</option>
+</select><br><br>
+
+Tipo de Servicio (Presentacion): <select name="miselect" [(ngModel)]="presentacionSelec" (ngModelChange)="onChangePresentacion($event)">
+  <option [ngValue]="item2" *ngFor="let item2 of presentaciones">{{item2.idPresentacionProducto}}</option>
+</select>
+
+Precio: <input type="number" value="{{precioSelec}}" readonly><br>
+
+Cantidad: <input type="number" placeholder="cantidad" [(ngModel)]="cantidadSelec"><br>
+
+<br/>
+<button (click)="agregarDetalle()">Agregar Detalle</button><br/>
+<br/>
+<div *ngIf="detalles.length>0; else sinresultado">
+  <table border="1">
+    <tr>
+      <td>idDetalle</td>
+      <td>Presentacion</td>
+      <td>Precio Unitario</td>
+      <td>Cantidad</td>
+      <td>Total</td>
+      <td>Acciones</td>
+    </tr>
+    <tr *ngFor="let d of detalles">
+      <td>{{d.idServicioDetalle}}</td>
+      <td>{{d.idPresentacionProducto.idPresentacionProducto}}</td>
+      <td>{{d.idPresentacionProducto.existenciaProducto.precioVenta}}</td>
+      <td>{{d.cantidad}}</td>
+      <td>{{d.idPresentacionProducto.existenciaProducto.precioVenta * d.cantidad}}</td>
+      <td><a [routerLink]="['/editardetalle']" [queryParams]="{ idServicio: servicio.idServicio, idDetalle: d.idServicioDetalle}">Editar</a><br>
+          <button (click)="eliminarDetalle(d.idServicioDetalle)">Eliminar</button><br>
+          </td>
+    </tr>
+  </table>
+</div>
+<ng-template #sinresultado>
+  No exissten detalles para este servicio.
+</ng-template>
+
+
+

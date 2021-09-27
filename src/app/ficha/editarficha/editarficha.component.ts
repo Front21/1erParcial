@@ -19,7 +19,7 @@ export class EditarfichaComponent implements OnInit {
   ngOnInit(): void {
 
   this.route.queryParams.subscribe(params => {this.id = params['id'];});
-  this.servicioFicha.getFicha(this.id).subscribe(
+  this.servicioFicha.getFicha(this.id).then(
     entity => {this.ficha.idFichaClinica = entity.idFichaClinica,
       this.ficha.motivoConsulta = entity.motivoConsulta,
       this.ficha.diagnostico = entity.diagnostico,
@@ -40,11 +40,11 @@ export class EditarfichaComponent implements OnInit {
     console.log(this.ficha.idCliente.idPersona)
     console.log(this.ficha.idTipoProducto.idTipoProducto)
 
-     this.servicioFicha.putFicha({ 
+     this.servicioFicha.putFicha({
       idFichaClinica : this.ficha.idFichaClinica,
       observacion : this.ficha.observacion}).subscribe(
        () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
- 
+
    }
 
 

@@ -4,5 +4,6 @@ export class TipoProducto {
 
     idTipoProducto!: number;
     idCategoria!: Categoria;
+    descripcion!: string;
 
 }
