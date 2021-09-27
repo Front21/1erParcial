@@ -1,8 +1,7 @@
-    
+
 
     Categoria: <select name="miselect" [(ngModel)]="CategoriaSelec">
-      <option>Categoria</option>
-      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
+      <option [ngValue]="item" *ngFor="let item of categorias">{{item.descripcion}}</option>
       </select><br/>
     Descripcion: <textarea name="descripcion" [(ngModel)]="descripcionSelec" ></textarea><br/>
 

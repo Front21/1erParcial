@@ -1,15 +1,26 @@
+Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
+  <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.descripcion}}</option>
+</select><br>
+
+<br/>
+<button (click)="buscar()">Buscar</button><br/>
+<br/>
+
+<br/>
+<button (click)="limpiar()">Limpiar</button><br/>
+<br/>
 
 <div *ngIf="subcategorias.length>0; else sinresultado">
-    <table border="1">
+  <table  (matSortChange)="sortData($event)" matSortActive="idTipoProducto" matSortDirection="asc" matSort>
       <tr>
-       <td>id Tipo Producto</td>
-        <td>id Categoria</td>
-        <td>Descripcion</td>
-         <td>Acciones</td>
+       <th mat-sort-header="idTipoProducto">id Tipo Producto</th>
+        <th mat-sort-header="idCategoria.descripcion">Categoria</th>
+        <th mat-sort-header="descripcion">Descripcion</th>
+         <th>Acciones</th>
       </tr>
-      <tr *ngFor="let f of subcategorias | paginate: { itemsPerPage: 5, currentPage: page }">
+      <tr *ngFor="let f of subcategorias | paginate: { itemsPerPage: 10, currentPage: page }">
          <td>{{f.idTipoProducto}}</td>
-        <td>{{f.idCategoria.idCategoria}}</td>
+        <td>{{f.idCategoria.descripcion}}</td>
         <td>{{f.descripcion}}</td>
         <td><a [routerLink]="['/editarsubcategoria']" [queryParams]="{ id: f.idTipoProducto}">Editar</a><br>
          <a class="nav-link" [routerLink]="['/eliminarsubcategoria']" [queryParams]="{ id: f.idTipoProducto}" >Eliminar</a></td>
@@ -17,7 +28,12 @@
     </table>
 </div>
  <ng-template #sinresultado>
-    No existen Categorias
+   <div *ngIf="clickBuscar == true; else noClickBuscar">
+    No existen resultados para la busqueda.
+   </div>
+   <ng-template #noClickBuscar>
+     No existen subcategorias.
+   </ng-template>
   </ng-template>
 
 

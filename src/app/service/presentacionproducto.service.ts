@@ -20,6 +20,10 @@ export class PresentacionproductoService {
     return this.http.get<listadatos<PresentacionProducto>>(this.api).toPromise();
   }
 
+  async getPresentacionProductosP(paramas: any): Promise<listadatos<PresentacionProducto>> {
+    return this.http.get<listadatos<PresentacionProducto>>(this.api, {params: paramas}).toPromise();
+  }
+
   async getPresentacion(idP: number): Promise<PresentacionProducto> {
     return this.http.get<PresentacionProducto>(this.api+'/'+idP).toPromise();
   }

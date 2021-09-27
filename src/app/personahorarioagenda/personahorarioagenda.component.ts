@@ -10,6 +10,7 @@ import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
 import {ServicefichaService} from "../service/serviceficha.service";
 import {ServiceempleadoService} from "../service/serviceempleado.service";
 import {listadatos} from "../model/datos";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-personahorarioagenda',
@@ -52,8 +53,8 @@ export class PersonahorarioagendaComponent implements OnInit {
   band2: boolean=false;
   cont: number=0;
   id: number=0;
-  numeros: number[] = [0,1,2,3,4,5,6];
-  dias: string[] = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+  numeros: number[] = [];
+  dias: string[] = [];
   diaSelec: number = 0;
   cont2: number = 0;
   clickBuscar: boolean = false;
@@ -64,94 +65,112 @@ export class PersonahorarioagendaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.servicioPersonaHorarioAgenda.getAgendas().subscribe(
+    this.numeros = [0,1,2,3,4,5,6,7];
+    this.dias = [" ", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+
+    this.servicioPersonaHorarioAgenda.getAgendasP({
+      orderBy: "idPersonaHorarioAgenda",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.agendas = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
-    this.servicioEmpleado.getEmpleados().subscribe(
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.empleados = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
 
 
   }
 
-  async buscar(): Promise<void>{
-    this.clickBuscar = true;
+  async buscar(active: string, direction: string, desdeSort: boolean): Promise<void>{
 
     console.log('LLEGUE A BUSCAR');
     console.log(this.empleadoSelec.idPersona);
     console.log(this.diaSelec);
+    console.log(this.clickBuscar);
 
-    await this.servicioPersonaHorarioAgenda.getAgendasEmpleados(this.empleadoSelec.idPersona).then(
-      entity => {
-        this.AgendaFiltroEmpleado = entity.lista;
+    if(!desdeSort){
+      this.clickBuscar = true;
+    }
+
+    let params;
+    let ejemplo;
+
+    if(this.empleadoSelec.idPersona != undefined && this.diaSelec != 0){
+      ejemplo = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
         },
-        error =>console.log('No se pudo acceder a la lista de Fichas por Categorias')
-    );
+        dia: this.diaSelec - 1
+      }
+    }
 
-    await this.servicioPersonaHorarioAgenda.getAgendasDia(this.diaSelec).then(
-      (entity: listadatos<PersonaHorarioAgenda>) => {
-        this.AgendaFiltroDia = entity.lista;
-      },
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
-    );
 
-    this.actualizarResultado();
-  };
+    if(this.empleadoSelec.idPersona == undefined && this.diaSelec != 0){
+      ejemplo = {
+        dia: this.diaSelec - 1
+      }
+    }
 
-  private actualizarResultado() : void {
-    this.AgendaResultado = [];
-    for (var agenda in this.agendas) {
+    if(this.empleadoSelec.idPersona != undefined && this.diaSelec == 0){
+      ejemplo = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
+        }
+      }
+    }
 
-      if (this.AgendaFiltroEmpleado.length > 0) {
-        this.band2 = true;
-        this.band = false;
-        for (var a1 in this.AgendaFiltroEmpleado) {
-          if (this.agendas[agenda].idPersonaHorarioAgenda == this.AgendaFiltroEmpleado[a1].idPersonaHorarioAgenda) {
-            this.band = true;
-            break;
-          };
-        };
-        if (this.band == false) {
-          continue;
-        };
-        this.band = false;
-      };
-
-      if (this.AgendaFiltroDia.length > 0) {
-        this.band2 = true;
-        this.band = false;
-        for (var a1 in this.AgendaFiltroDia) {
-          if (this.agendas[agenda].idPersonaHorarioAgenda == this.AgendaFiltroDia[a1].idPersonaHorarioAgenda) {
-            this.band = true;
-            break;
-          };
-        };
-        if (this.band == false) {
-          continue;
-        };
+    if(this.empleadoSelec.idPersona == undefined && this.diaSelec == 0 && this.clickBuscar == true){
+      this.mensaje = "Es necesario marcar opciones de busqueda."
+    }else{
+      if(this.clickBuscar){
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+          ejemplo: JSON.stringify(ejemplo)
+        }
+      }else{
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+        }
       }
 
-      if (this.band == true && this.band2 == true) {
-        this.AgendaResultado.push(this.agendas[agenda]);
-      }
-      this.band2 = false;
-      this.band = false;
-    };
-
-    console.log(this.AgendaFiltroEmpleado.length);
-    console.log(this.AgendaFiltroDia.length);
-
-    console.log(this.dias.length) ;
-    console.log(this.AgendaResultado.length);
+      console.log(params);
+      await this.servicioPersonaHorarioAgenda.getAgendasP(params).then(
+        entity => {this.agendas = entity.lista
+          console.log("Resultado Actualziado")},
+        error =>console.log('No se pudo acceder a la lista de Categorias')
+      );
+    }
   }
 
-  limpiar(): void{
-    this.clickBuscar = false;
-    this.AgendaResultado = [];
+  async sortData(sort: Sort): Promise<void> {
+    console.log(sort.active);
+    console.log(sort.direction);
+    this.buscar(sort.active, sort.direction, true);
+  }
+
+  async Limpiar(): Promise<void>{
+    this.clickBuscar = true;
+    await this.servicioPersonaHorarioAgenda.getAgendasP({
+      orderBy: "idPersonaHorarioAgenda",
+      orderDir: "asc",
+      like: "S"
+    }).then(
+      entity => this.agendas = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Categorias')
+    );
   }
 
   /*

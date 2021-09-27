@@ -1,6 +1,5 @@
 Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-  <option>Empleados</option>
-  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+' '+item2.apellido}}</option>
 </select>
 
 Dias: <select name="miselect" [(ngModel)]="diaSelec">

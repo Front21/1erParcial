@@ -16,6 +16,10 @@ export class ServicesubcategoriaService {
     return this.http.get<listadatos<SubCategoria>>(this.api);
   }
 
+  getSubCategoriasP(params: any): Observable<listadatos<SubCategoria>> {
+    return this.http.get<listadatos<SubCategoria>>(this.api, {params: params});
+  }
+
   getSubcategoriasCategoria(idC:number): Observable<listadatos<SubCategoria>> {
     const filtro = {
       idCategoria: {
@@ -24,6 +28,10 @@ export class ServicesubcategoriaService {
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<SubCategoria>>(this.api, {params:{ejemplo}});
+  }
+
+  async getSubcategoriasCategoriaP(params: any): Promise<listadatos<SubCategoria>> {
+    return this.http.get<listadatos<SubCategoria>>(this.api, {params: params}).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
@@ -40,14 +48,14 @@ export class ServicesubcategoriaService {
     return this.http.get<SubCategoria>(this.api+'/'+id);
   }
 
-  putSubcategoria(body: any): Observable<SubCategoria>{
+  async putSubcategoria(body: any): Promise<SubCategoria>{
     console.log(body);
     return this.http.put<SubCategoria>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
 
   async deleteSubcategoria(id: number): Promise<{}>{

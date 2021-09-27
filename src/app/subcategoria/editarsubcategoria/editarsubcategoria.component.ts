@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { SubCategoria } from 'src/app/model/subcategoria';
 import { ServicesubcategoriaService } from 'src/app/service/servicesubcategoria.service';
 
@@ -16,11 +16,12 @@ export class EditarsubcategoriaComponent implements OnInit {
   mensaje: string = "";
 
   constructor(private route: ActivatedRoute,
-    private servicioSubcategoria: ServicesubcategoriaService) { }
+    private servicioSubcategoria: ServicesubcategoriaService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
-      
+
   this.route.queryParams.subscribe(params => {this.id = params['id'];});
   this.servicioSubcategoria.getSubcategoria(this.id).subscribe(
     entity => {this.subcategoria.idTipoProducto = entity.idTipoProducto, this.subcategoria.idCategoria= entity.idCategoria,
@@ -30,15 +31,21 @@ export class EditarsubcategoriaComponent implements OnInit {
 
   }
 
-  editarSubcategoria(): void{
+  async editarSubcategoria(): Promise<void>{
 
       console.log(this.subcategoria.idCategoria.idCategoria);
       console.log(this.subcategoria.descripcion);
-       this.servicioSubcategoria.putSubcategoria({idTipoProducto: this.subcategoria.idTipoProducto,idCategoria:{idCategoria: this.subcategoria.idCategoria.idCategoria},descripcion:this.subcategoria.descripcion}).subscribe(
+       await this.servicioSubcategoria.putSubcategoria({idTipoProducto: this.subcategoria.idTipoProducto,idCategoria:{idCategoria: this.subcategoria.idCategoria.idCategoria},descripcion:this.subcategoria.descripcion}).then(
          () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
-   
-     }
-  
+
+       await this.irsubcategorias();
+  }
+
+
+  async irsubcategorias(): Promise<boolean>{
+    return this.router.navigateByUrl('subcategoria');
+  }
+
 
 
 

@@ -1,6 +1,10 @@
-{{agenda.dia}}
-
 Dia: <textarea ng-model="textarea" class="textarea"  [(ngModel)]="agenda.dia" >{{agenda.dia}}</textarea><br/>
+
+Hora de Apertura: <input [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/>
+Hora de Cierre: <input [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/>
+
+Intervalo en Minutos: <input [(ngModel)]="agenda.intervaloMinutos" type="number" value="{{agenda.intervaloMinutos}}" name="intervaloSelec"><br/>
+
 
 <br/>
 <button (click)="editarAgenda()">Confirmar</button><br/>

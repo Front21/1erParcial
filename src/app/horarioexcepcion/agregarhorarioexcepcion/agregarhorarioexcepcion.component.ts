@@ -37,10 +37,14 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
   constructor( private router: Router, private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService) { }
 
   ngOnInit(): void {
-    
-    this.servicioEmpleado.getEmpleados().subscribe(
+
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S"
+    }).then(
       entity => this.empleados = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
   }
 
@@ -58,7 +62,7 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
     console.log(this.fechaSelecc);
 
 
-    this.ano= this.fechaSelecc.toString().substr(0,4); 
+    this.ano= this.fechaSelecc.toString().substr(0,4);
     this.mes= this.fechaSelecc.toString().substr(5,2);
     this.dia= this.fechaSelecc.toString().substr(8,2);
     this.fechacadenaSelec= this.ano+this.mes+this.dia;
@@ -94,7 +98,7 @@ export class AgregarhorarioexcepcionComponent implements OnInit {
     await this.irHorarioExcepcion();
   }
 
-  
+
   async irHorarioExcepcion(): Promise<boolean>{
     return this.router.navigateByUrl('horarioexcepcion');
   }

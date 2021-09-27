@@ -4,5 +4,6 @@ export class Producto {
 
     idProducto!: number;
     idTipoProducto!: SubCategoria;
-   
+    descripcion!: string;
+
 }

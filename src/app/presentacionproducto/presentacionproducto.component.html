@@ -1,5 +1,5 @@
 
-SubCategoria: <select name="miselect" [(ngModel)]="subCategoriaSelec">
+idTipoProducto: <select name="miselect" [(ngModel)]="subCategoriaSelec">
 
 <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
 </select> <br>
@@ -9,48 +9,27 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
   <option [ngValue]="item1" *ngFor="let item1 of nombres">{{item1}}</option>
 </select>
 <br>
-<button (click)="Buscar()">Buscar</button>
+<button (click)="Buscar('idPresentacionProducto', 'asc', false)">Buscar</button>
 <br/>
 
-  
-<div *ngIf="presentaciondeProductosResultados.length>0; else sinresultado">
-    <table border="1">
-      <tr>
-        <td>idPresentacionProducto</td>
-        <td>idProducto</td>
-        <td>idTipoProducto</td>
-        <td>nombre</td>
-        <td> descripcion</td>
-        <td> precioVenta</td>
+<br>
+<button (click)="Limpiar()">Limpiar</button>
+<br/>
 
 
-      <tr *ngFor="let f of presentaciondeProductosResultados | paginate: { itemsPerPage: 5, currentPage: page }">
-        <td>{{f.idPresentacionProducto}}</td>
-        <td>{{f.idProducto.idProducto}}</td>
-        <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
-        <td>{{f.nombre}}</td>
-        <td>{{f.descripcion}}</td>
-        <td>{{f.existenciaProducto.precioVenta}}</td>
-        
 
-      </tr>
-    </table>
-</div>
- <ng-template #sinresultado>
-    <div *ngIf="clickBuscar==true; else noBuscar">
-      NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
-    </div>
-    <ng-template #noBuscar>
-      total
-  <table border="1">
+<div *ngIf="listaPresentacion.length>0; else sinresultado">
+  total
+  <table  (matSortChange)="sortData($event)" matSortActive="idPresentacionProducto" matSortDirection="asc" matSort>
     <tr>
-      <td>idPresentacionProducto</td>
-      <td>idProducto</td>
-      <td>idTipoProducto</td>
-      <td>nombre</td>
-      <td> descripcion</td>
+      <th mat-sort-header="idPresentacionProducto">idPresentacionProducto</th>
+      <th mat-sort-header="idProducto.idProducto">idProducto</th>
+      <th mat-sort-header="idProducto.idTipoProducto.idTipoProducto">idTipoProducto</th>
+      <th mat-sort-header="nombre">nombre</th>
+      <th mat-sort-header="descripcion"> descripcion</th>
+      <th> Precio Venta</th>
 
-    <tr *ngFor="let f of listaPresentacion | paginate: { itemsPerPage: 5, currentPage: page }">
+    <tr *ngFor="let f of listaPresentacion | paginate: { itemsPerPage: 10, currentPage: page }">
       <td>{{f.idPresentacionProducto}}</td>
       <td>{{f.idProducto.idProducto}}</td>
       <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
@@ -60,7 +39,15 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
 
     </tr>
   </table>
+</div>
+<ng-template #sinresultado>
+  <div *ngIf="clickBuscar == true; else noClickBuscar">
+    No existen resultados para la busqueda.
+  </div>
+  <ng-template #noClickBuscar>
+    No existen subcategorias.
   </ng-template>
+</ng-template>
 
 
 <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

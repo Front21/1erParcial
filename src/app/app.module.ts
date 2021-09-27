@@ -37,18 +37,14 @@ import { EditarservicioComponent } from './servicio/editarservicio/editarservici
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/Table'
-
+import {MatSortModule} from '@angular/material/sort';
 import { DetallesComponent } from './servicio/detalles/detalles.component';
 import { EliminarservicioComponent } from './servicio/eliminarservicio/eliminarservicio.component';
 import { EditardetalleComponent } from './servicio/editardetalle/editardetalle.component';
 import { ReporteresumidoComponent } from './reporte/reporteresumido/reporteresumido.component';
 import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedetallado.component';
-
 import { LoginComponent } from './login/login.component';
 import { PopupComponent } from './popup/popup.component';
-import { MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-import {ModalModule} from 'ng2-modal-module';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 
 
@@ -93,7 +89,7 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 
     LoginComponent,
     PopupComponent
- 
+
 
   ],
   imports: [
@@ -105,16 +101,15 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 
     BrowserAnimationsModule,
     MatTableModule,
-
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     MatTableModule,
-    ModalModule,
-    MatDialog,
-    MatButtonModule
+    MatButtonModule,
+    MatSortModule
 
 
   ],
-  providers: [ServicefichaService,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [ServicefichaService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

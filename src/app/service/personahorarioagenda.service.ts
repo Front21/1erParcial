@@ -5,6 +5,7 @@ import {listadatos} from "../model/datos";
 import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
 import {tap} from "rxjs/operators";
 import {Ficha} from "../model/ficha";
+import {PresentacionProducto} from "../model/presentacionproducto";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class PersonahorarioagendaService {
 
   getAgendas(): Observable<listadatos<PersonaHorarioAgenda>> {
     return this.http.get<listadatos<PersonaHorarioAgenda>>("http://181.123.243.5:8080/stock-pwfe/personaHorarioAgenda");
+  }
+
+  async getAgendasP(paramas: any): Promise<listadatos<PersonaHorarioAgenda>> {
+    return this.http.get<listadatos<PersonaHorarioAgenda>>(this.api, {params: paramas}).toPromise();
   }
 
   async getAgendasEmpleados(idE:number): Promise<listadatos<PersonaHorarioAgenda>> {
@@ -51,14 +56,14 @@ export class PersonahorarioagendaService {
     );
   }
 
-  putAgenda(body: any): Observable<PersonaHorarioAgenda>{
+  async putAgenda(body: any): Promise<PersonaHorarioAgenda>{
     return this.http.put<PersonaHorarioAgenda>(this.api, body,{
       headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
 
 

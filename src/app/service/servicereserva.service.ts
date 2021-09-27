@@ -20,6 +20,10 @@ export class ServicereservaService {
     return this.http.get<listadatos<Reserva>>(this.api);
   }
 
+  async getReservasP(params: any): Promise<listadatos<Reserva>> {
+    return this.http.get<listadatos<Reserva>>(this.api, {params: params}).toPromise();
+  }
+
   async getReservaEmpleados(idP:number): Promise<listadatos<Reserva>> {
     const filtro = {
       idEmpleado: {

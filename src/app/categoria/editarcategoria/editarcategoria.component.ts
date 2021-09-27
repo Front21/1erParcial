@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Categoria } from 'src/app/model/categoria';
 import { ServiceCategoriaService } from 'src/app/service/servicecategoria.service';
 
@@ -13,11 +13,12 @@ export class EditarcategoriaComponent implements OnInit {
   id: number=0;
   categoria: Categoria = new Categoria();
   mensaje: string = "";
-  constructor(private route: ActivatedRoute, private servicioCategoria: ServiceCategoriaService) { }
+  constructor(private route: ActivatedRoute, private servicioCategoria: ServiceCategoriaService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
-    
+
   this.route.queryParams.subscribe(params => {this.id = params['id'];});
   this.servicioCategoria.getCategoria(this.id).subscribe(
     entity => {this.categoria.idCategoria = entity.idCategoria,
@@ -26,12 +27,18 @@ export class EditarcategoriaComponent implements OnInit {
   );
 
   }
-  editarCategoria(): void{
+  async editarCategoria(): Promise<void>{
     console.log(this.categoria.idCategoria );
     console.log(this.categoria.descripcion);
-     this.servicioCategoria.putCategoria({idCategoria:this.categoria.idCategoria,descripcion:this.categoria.descripcion}).subscribe(
+     await this.servicioCategoria.putCategoria({idCategoria:this.categoria.idCategoria,descripcion:this.categoria.descripcion}).then(
        () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
- 
+
+     await this.irListadoCategorias();
+
+   }
+
+   async irListadoCategorias(): Promise<boolean>{
+    return this.router.navigateByUrl('categoria');
    }
 
 

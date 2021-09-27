@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { listadatos } from '../model/datos';
 import { Persona } from '../model/persona';
 import {Ficha} from "../model/ficha";
+import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,10 @@ export class ServiceempleadoService {
     }
     const ejemplo = JSON.stringify(filtro)
     return this.http.get<listadatos<Persona>>(this.api, {params:{ejemplo}});
+  }
+
+  async getEmpleadosP(paramas: any): Promise<listadatos<Persona>> {
+    return this.http.get<listadatos<Persona>>(this.api, {params: paramas}).toPromise();
   }
 
   getEmpleado(id: number): Observable<Persona>{

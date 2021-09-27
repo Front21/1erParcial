@@ -22,10 +22,14 @@ export class AgregarsubcategoriaComponent implements OnInit {
   CategoriaSelec: Categoria = new Categoria();
 
   constructor(private servicioCategoria: ServiceCategoriaService,private serviciosubcategoria: ServicesubcategoriaService,private router: Router) { }
- 
+
 
   ngOnInit(): void {
-    this.servicioCategoria.getCategorias().subscribe(
+    this.servicioCategoria.getCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S"
+    }).subscribe(
       entity => this.categorias= entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
@@ -33,14 +37,14 @@ export class AgregarsubcategoriaComponent implements OnInit {
       entity => this.subcategorias= entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
-    
+
   }
 
   async crearSubCategoria(): Promise<void>{
 
     this.nuevaSubCategoria.idCategoria = this.CategoriaSelec;
     this.nuevaSubCategoria.descripcion = this.descripcionSelec;
-  
+
     await this.serviciosubcategoria.postSubcategorias({idCategoria: this.nuevaSubCategoria.idCategoria, descripcion:  this.nuevaSubCategoria.descripcion}).then(
       () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 

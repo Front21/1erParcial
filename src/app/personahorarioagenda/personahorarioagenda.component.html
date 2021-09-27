@@ -8,25 +8,25 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
       </select><br/>
 
 <br/>
-<button (click)="buscar()">Buscar</button><br/>
+<button (click)="buscar('idPersonaHorarioAgenda', 'asc', false)">Buscar</button><br/>
 <br/>
 <br/>
-<button (click)="limpiar()">Limpiar</button><br/>
+<button (click)="Limpiar()">Limpiar</button><br/>
 <br/>
 
 
-<div *ngIf="AgendaResultado.length>0; else sinresultado">
-  reusultado
-  <table border="1">
+<div *ngIf="agendas.length>0; else sinresultado">
+  agenda
+  <table  (matSortChange)="sortData($event)" matSortActive="idPersonaHorarioAgenda" matSortDirection="asc" matSort>
     <tr>
-      <td>idPersonaHorarioAgenda</td>
-      <td>Dia</td>
-      <td>horaApertura</td>
-      <td>horaCierre</td>
-      <td>idEmpleado</td>
-      <td>Acciones</td>
+      <th mat-sort-header="idPersonaHorarioAgenda">idPersonaHorarioAgenda</th>
+      <th mat-sort-header="dia">Dia</th>
+      <th mat-sort-header="horaApertura">Hora Apertura</th>
+      <th mat-sort-header="horaCierre">Hora Cierre</th>
+      <th mat-sort-header="idEmpleado.nombre">Empleado</th>
+      <th>Acciones</th>
     </tr>
-    <tr *ngFor="let a of AgendaResultado | paginate: { itemsPerPage: 5, currentPage: page }">
+    <tr *ngFor="let a of agendas | paginate: { itemsPerPage: 10, currentPage: page }">
       <td>{{a.idPersonaHorarioAgenda}}</td>
       <div *ngIf="a.dia==0">
         <td>Domingo</td>
@@ -52,70 +52,26 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
       <div *ngIf="a.dia==7">
         <td>Sabado</td>
       </div>
-      <td>{{a.horaAperturaCadena}}</td>
-      <td>{{a.horaCierreCadena}}</td>
-      <td>{{a.idEmpleado.nombre}}</td>
+      <td>{{a.horaAperturaCadena+'hs'}}</td>
+      <td>{{a.horaCierreCadena+'hs'}}</td>
+      <td>{{a.idEmpleado.nombre+' '+a.idEmpleado.apellido}}</td>
       <td><a [routerLink]="['/editarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Editar</a><br>
         <a class="nav-link" [routerLink]="['/eliminarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Eliminar</a></td>
     </tr>
   </table>
 </div>
 <ng-template #sinresultado>
-  <div *ngIf="clickBuscar==true; else noBuscar">
-      NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+  <div *ngIf="clickBuscar == true; else noClickBuscar">
+    No existen resultados para la busqueda.
   </div>
-    <ng-template #noBuscar>
-      agenda
-      <table border="1">
-        <tr>
-          <td>idPersonaHorarioAgenda</td>
-          <td>Dia</td>
-          <td>horaApertura</td>
-          <td>horaCierre</td>
-          <td>idEmpleado</td>
-          <td>Acciones</td>
-        </tr>
-        <tr *ngFor="let a of agendas | paginate: { itemsPerPage: 5, currentPage: page }">
-          <td>{{a.idPersonaHorarioAgenda}}</td>
-          <div *ngIf="a.dia==0">
-            <td>Domingo</td>
-          </div>
-          <div *ngIf="a.dia==1">
-            <td>Lunes</td>
-          </div>
-          <div *ngIf="a.dia==2">
-            <td>Martes</td>
-          </div>
-          <div *ngIf="a.dia==3">
-            <td>Miercoles</td>
-          </div>
-          <div *ngIf="a.dia==4">
-            <td>Jueves</td>
-          </div>
-          <div *ngIf="a.dia==5">
-            <td>Viernes</td>
-          </div>
-          <div *ngIf="a.dia==6">
-            <td>Sabado</td>
-          </div>
-          <div *ngIf="a.dia==7">
-            <td>Sabado</td>
-          </div>
-          <td>{{a.horaAperturaCadena}}</td>
-          <td>{{a.horaCierreCadena}}</td>
-          <td>{{a.idEmpleado.nombre}}</td>
-          <td><a [routerLink]="['/editarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Editar</a><br>
-            <a class="nav-link" [routerLink]="['/eliminarpersonahorarioagenda']" [queryParams]="{ id: a.idPersonaHorarioAgenda}">Eliminar</a></td>
-        </tr>
-      </table>
-    </ng-template>
-
-
+  <ng-template #noClickBuscar>
+    No existen subcategorias.
+  </ng-template>
 </ng-template>
 
 
 <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 
-
-{{clickBuscar}}
-{{AgendaResultado.length}}
+<br/>
+<button [routerLink]="['/agregarpersonahorarioagenda']" >Agregar Agenda</button><br/>
+<br/>
