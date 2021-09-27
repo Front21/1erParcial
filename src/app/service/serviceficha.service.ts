@@ -67,9 +67,9 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api, {params:{ejemplo}});
   }
 
-  getFicha(id: number): Observable<Ficha>{
+  async getFicha(id: number): Promise<Ficha>{
     //this.api = `${this.api}/${id}`;
-    return this.http.get<Ficha>(this.api+"/"+id);
+    return this.http.get<Ficha>(this.api+"/"+id).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });

@@ -6,6 +6,7 @@ import {Servicio} from "../model/servicio";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {tap} from "rxjs/operators";
 import {PersonaHorarioAgenda} from "../model/personaHorarioAgenda";
+import {Detalle} from "../model/detalle";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,17 @@ export class ServiceservicioService {
 
   getServicios(): Observable<listadatos<Servicio>> {
     return this.http.get<listadatos<Servicio>>(this.api);
+  }
+
+  getServiciosDetallados(): Observable<listadatos<Detalle>> {
+    const detalle = "S";
+    return this.http.get<listadatos<Detalle>>(this.api, {params:{detalle}});
+  }
+
+  async getServicioDetalladoEspecifico(filtro: any): Promise<listadatos<Detalle>> {
+    const detalle = "S";
+    const ejemplo = JSON.stringify(filtro);
+    return this.http.get<listadatos<Detalle>>(this.api, {params:{detalle, ejemplo}}).toPromise();
   }
 
   async getServicio(id: number): Promise<Servicio>{
@@ -68,9 +80,13 @@ export class ServiceservicioService {
     return this.http.get<listadatos<Servicio>>(this.api, {params:{ejemplo}}).toPromise();
   }
 
-  getDetalles(id: number): Observable<listadatos<Servicio>> {
+  async getDetalles(id: number): Promise<Detalle[]> {
+    console.log("id "+id);
+    return this.http.get<Detalle[]>(this.api+'/'+id+'/detalle').toPromise();
+  }
 
-    return this.http.get<listadatos<Servicio>>(this.api);
+  async getDetalle(idS: number, idD: number): Promise<Detalle> {
+    return this.http.get<Detalle>(this.api+'/'+idS+'/detalle/'+idD).toPromise();
   }
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
@@ -85,4 +101,31 @@ export class ServiceservicioService {
     ).toPromise();
   }
 
+  async postDetalle(body: any, idS: number): Promise<Detalle>{
+    return this.http.post<Detalle>(this.api+'/'+idS+'/detalle', body,{
+      headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('agregado '+data),
+        error => console.log("error: "+error)
+      )
+    ).toPromise();
+  }
+
+  putServicio(body: any): Observable<Servicio>{
+    return this.http.put<Servicio>(this.api, body,{
+      headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    );
+  }
+
+  async deleteDetalle(idS: number, idD: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+idS+'/detalle/'+idD).toPromise();
+  }
+
+  async deleteServicio(idS: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+idS).toPromise();
+  }
 }

@@ -1,5 +1,4 @@
-Observacion: <textarea ng-model="textarea" class="textarea" readonly>{{servicio.observacion}}</textarea><br/>
-
+FICHA CORRESPONDIENTE AL SERVICIO <br>
 <table border="1">
   <tr>
     <td>idFichaClinica</td>
@@ -19,7 +18,8 @@ Observacion: <textarea ng-model="textarea" class="textarea" readonly>{{servicio.
   </tr>
 </table>
 
------------------DETALLES-------------------------------------
+Observacion: <textarea ng-model="textarea" class="textarea" [(ngModel)]="servicio.observacion">{{servicio.observacion}}</textarea><br/>
 
-
-
+<br/>
+<button (click)="editarServicio()" >Confirmar</button><br/>
+<br/>

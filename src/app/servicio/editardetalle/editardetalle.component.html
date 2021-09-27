@@ -1,0 +1,37 @@
+FICHA CORRESPONDIENTE AL SERVICIO <br>
+<table border="1">
+  <tr>
+    <td>idFichaClinica</td>
+    <td>Fecha Ficha</td>
+    <td>Profesional</td>
+    <td>Cliente</td>
+    <td>Categoria</td>
+    <td>Subcategoria</td>
+  </tr>
+  <tr>
+    <td>{{ficha.idFichaClinica}}</td>
+    <td>{{ficha.fechaHora}}</td>
+    <td>{{ficha.idEmpleado.idPersona}}</td>
+    <td>{{ficha.idCliente.idPersona}}</td>
+    <td>{{ficha.idTipoProducto.idCategoria.idCategoria}}</td>
+    <td>{{ficha.idTipoProducto.idTipoProducto}}</td>
+  </tr>
+</table>
+
+-----------------DETALLE-------------------------------------
+<br>
+
+Tipo de Servicio (Presentacion): <select name="miselect" [(ngModel)]="presentacionSelec" (ngModelChange)="onChangePresentacion($event)">
+  <option [ngValue]="item2" *ngFor="let item2 of presentaciones">{{item2.idPresentacionProducto}}</option>
+</select>
+
+Precio: <input type="number" value="{{precioSelec}}" readonly><br>
+
+Cantidad: <input type="number" value="{{cantidadSelec}}" [(ngModel)]="cantidadSelec"><br>
+
+<br/>
+<button (click)="confirmar()">Agregar Detalle</button><br/>
+<br/>
+
+
+
