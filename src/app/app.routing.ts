@@ -6,7 +6,7 @@ import { LoginComponent } from "./login/login.component";
 
 
 const appRoutes = [
-  { path: "", component: AppComponent, pathMatch: "full" },
-  { path: "login", component: LoginComponent, pathMatch: "full" }
+  { path: "login", component: LoginComponent, redirectTo: 'login',pathMatch: "full" },
+
 ];
 export const routing = RouterModule.forRoot(appRoutes);

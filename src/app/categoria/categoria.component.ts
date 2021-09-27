@@ -6,6 +6,7 @@ import { SubCategoria } from '../model/subcategoria';
 import { ServiceCategoriaService } from '../service/servicecategoria.service';
 import { ServicesubcategoriaService } from '../service/servicesubcategoria.service';
 
+
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',
@@ -45,6 +46,7 @@ export class CategoriaComponent implements OnInit {
   band2: boolean=false;
   cont: number=0;
   public page: number =1;
+
   constructor(private servicioCategoria: ServiceCategoriaService, 
     private serviciosubcategoria: ServicesubcategoriaService,
     ) { }

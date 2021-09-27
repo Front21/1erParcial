@@ -37,11 +37,21 @@ import { EditarservicioComponent } from './servicio/editarservicio/editarservici
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/Table'
+
 import { DetallesComponent } from './servicio/detalles/detalles.component';
 import { EliminarservicioComponent } from './servicio/eliminarservicio/eliminarservicio.component';
 import { EditardetalleComponent } from './servicio/editardetalle/editardetalle.component';
 import { ReporteresumidoComponent } from './reporte/reporteresumido/reporteresumido.component';
 import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedetallado.component';
+
+import { LoginComponent } from './login/login.component';
+import { PopupComponent } from './popup/popup.component';
+import { MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import {ModalModule} from 'ng2-modal-module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
@@ -74,11 +84,17 @@ import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedet
     ServicioComponent,
     AgregarservicioComponent,
     EditarservicioComponent,
+
     DetallesComponent,
     EliminarservicioComponent,
     EditardetalleComponent,
     ReporteresumidoComponent,
     ReportedetalladoComponent,
+
+    LoginComponent,
+    PopupComponent
+ 
+
   ],
   imports: [
     BrowserModule,
@@ -86,11 +102,19 @@ import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedet
     HttpClientModule,
     FormsModule,
     NgxPaginationModule,
+
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+
+    BrowserAnimationsModule, 
+    MatTableModule,
+    ModalModule,
+    MatDialog,
+    MatButtonModule
+
 
   ],
-  providers: [ServicefichaService],
+  providers: [ServicefichaService,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

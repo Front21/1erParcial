@@ -28,15 +28,23 @@ import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva
 import {ServicioComponent} from "./servicio/servicio.component";
 import {AgregarservicioComponent} from "./servicio/agregarservicio/agregarservicio.component";
 import {EditarservicioComponent} from "./servicio/editarservicio/editarservicio.component";
+
 import {DetallesComponent} from "./servicio/detalles/detalles.component";
 import {EliminarservicioComponent} from "./servicio/eliminarservicio/eliminarservicio.component";
 import {EditardetalleComponent} from "./servicio/editardetalle/editardetalle.component";
 import {ReporteresumidoComponent} from "./reporte/reporteresumido/reporteresumido.component";
 import {ReportedetalladoComponent} from "./reporte/reportedetallado/reportedetallado.component";
 
+import { LoginComponent } from './login/login.component';
+
+
 
 
 const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent
+  },
   {
     path:'ficha',
     component:FichaComponent
