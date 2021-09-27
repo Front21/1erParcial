@@ -37,6 +37,13 @@ import { EditarservicioComponent } from './servicio/editarservicio/editarservici
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/Table'
+import { LoginComponent } from './login/login.component';
+import { PopupComponent } from './popup/popup.component';
+import { MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import {ModalModule} from 'ng2-modal-module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -69,6 +76,9 @@ import { MatTableModule } from '@angular/material/Table'
     ServicioComponent,
     AgregarservicioComponent,
     EditarservicioComponent,
+    LoginComponent,
+    PopupComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -77,10 +87,13 @@ import { MatTableModule } from '@angular/material/Table'
     FormsModule,
     NgxPaginationModule,
     BrowserAnimationsModule, 
-    MatTableModule
+    MatTableModule,
+    ModalModule,
+    MatDialog,
+    MatButtonModule
 
   ],
-  providers: [ServicefichaService],
+  providers: [ServicefichaService,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

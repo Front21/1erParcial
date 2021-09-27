@@ -6,7 +6,7 @@ export class Persona {
     email!: string;
     telefono!: string;
     cedula!: number;
-    usuarioLogin!: boolean; 
+    usuarioLogin!: string; 
     soloUsuariosDelSistema!: boolean;
     deuda!: number;
     saldo!: number;

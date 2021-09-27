@@ -28,10 +28,15 @@ import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva
 import {ServicioComponent} from "./servicio/servicio.component";
 import {AgregarservicioComponent} from "./servicio/agregarservicio/agregarservicio.component";
 import {EditarservicioComponent} from "./servicio/editarservicio/editarservicio.component";
+import { LoginComponent } from './login/login.component';
 
 
 
 const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent
+  },
   {
     path:'ficha',
     component:FichaComponent
