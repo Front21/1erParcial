@@ -23,14 +23,12 @@ export class PresentacionproductoComponent implements OnInit {
   presentaciondeProductosResultadosSubCategoria: PresentacionProducto [] = [];
   presentaciondeProductosResultadosNombre: PresentacionProducto [] = [];
   presentaciondeProductosResultados: PresentacionProducto [] = [];
-
-
   nombres: string[]=[];
   nombreSelect: any;
   band: boolean=false;
   band2: boolean=false;
   clickBuscar: boolean = false;
-
+  public page: number =1;
 
 
   constructor(private servicioPresentacionproducto: PresentacionproductoService, private route: ActivatedRoute, private servicioSubCategoria: ServicesubcategoriaService) { }

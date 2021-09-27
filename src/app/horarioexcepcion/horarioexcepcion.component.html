@@ -25,7 +25,7 @@
         <td>Intervalo en Minutos</td>
         <td>Acciones</td>
       </tr>
-      <tr *ngFor="let f of horariosResultado">
+      <tr *ngFor="let f of horariosResultado | paginate: { itemsPerPage: 5, currentPage: page }">
         <td>{{f.idHorarioExcepcion}}</td>
         <td>{{f.fechaCadena}}</td>
         <td>{{f.horaAperturaCadena}}</td>
@@ -51,7 +51,7 @@
         <td>Intervalo en Minutos</td>
         <td>Acciones</td>
       </tr>
-      <tr *ngFor="let c of horarios">
+      <tr *ngFor="let c of horarios | paginate: { itemsPerPage: 5, currentPage: page }">
         <td>{{c.idHorarioExcepcion}}</td>
         <td>{{c.fechaCadena}}</td>
         <td>{{c.horaAperturaCadena}}</td>
@@ -65,7 +65,11 @@
     </table>
   </ng-template>
   
-    
+
+
+<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+
 <br/>
 <button [routerLink]="['/agregarhorarioexcepcion']" >Agregar Horario Excepcion</button><br/>
 <br/>

@@ -34,6 +34,9 @@ import { EliminareservaComponent } from './reserva/eliminareserva/eliminareserva
 import { ServicioComponent } from './servicio/servicio.component';
 import { AgregarservicioComponent } from './servicio/agregarservicio/agregarservicio.component';
 import { EditarservicioComponent } from './servicio/editarservicio/editarservicio.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/Table'
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { EditarservicioComponent } from './servicio/editarservicio/editarservici
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule, 
+    MatTableModule
 
   ],
   providers: [ServicefichaService],

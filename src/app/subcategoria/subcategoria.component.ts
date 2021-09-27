@@ -21,6 +21,8 @@ export class SubcategoriaComponent implements OnInit {
   band2: boolean=false;
   cont: number=0;
   descripcionSelec: string = "";
+  public page: number =1;
+
   constructor(private servicioSubCategoria: ServicesubcategoriaService, 
     private serviciosubcategoria: ServicesubcategoriaService,
     ) { }

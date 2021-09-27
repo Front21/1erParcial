@@ -33,7 +33,8 @@ export class HorarioexcepcionComponent implements OnInit {
   clickBuscar: boolean = false;
   chechFechaDesde: boolean = false;
   chechFechaHasta: boolean = false;
-  
+  public page: number =1;
+
   constructor(private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService,private route: ActivatedRoute ) { }
 
   ngOnInit(): void {

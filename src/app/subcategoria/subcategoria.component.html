@@ -7,7 +7,7 @@
         <td>Descripcion</td>
          <td>Acciones</td>
       </tr>
-      <tr *ngFor="let f of subcategorias">
+      <tr *ngFor="let f of subcategorias | paginate: { itemsPerPage: 5, currentPage: page }">
          <td>{{f.idTipoProducto}}</td>
         <td>{{f.idCategoria.idCategoria}}</td>
         <td>{{f.descripcion}}</td>
@@ -19,6 +19,10 @@
  <ng-template #sinresultado>
     No existen Categorias
   </ng-template>
+
+
+<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
 
 <br/>
 <button [routerLink]="['/agregarsubcategoria']" >Agregar Subcategoria</button><br/>

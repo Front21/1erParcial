@@ -6,7 +6,7 @@
         <td>Descripcion</td>
          <td>Acciones</td>
       </tr>
-      <tr *ngFor="let f of categorias">
+      <tr *ngFor="let f of categorias | paginate: { itemsPerPage: 5, currentPage: page }">
         <td>{{f.idCategoria}}</td>
         <td>{{f.descripcion}}</td>
         <td><a [routerLink]="['/editarcategoria']" [queryParams]="{ id: f.idCategoria}">Editar</a><br>
@@ -17,6 +17,9 @@
  <ng-template #sinresultado>
     No existen Categorias
   </ng-template>
+
+<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
 
 <br/>
 <button [routerLink]="['/agregarcategoria']" >Agregar Categoria</button><br/>

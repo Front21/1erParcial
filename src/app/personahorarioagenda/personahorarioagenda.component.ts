@@ -57,6 +57,7 @@ export class PersonahorarioagendaComponent implements OnInit {
   diaSelec: number = 0;
   cont2: number = 0;
   clickBuscar: boolean = false;
+  public page: number =1;
 
   constructor(private servicioPersonaHorarioAgenda: PersonahorarioagendaService,
               public servicioEmpleado: ServiceempleadoService,

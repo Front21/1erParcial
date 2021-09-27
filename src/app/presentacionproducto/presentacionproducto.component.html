@@ -24,7 +24,7 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
         <td> precioVenta</td>
 
 
-      <tr *ngFor="let f of presentaciondeProductosResultados">
+      <tr *ngFor="let f of presentaciondeProductosResultados | paginate: { itemsPerPage: 5, currentPage: page }">
         <td>{{f.idPresentacionProducto}}</td>
         <td>{{f.idProducto.idProducto}}</td>
         <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
@@ -50,7 +50,7 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       <td>nombre</td>
       <td> descripcion</td>
 
-    <tr *ngFor="let f of listaPresentacion">
+    <tr *ngFor="let f of listaPresentacion | paginate: { itemsPerPage: 5, currentPage: page }">
       <td>{{f.idPresentacionProducto}}</td>
       <td>{{f.idProducto.idProducto}}</td>
       <td>{{f.idProducto.idTipoProducto.idTipoProducto}}</td>
@@ -61,3 +61,6 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
     </tr>
   </table>
   </ng-template>
+
+
+<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

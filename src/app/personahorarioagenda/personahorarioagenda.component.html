@@ -26,7 +26,7 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
       <td>idEmpleado</td>
       <td>Acciones</td>
     </tr>
-    <tr *ngFor="let a of AgendaResultado">
+    <tr *ngFor="let a of AgendaResultado | paginate: { itemsPerPage: 5, currentPage: page }">
       <td>{{a.idPersonaHorarioAgenda}}</td>
       <div *ngIf="a.dia==0">
         <td>Domingo</td>
@@ -75,7 +75,7 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
           <td>idEmpleado</td>
           <td>Acciones</td>
         </tr>
-        <tr *ngFor="let a of agendas">
+        <tr *ngFor="let a of agendas | paginate: { itemsPerPage: 5, currentPage: page }">
           <td>{{a.idPersonaHorarioAgenda}}</td>
           <div *ngIf="a.dia==0">
             <td>Domingo</td>
@@ -112,6 +112,10 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
 
 
 </ng-template>
+
+
+<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
 
 {{clickBuscar}}
 {{AgendaResultado.length}}

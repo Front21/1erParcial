@@ -44,6 +44,7 @@ export class CategoriaComponent implements OnInit {
   band: boolean=false;
   band2: boolean=false;
   cont: number=0;
+  public page: number =1;
   constructor(private servicioCategoria: ServiceCategoriaService, 
     private serviciosubcategoria: ServicesubcategoriaService,
     ) { }
