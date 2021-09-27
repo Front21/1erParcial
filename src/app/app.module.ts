@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FichaComponent } from './ficha/ficha.component';
@@ -24,6 +23,7 @@ import { PacientesComponent } from './pacientes/pacientes.component';
 import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
 import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
 import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminarpaciente.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminar
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
 
   ],
   providers: [ServicefichaService],
