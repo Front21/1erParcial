@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ServiceservicioService} from "../../service/serviceservicio.service";
 import {ServiceCategoriaService} from "../../service/servicecategoria.service";
 import {ServicesubcategoriaService} from "../../service/servicesubcategoria.service";
@@ -10,6 +10,7 @@ import {Servicio} from "../../model/servicio";
 import {SubCategoria} from "../../model/subcategoria";
 import {Persona} from "../../model/persona";
 import {Ficha} from "../../model/ficha";
+import { jsPDF } from  "jspdf"
 
 @Component({
   selector: 'app-reporteresumido',
@@ -199,6 +200,14 @@ export class ReporteresumidoComponent implements OnInit {
     }
   }
 
+  @ViewChild('content', {static: false}) el!: ElementRef;
+  makePDF(){
+    let pdf = new jsPDF('p','pt','a1');
+    pdf.html(this.el.nativeElement,{
+      callback: (pdf)=>{
+        pdf.save("reporte.pdf");
+      }
+    });
+  }
+
 }
-
-

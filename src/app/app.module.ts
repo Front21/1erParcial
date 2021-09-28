@@ -50,6 +50,9 @@ import { PacientesComponent } from './pacientes/pacientes.component';
 import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
 import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
 import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminarpaciente.component';
+import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
+import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
+import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
 
 
 
@@ -97,6 +100,9 @@ import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminar
     AgregarpacienteComponent,
     EditarpacienteComponent,
     EliminarpacienteComponent,
+    EditarpresentacionproductoComponent,
+    EliminarpresentacionproductoComponent,
+    AgregarpresentacionproductoComponent,
 
 
   ],

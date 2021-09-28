@@ -28,6 +28,8 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       <th mat-sort-header="nombre">nombre</th>
       <th mat-sort-header="descripcion"> descripcion</th>
       <th> Precio Venta</th>
+      <th> Acciones</th>
+
 
     <tr *ngFor="let f of listaPresentacion | paginate: { itemsPerPage: 10, currentPage: page }">
       <td>{{f.idPresentacionProducto}}</td>
@@ -36,6 +38,10 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
       <td>{{f.nombre}}</td>
       <td>{{f.descripcion}}</td>
       <td>{{f.existenciaProducto.precioVenta}}</td>
+      <td><a [routerLink]="['/editarpresentacionproducto']" [queryParams]="{ id: f.idPresentacionProducto, precioVenta: f.existenciaProducto.precioVenta}">Editar</a><br>
+      <a class="nav-link" [routerLink]="['/eliminarpresentacionproducto']" [queryParams]="{ id: f.idPresentacionProducto}">Eliminar</a></td>
+      
+
 
     </tr>
   </table>
@@ -51,3 +57,7 @@ Nombre: <select name="miselect" [(ngModel)]="nombreSelect">
 
 
 <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+<br/>
+<button [routerLink]="['/agregarpresentacionproducto']" >Agregar Presentacion Producto</button><br/>
+<br/>

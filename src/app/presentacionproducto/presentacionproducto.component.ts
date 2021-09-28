@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SubCategoria } from '../model/subcategoria';
 import { ServicesubcategoriaService } from '../service/servicesubcategoria.service';
 import {Sort} from "@angular/material/sort";
+import { JsonpClientBackend } from '@angular/common/http';
 
 
 @Component({
@@ -35,10 +36,19 @@ export class PresentacionproductoComponent implements OnInit {
   constructor(private servicioPresentacionproducto: PresentacionproductoService, private route: ActivatedRoute, private servicioSubCategoria: ServicesubcategoriaService) { }
 
   async ngOnInit(): Promise<void>{
+    const filtro = {
+      idProducto: {
+        idTipoProducto : {
+          idTipoProducto: 38
+        }
+        
+      }
+    }
       await this.servicioPresentacionproducto.getPresentacionProductosP({
         orderBy: "idPresentacionProducto",
         orderDir: "asc",
-        like: "S"
+        like: "S",
+        ejemplo: JSON.stringify(filtro)
       }).then(
         entity => this.listaPresentacion = entity.lista,
         error =>console.log('No se pudo acceder a la lista de Categorias')
@@ -189,5 +199,4 @@ export class PresentacionproductoComponent implements OnInit {
 
 
 }
-
 

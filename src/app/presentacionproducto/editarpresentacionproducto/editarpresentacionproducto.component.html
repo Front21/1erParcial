@@ -1,0 +1,18 @@
+ 
+Codigo: <input [value] = "preproducto.codigo" type="number" name="codigoSelec"  [(ngModel)]="preproducto.codigo" ><br/>
+
+Flag Servicio: <select name="miselect" [(ngModel)]="flagServicioSelec">
+     <option >S</option>
+     <option >N</option>
+     </select><br/><br/>
+
+
+Nombre: <textarea name="nombreSelec"  [(ngModel)]="preproducto.nombre" >{{preproducto.nombre}}</textarea><br/> 
+
+
+Precio de Venta: <input value = "{{precioVenta}}" type="number" name="precioVentaSelec"  [(ngModel)]="precioVenta" ><br/>
+
+
+   <br/>
+   <button (click)="editarpresentacionproducto()">Confirmar</button><br/>
+   <br/>

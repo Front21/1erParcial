@@ -1,5 +1,5 @@
 Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
-Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
+Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br />
 
 Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
   <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
@@ -8,39 +8,15 @@ Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
 Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
   <option>Clientes</option>
   <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
-</select><br/>
+</select><br />
 
-<br/>
-<button (click)="buscar()">Buscar</button><br/>
-<br/>
+<br />
+<button (click)="buscar()">Buscar</button><br />
+<br />
+<div id="content" #content>
 
-<div *ngIf="serviciosResultado.length>0; else sinresultado2">
-  reusultado
-  <table border="1">
-    <tr>
-      <td>idServicio</td>
-      <td>Fecha Servicio</td>
-      <td>Fisioterapeuta</td>
-      <td>Cliente</td>
-      <td>Presupuesto</td>
-      <td>Subcategoria</td>
-    </tr>
-    <tr *ngFor="let a of serviciosResultado">
-      <td>{{a.idServicio}}</td>
-      <td>{{a.fechaHora}}</td>
-      <td>{{a.idFichaClinica.idEmpleado.nombre+" "+a.idFichaClinica.idEmpleado.apellido}}</td>
-      <td>{{a.idFichaClinica.idCliente.nombre+" "+a.idFichaClinica.idCliente.apellido}}</td>
-      <td>{{a.presupuesto}}</td>
-      <td>{{a.idFichaClinica.idTipoProducto.idTipoProducto}}</td>
-    </tr>
-  </table>
-</div>
-<ng-template #sinresultado2>
-  <div *ngIf="clickBuscar==true; else noBuscar">
-    NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
-  </div>
-  <ng-template #noBuscar>
-    total
+  <div *ngIf="serviciosResultado.length>0; else sinresultado2">
+    reusultado
     <table border="1">
       <tr>
         <td>idServicio</td>
@@ -50,17 +26,45 @@ Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
         <td>Presupuesto</td>
         <td>Subcategoria</td>
       </tr>
-      <tr *ngFor="let a of servicios">
+      <tr *ngFor="let a of serviciosResultado">
         <td>{{a.idServicio}}</td>
         <td>{{a.fechaHora}}</td>
         <td>{{a.idFichaClinica.idEmpleado.nombre+" "+a.idFichaClinica.idEmpleado.apellido}}</td>
         <td>{{a.idFichaClinica.idCliente.nombre+" "+a.idFichaClinica.idCliente.apellido}}</td>
         <td>{{a.presupuesto}}</td>
-        <td>{{a.idFichaClinica.idTipoProducto.descripcion}}</td>
+        <td>{{a.idFichaClinica.idTipoProducto.idTipoProducto}}</td>
       </tr>
     </table>
+  </div>
+  <ng-template #sinresultado2>
+    <div *ngIf="clickBuscar==true; else noBuscar">
+      NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+    </div>
+    <ng-template #noBuscar>
+      total
+      <table border="1">
+        <tr>
+          <td>idServicio</td>
+          <td>Fecha Servicio</td>
+          <td>Fisioterapeuta</td>
+          <td>Cliente</td>
+          <td>Presupuesto</td>
+          <td>Subcategoria</td>
+        </tr>
+        <tr *ngFor="let a of servicios">
+          <td>{{a.idServicio}}</td>
+          <td>{{a.fechaHora}}</td>
+          <td>{{a.idFichaClinica.idEmpleado.nombre+" "+a.idFichaClinica.idEmpleado.apellido}}</td>
+          <td>{{a.idFichaClinica.idCliente.nombre+" "+a.idFichaClinica.idCliente.apellido}}</td>
+          <td>{{a.presupuesto}}</td>
+          <td>{{a.idFichaClinica.idTipoProducto.descripcion}}</td>
+        </tr>
+      </table>
+    </ng-template>
+
+
   </ng-template>
-
-
-</ng-template>
-
+</div>
+<br />
+<button (click)="makePDF()">Exportar</button><br />
+<br/>
