@@ -1,14 +1,4 @@
-<div class="row">
-    <div class="col">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Nombre</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Action - 1</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else is here</button>
-        </div>
-      </div>
-    </div>
+
   Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
       <option [ngValue]="item2" *ngFor="let item2 of listaPacientes">{{item2.nombre}}</option>
       </select>
@@ -78,22 +68,3 @@
           </ng-template>
           
         </ng-template>
-  
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Country</th>
-            <th scope="col">Area</th>
-            <th scope="col">Population</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Hola</td>
-            <td>Hola</td>
-            <td>Hola</td>
-            <td>Hola</td>
-          </tr>
-          </tbody>
-        </table>
