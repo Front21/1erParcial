@@ -1,1 +1,13 @@
-<p>editarreserva works!</p>
+Asistio a la Reserva: <select name="miselect" [(ngModel)]="asistioSelec">
+  <option> S </option>
+  <option> N </option>
+</select><br>
+
+Observacion: <input [(ngModel)]="observacionSelec" value="{{reserva.observacion}}" type="string" id="NombrePaciente" name="NombrePaciente"><br/>
+
+
+<br/>
+<button (click)="editarReserva(reserva.idReserva, asistioSelec, observacionSelec)">Editar Reserva</button><br/>
+<br/>
+{{asistioSelec}}
+{{observacionSelec}}

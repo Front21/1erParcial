@@ -7,6 +7,7 @@ import { ServiceclienteService } from '../service/servicecliente.service';
 import { ServiceempleadoService } from '../service/serviceempleado.service';
 import { ServicereservaService } from '../service/servicereserva.service';
 import {Sort} from "@angular/material/sort";
+import {ReservaFull} from "../model/reservaFull";
 
 
 @Component({
@@ -294,18 +295,10 @@ export class ReservaComponent implements OnInit {
   }
 
 
-  async asistioReserva(rese: Reserva, asistioSelec: string): Promise<void>{
-    console.log(rese.idReserva)
-    if (asistioSelec =='S'){
-      this.asistio= 'S';
-      this.servicioReserva.putReservaCancelar({idReserva:rese.idReserva, observacion:rese.observacion, flagAsistio: this.asistio}).then(
+  async editarReserva(id: number, asistioSelec: string, obervacionSelec: string): Promise<void>{
+      this.servicioReserva.putReserva(
+        {idReserva:id, observacion:obervacionSelec, flagAsistio: asistioSelec}).then(
       () => {this.mensaje='Asistio exitosamente'},error => console.log("error: "+error));
-    }
-    if (asistioSelec =='N'){
-      this.asistio= 'N';
-      this.servicioReserva.putReservaCancelar({idReserva:rese.idReserva, observacion:rese.observacion, flagAsistio: this.asistio}).then(
-      () => {this.mensaje='No Asistio exitosamente'},error => console.log("error: "+error));
-    }
   }
 
 
