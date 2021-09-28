@@ -6,6 +6,7 @@ import {Persona} from "../../model/persona";
 import {ServiceclienteService} from "../../service/servicecliente.service";
 import {ServiceservicioService} from "../../service/serviceservicio.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-agregarservicio',
@@ -65,70 +66,87 @@ export class AgregarservicioComponent implements OnInit {
     );
   }
 
-  async buscar(): Promise<void>{
+  async buscar(active: string, direction: string, desdeSort: boolean): Promise<void>{
+    let filtro;
+    let param;
+    if(!desdeSort){
+      this.clickBuscar = true;
+    }
 
-    this.clickBuscar = true;
-    if(this.empleadoSelec.idPersona != undefined) {
-      await this.servicioFicha.getFichasEmpleados(this.empleadoSelec.idPersona).then(
-        entity => this.FichaFiltroEmpleado = entity.lista,
-        error => console.log('No se pudo acceder a la lista de Fichas por Empleados'),
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona != undefined) {
+      filtro = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
+        },
+        idCliente: {
+          idPersona: this.clienteSelec.idPersona
+        }
+      }
+    }
+    if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona != undefined) {
+      filtro = {
+        idCliente: {
+          idPersona: this.clienteSelec.idPersona
+        }
+      }
+    }
+
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona == undefined) {
+      filtro = {
+        idEmpleado: {
+          idPersona: this.empleadoSelec.idPersona
+        }
+      }
+    }
+
+    if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona == undefined &&
+      this.clickBuscar == true){
+      this.mensaje = "Es necesario marcar opciones de filtro";
+    }else{
+      if(this.clickBuscar){
+        param = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+          ejemplo: JSON.stringify(filtro)
+        }
+      }else{
+        param = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+        }
+      }
+
+      console.log(param);
+      await this.servicioFicha.getFichasP(param).then(
+        entity => {this.fichas = entity.lista
+          console.log("Resultado Actualziado")},
+        error =>console.log('No se pudo acceder a la lista de Categorias')
       );
     }
 
-    if(this.clienteSelec.idPersona != undefined) {
-      await this.servicioFicha.getFichasClientes(this.clienteSelec.idPersona).then(
-        entity => this.FichaFiltroCliente = entity.lista,
-        error => console.log('No se pudo acceder a la lista de Fichas por Fechas'),
-      );
-    }
 
-    this.FichaResultado=[];
-    this.actualizarResultadoFiltro();
   }
 
-  actualizarResultadoFiltro(): void{
-    for (var ficha in this.fichas) {
-      this.band2 = false; //criterio: asegura que todas las listas no hayan sido vacias por no seleccionar nada
-      if(this.FichaFiltroEmpleado.length>0){
-        this.band2=true;
-        this.band=false; //criterio si no se encuentra en una lista cargada, se debe rechazar
-        for (var f1 in this.FichaFiltroEmpleado){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroEmpleado[f1].idFichaClinica){
-            this.band=true;
-            break;
-          }
-        }
-        if(this.band==false){
-          continue;
-        }
-      }else{
-        if(this.empleadoSelec.idPersona != 0 && this.empleadoSelec.idPersona != undefined){
-          continue;
-        }
-      }
 
-      if(this.FichaFiltroCliente.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroCliente){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroCliente[f1].idFichaClinica){
-            this.band=true;
-            break;
-          }
-        }
-        if(this.band==false){
-          continue;
-        }
-      }else{
-        if(this.clienteSelec.idPersona != 0 && this.clienteSelec.idPersona != undefined){
-          continue;
-        }
-      }
-
-      if(this.band2==true){
-        this.FichaResultado.push(this.fichas[ficha]);
-      }
+  async limpiar(): Promise<void>{
+    this.clickBuscar = false;
+    const param = {
+      orderBy: "idFichaClinica",
+      orderDir: "asc",
+      like: "S"
     }
+    this.servicioFicha.getFichasP(param).then(
+      entity => this.fichas = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de SubCategorias')
+    );
+  }
+
+  async sortData(sort: Sort): Promise<void> {
+    console.log(sort.active);
+    console.log(sort.direction);
+    this.buscar(sort.active, sort.direction, true);
   }
 
   async crearServicio(): Promise<void>{

@@ -1,14 +1,14 @@
 
   Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
-      <option [ngValue]="item2" *ngFor="let item2 of listaPacientes">{{item2.nombre}}</option>
+      <option [ngValue]="item2" *ngFor="let item2 of listaFull">{{item2.nombre}}</option>
       </select>
 
       Apellido: <select name="miselect" [(ngModel)]="pacienteApellidoSelec">
-      <option [ngValue]="item3" *ngFor="let item3 of listaPacientes">{{item3.apellido}}</option>
+      <option [ngValue]="item3" *ngFor="let item3 of listaFull">{{item3.apellido}}</option>
       </select><br/>
 
       <br/>
-        <button (click)="buscar()">Buscar</button><br/>
+        <button (click)="buscar('idPersona', 'asc', false)">Buscar</button><br/>
       <br/>
       <br/>
         <button (click)="limpiar()">Limpiar lista</button><br/>
@@ -16,57 +16,35 @@
       <br/>
       <button [routerLink]="['/agregarpaciente']" >Agregar Paciente</button><br/>
       <br/>
-      <div *ngIf="PacienteResultado.length>0; else sinresultado">
-          <table border="1">
-            <tr>
-              <td>idPaciente</td>
-              <td>nombre</td>
-              <td>apellido</td>
-              <td>Acciones</td>
-            </tr>
-            <tr *ngFor="let f of PacienteResultado">
-              <td>{{f.idPersona}}</td>
-              <td>{{f.nombre}}</td>
-              <td>{{f.apellido}}</td>
-              <td>
-                <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: f.idPersona}" >
-                  Editar Paciente
-                </a><br/>
-                <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: f.idPersona}" >
-                  Eliminar Paciente
-                </a>
-              </td>
-            </tr>
-          </table>
+      <div *ngIf="listaPacientes.length>0; else sinresultado">
+        <table  (matSortChange)="sortData($event)" matSortActive="idPersona" matSortDirection="asc" matSort>
+          <tr>
+            <th mat-sort-header="idPersona">idPersona</th>
+            <th mat-sort-header="nombre">Nombre</th>
+            <th mat-sort-header="apellido">Apellido</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let c of listaPacientes">
+            <td>{{c.idPersona}}</td>
+            <td>{{c.nombre}}</td>
+            <td>{{c.apellido}}</td>
+            <td>
+              <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: c.idPersona}" >
+                Editar Paciente
+              </a><br/>
+              <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: c.idPersona}" >
+                Eliminar Paciente
+              </a>
+            </td>
+          </tr>
+        </table>
       </div>
-        <ng-template #sinresultado>
-          <div *ngIf="clicbuscar==true; else nobuscar">
-            No existe resultado para esa búsqueda.
-          </div>
-          <ng-template #nobuscar>
-            <table border="1">
-              <tr>
-                <td>idPersona</td>
-                <td>nombre</td>
-                <td>apellido</td>
-                <td>Acciones</td>
-              </tr>
-              <tr *ngFor="let c of listaPacientes">
-                <td>{{c.idPersona}}</td>
-                <td>{{c.nombre}}</td>
-                <td>{{c.apellido}}</td>
-                <td>
-                  <a [routerLink]="['/editarpaciente']"  [queryParams]="{ id: c.idPersona}" >
-                    Editar Paciente
-                  </a><br/>
-                  <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: c.idPersona}" >
-                    Eliminar Paciente
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </ng-template>
-
-        </ng-template>
-
+  <ng-template #sinresultado>
+    <div *ngIf="clicbuscar == true; else noClickBuscar">
+      No existen resultados para la busqueda.
+    </div>
+    <ng-template #noClickBuscar>
+      No existen subcategorias.
+    </ng-template>
+  </ng-template>
 

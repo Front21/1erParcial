@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Paciente } from '../model/paciente';
 import { Persona } from '../model/persona';
 import { ServicepacientesService } from '../service/servicepacientes.service';
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-pacientes',
@@ -20,17 +21,38 @@ export class PacientesComponent implements OnInit {
   band: boolean = false;
   band2: boolean = false;
   clicbuscar: boolean = false;
+  mensaje: string = "";
+  nombres: string[] = [];
+  apellidos: string[] = [];
+  listaFull: Persona[] = [];
   constructor(private servicioPaciente:ServicepacientesService) { }
-  
-  ngOnInit(): void {
-    this.servicioPaciente.getPaciente().subscribe(
+
+  async ngOnInit(): Promise<void> {
+    await this.servicioPaciente.getPacienteFiltro({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.listaPacientes = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Fichas')
     );
+    this.listaFull = this.listaPacientes;
+    for (var nombre in this.listaPacientes){
+        this.nombres[nombre]=this.listaPacientes[nombre].nombre;
+    }
+    for (var apellido in this.listaPacientes){
+      this.apellidos[apellido]=this.listaPacientes[apellido].apellido;
+    }
+
   }
-  async buscar(): Promise<void>{
+  async buscar(active: string, direction: string, desdeSort: boolean): Promise<void>{
     let filtro;
-    this.clicbuscar = true;
+    let params;
+
+    if(!desdeSort){
+      this.clicbuscar = true;
+    }
+
     if (this.pacienteNombreSelec.idPersona != undefined && this.pacienteApellidoSelec.idPersona != undefined){
       filtro = {
         nombre : this.pacienteNombreSelec.nombre,
@@ -46,21 +68,54 @@ export class PacientesComponent implements OnInit {
       filtro = {
         apellido: this.pacienteApellidoSelec.apellido
       }
-    } 
-    await this.servicioPaciente.getPacienteFiltro(filtro).then(
-      entity => this.PacienteResultado = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'), 
-    );
-    console.log("lenght"+this.PacienteResultado.length);
-    console.log("nombre"+this.pacienteNombreSelec.idPersona);
-    console.log("apellido"+this.pacienteApellidoSelec.idPersona);
-    
-  };
+    }
+    if (this.pacienteNombreSelec.idPersona == undefined && this.pacienteApellidoSelec.idPersona == undefined
+    && this.clicbuscar == true){
+      this.mensaje = "Selecciones opciones de busqueda."
+    }else {
+      if (this.clicbuscar) {
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+          ejemplo: JSON.stringify(filtro)
+        }
+      } else {
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+        }
+      }
+
+      await this.servicioPaciente.getPacienteFiltro(params).then(
+        entity => this.listaPacientes = entity.lista,
+        error => console.log('No se pudo acceder a la lista de Fichas por Categorias'),
+      );
+      console.log("lenght" + this.PacienteResultado.length);
+      console.log("nombre" + this.pacienteNombreSelec.idPersona);
+      console.log("apellido" + this.pacienteApellidoSelec.idPersona);
+
+    }
+  }
   limpiar(): void{
     this.clicbuscar = false;
-    this.PacienteResultado = [];
+    this.servicioPaciente.getPacienteFiltro({
+      orderBy: "idPersona",
+      orderDir: "asc",
+      like: "S",
+    }).then(
+      entity => this.listaPacientes = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Fichas')
+    );
   }
-  
+
+  async sortData(sort: Sort): Promise<void> {
+    console.log(sort.active);
+    console.log(sort.direction);
+    this.buscar(sort.active, sort.direction, true);
+  }
+
 }
 
 

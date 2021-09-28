@@ -39,6 +39,10 @@ import { LoginComponent } from './login/login.component';
 import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
 import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
 import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
+import {PacientesComponent} from "./pacientes/pacientes.component";
+import {AgregarpacienteComponent} from "./pacientes/agregarpaciente/agregarpaciente.component";
+import {EditarpacienteComponent} from "./pacientes/editarpaciente/editarpaciente.component";
+import {EliminarpacienteComponent} from "./pacientes/eliminarpaciente/eliminarpaciente.component";
 
 
 
@@ -157,6 +161,18 @@ const routes: Routes = [
   },
   {path:'reportedetallado',
     component:ReportedetalladoComponent
+  },
+  {path:'paciente',
+    component:PacientesComponent
+  },
+  {path:'agregarpaciente',
+    component:AgregarpacienteComponent
+  },
+  {path:'editarpaciente',
+    component:EditarpacienteComponent
+  },
+  {path:'eliminarpaciente',
+    component:EliminarpacienteComponent
   },
   /**  {
       //path:'nuevopais',

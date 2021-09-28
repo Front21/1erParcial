@@ -4,70 +4,47 @@ Observacion: <textarea ng-model="textarea" class="textarea"  [(ngModel)]="observ
 <br/>
 <br/>
 Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+" "+item2.apellido}}</option>
 </select>
 
 Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
   <option>Clientes</option>
-  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona+" "+item3.apellido}}</option>
 </select><br/>
 
 <br/>
-<button (click)="buscar()">Buscar Fichas</button><br/>
+<button (click)="buscar('idFichaClinica', 'asc', false)">Buscar Fichas</button><br/>
 <br/>
 
-<div *ngIf="FichaResultado.length>0; else sinresultado2">
-  reusultado
-  <table border="1">
+<div *ngIf="fichas.length>0; else sinresultado">
+  <table  (matSortChange)="sortData($event)" matSortActive="idFichaClinica" matSortDirection="asc" matSort>
     <tr>
-      <td>idFichaClinica</td>
-      <td>Fecha Ficha</td>
-      <td>Profesional</td>
-      <td>Cliente</td>
-      <td>Categoria</td>
-      <td>Subcategoria</td>
-      <td>Acciones</td>
+      <th mat-sort-header="idFichaClinica">idFichaClinica</th>
+      <th mat-sort-header="fechaHora">Fecha Ficha</th>
+      <th mat-sort-header="idEmpleado.nombre">Profesional</th>
+      <th mat-sort-header="idCliente.nombre">Cliente</th>
+      <th>Categoria</th>
+      <th>Subcategoria</th>
+      <th>Acciones</th>
     </tr>
-    <tr *ngFor="let a of FichaResultado">
+    <tr *ngFor="let a of fichas">
       <td>{{a.idFichaClinica}}</td>
       <td>{{a.fechaHora}}</td>
-      <td>{{a.idEmpleado.idPersona}}</td>
-      <td>{{a.idCliente.idPersona}}</td>
-      <td>{{a.idTipoProducto.idCategoria.idCategoria}}</td>
-      <td>{{a.idTipoProducto.idTipoProducto}}</td>
+      <td>{{a.idEmpleado.nombre+" "+a.idEmpleado.apellido}}</td>
+      <td>{{a.idCliente.nombre+" "+a.idCliente.apellido}}</td>
+      <td>{{a.idTipoProducto.idCategoria.descripcion}}</td>
+      <td>{{a.idTipoProducto.descripcion}}</td>
       <td><input type="radio" value="{{a.idFichaClinica}}" name="gender" [(ngModel)]="fichaSelec" ></td>
     </tr>
   </table>
 </div>
-<ng-template #sinresultado2>
-  <div *ngIf="clickBuscar==true; else noBuscar">
-    NO EXISTEN RESULTADOS PARA LA BUSQUEDA.
+<ng-template #sinresultado>
+  <div *ngIf="clickBuscar == true; else noClickBuscar">
+    No existen resultados para la busqueda.
   </div>
-  <ng-template #noBuscar>
-    total
-    <table border="1">
-      <tr>
-        <td>idFichaClinica</td>
-        <td>Fecha Ficha</td>
-        <td>Profesional</td>
-        <td>Cliente</td>
-        <td>Categoria</td>
-        <td>Subcategoria</td>
-        <td>Acciones</td>
-      </tr>
-      <tr *ngFor="let a of fichas">
-        <td>{{a.idFichaClinica}}</td>
-        <td>{{a.fechaHora}}</td>
-        <td>{{a.idEmpleado.idPersona}}</td>
-        <td>{{a.idCliente.idPersona}}</td>
-        <td>{{a.idTipoProducto.idCategoria.idCategoria}}</td>
-        <td>{{a.idTipoProducto.idTipoProducto}}</td>
-        <td><input type="radio" value="{{a.idFichaClinica}}" name="gender" [(ngModel)]="fichaSelec" ></td>
-      </tr>
-    </table>
+  <ng-template #noClickBuscar>
+    No existen fichas.
   </ng-template>
-
-
 </ng-template>
 
 <br/>

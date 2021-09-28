@@ -40,7 +40,7 @@ export class EliminarpacienteComponent implements OnInit {
   }
 
   async irListadoFicha(): Promise<boolean>{
-    return this.router.navigateByUrl('pacientes');
+    return this.router.navigateByUrl('paciente');
   }
 
 
@@ -48,6 +48,6 @@ export class EliminarpacienteComponent implements OnInit {
     await this.servicioPaciente.eliminarPaciente(this.id).then(
       () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
   }
-    
+
 }
 

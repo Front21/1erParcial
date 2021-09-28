@@ -19,9 +19,8 @@ export class ServicepacientesService {
   getPaciente(): Observable<listadatos<Persona>> {
     return this.http.get<listadatos<Persona>>(this.api);
   }
-  async getPacienteFiltro(parametro:any): Promise<listadatos<Persona>> {
-    const ejemplo = JSON.stringify(parametro)
-    return this.http.get<listadatos<Persona>>(this.api, {params:{ejemplo}}).toPromise();
+  async getPacienteFiltro(params:any): Promise<listadatos<Persona>> {
+    return this.http.get<listadatos<Persona>>(this.api, {params:params}).toPromise();
   }
   async getPacienteEditar(id:number): Promise<Persona> {
     return this.http.get<Persona>(this.api+"/"+id).toPromise();
@@ -44,8 +43,8 @@ export class ServicepacientesService {
     ).toPromise();
   }
   async eliminarPaciente(idPersona: number): Promise<{}>{
-   
-    
+
+
     return this.http.delete(this.api+"/"+idPersona).toPromise();
   }
 }

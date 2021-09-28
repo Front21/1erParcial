@@ -39,6 +39,7 @@ Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)
       <th>Cliente</th>
       <th>Categoria</th>
       <th>Subcategoria</th>
+      <th>Observacion</th>
       <th>Acciones</th>
     </tr>
     <tr *ngFor="let a of servicios">
@@ -50,10 +51,9 @@ Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)
       <td>{{a.idFichaClinica.idCliente.nombre+" "+a.idFichaClinica.idCliente.apellido}}</td>
       <td>{{a.idFichaClinica.idTipoProducto.idCategoria.descripcion}}</td>
       <td>{{a.idFichaClinica.idTipoProducto.descripcion}}</td>
+      <td>{{a.observacion}}</td>
       <td><a [routerLink]="['/detalles']" [queryParams]="{ id: a.idServicio}">Administrar Detalles</a><br>
-        <a [routerLink]="['/editarservicio']" [queryParams]="{ idServicio: a.idServicio}">Editar Observacion</a><br>
-        <a [routerLink]="['/eliminarservicio']" [queryParams]="{ id: a.idServicio}">Eliminar</a></td>
-    </tr>
+      </td></tr>
   </table>
 </div>
 <ng-template #sinresultado>

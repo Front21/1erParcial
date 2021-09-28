@@ -20,16 +20,8 @@ FICHA CORRESPONDIENTE AL SERVICIO <br>
 
 -----------------DETALLES-------------------------------------
 <br>
-Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
-  <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.idCategoria}}</option>
-</select>
-
-SubCategorias: <select name="miselect" [(ngModel)]="subCategoriaSelec" (ngModelChange)="onChangeSubCategoria($event)">
-  <option [ngValue]="item2" *ngFor="let item2 of subcategorias">{{item2.idTipoProducto}}</option>
-</select><br><br>
-
 Tipo de Servicio (Presentacion): <select name="miselect" [(ngModel)]="presentacionSelec" (ngModelChange)="onChangePresentacion($event)">
-  <option [ngValue]="item2" *ngFor="let item2 of presentaciones">{{item2.idPresentacionProducto}}</option>
+  <option [ngValue]="item2" *ngFor="let item2 of presentaciones">{{item2.nombre}}</option>
 </select>
 
 Precio: <input type="number" value="{{precioSelec}}" readonly><br>
@@ -55,8 +47,7 @@ Cantidad: <input type="number" placeholder="cantidad" [(ngModel)]="cantidadSelec
       <td>{{d.idPresentacionProducto.existenciaProducto.precioVenta}}</td>
       <td>{{d.cantidad}}</td>
       <td>{{d.idPresentacionProducto.existenciaProducto.precioVenta * d.cantidad}}</td>
-      <td><a [routerLink]="['/editardetalle']" [queryParams]="{ idServicio: servicio.idServicio, idDetalle: d.idServicioDetalle}">Editar</a><br>
-          <button (click)="eliminarDetalle(d.idServicioDetalle)">Eliminar</button><br>
+      <td><button (click)="eliminarDetalle(d.idServicioDetalle)">Eliminar</button><br>
           </td>
     </tr>
   </table>

@@ -47,14 +47,14 @@ export class EditarservicioComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.route.queryParams.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['idServicio'];
     });
+
+    console.log(this.id);
 
     await this.servicioServicio.getServicio(this.id).then(
       entity => {
-        this.servicio.idServicio = entity.idServicio,
-          this.servicio.idFichaClinica = entity.idFichaClinica,
-          this.servicio.observacion = entity.observacion
+        this.servicio = entity;
       },
       error => console.log('No se pudo acceder al servicio')
     );
@@ -66,14 +66,7 @@ export class EditarservicioComponent implements OnInit {
 
     await this.servicioFicha.getFicha(this.servicio.idFichaClinica.idFichaClinica).then(
       entity => {
-        this.ficha.idFichaClinica = entity.idFichaClinica,
-          this.ficha.fechaHora = entity.fechaHora,
-          this.ficha.motivoConsulta = entity.motivoConsulta,
-          this.ficha.diagnostico = entity.diagnostico,
-          this.ficha.observacion = entity.observacion,
-          this.ficha.idEmpleado.idPersona = entity.idEmpleado.idPersona,
-          this.ficha.idCliente.idPersona = entity.idCliente.idPersona,
-          this.ficha.idTipoProducto = entity.idTipoProducto
+        this.ficha = entity;
       },
       error => console.log('No se pudo acceder al servicio')
     );

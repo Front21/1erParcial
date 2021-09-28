@@ -47,9 +47,7 @@ export class DetallesComponent implements OnInit {
     this.route.queryParams.subscribe(params => {this.id = params['id'];});
 
     await this.servicioServicio.getServicio(this.id).then(
-      entity => {this.servicio.idServicio = entity.idServicio,
-        this.servicio.idFichaClinica = entity.idFichaClinica,
-        this.servicio.observacion = entity.observacion},
+      entity => {this.servicio = entity},
       error => console.log('No se pudo acceder al servicio')
     );
 
@@ -77,31 +75,15 @@ export class DetallesComponent implements OnInit {
 
     console.log("DETALLES "+this.detalles.length);
 
-    this.servicioCategoria.getCategorias().subscribe(
-      entity => {this.categorias = entity.lista},
-      error => console.log('No se pudo acceder al servicio')
-    );
-
-
-
-
-
-  }
-
-  onChangeCategoria(nuevoSelect: Categoria): void{
-    this.subcategorias = [];
-    this.servicioSubCategoria.getSubcategoriasCategoria(nuevoSelect.idCategoria).subscribe(
-      (entity: listadatos<SubCategoria>) => {this.subcategorias = entity.lista},
-      (error: any) =>console.log('No se pudo acceder a la lista de SubCategorias')
-    );
-  }
-
-  onChangeSubCategoria(nuevoSelect: SubCategoria): void{
-    this.presentaciones = [];
-    this.servicioPresentacion.getPresentacionProductoSubCategoria(nuevoSelect.idTipoProducto).then(
+    this.servicioPresentacion.getPresentacionProductoSubCategoria(this.servicio.idFichaClinica.idTipoProducto.idTipoProducto).then(
       entity => this.presentaciones = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Presentacion Producto')
     );
+
+
+
+
+
   }
 
   onChangePresentacion(nuevoSelect: PresentacionProducto): void{

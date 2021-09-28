@@ -46,6 +46,6 @@ export class AgregarpacienteComponent implements OnInit {
   }
 
   async irListadoPaciente(): Promise<boolean>{
-    return this.router.navigateByUrl('pacientes');
+    return this.router.navigateByUrl('paciente');
   }
 }
