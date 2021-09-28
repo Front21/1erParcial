@@ -10,5 +10,8 @@ export class Persona {
     soloUsuariosDelSistema!: boolean;
     deuda!: number;
     saldo!: number;
+    ruc!:string;
+    tipoPersona!:"FISICA";
+    fechaNacimiento!:string;
 }
   
