@@ -46,6 +46,9 @@ import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedet
 import { LoginComponent } from './login/login.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
+import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
+import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
 
 
 
@@ -88,7 +91,10 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     ReportedetalladoComponent,
 
     LoginComponent,
-    PopupComponent
+    PopupComponent,
+    AgregarpresentacionproductoComponent,
+    EditarpresentacionproductoComponent,
+    EliminarpresentacionproductoComponent
 
 
   ],

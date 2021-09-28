@@ -1,0 +1,22 @@
+ 
+ 
+Codigo: <input type="number" name="codigoSelec"  [(ngModel)]="codigoSelec" ><br/>
+
+Flag Servicio: <select name="miselect" [(ngModel)]="flagServicioSelec">
+     <option >S</option>
+     <option >N</option>
+     </select><br/><br/>
+
+Producto: <select name="miselect" [(ngModel)]="idProductoSelec">
+<option [ngValue]="item" *ngFor="let item of productos">{{item.idProducto}}</option>
+</select><br/>
+
+Nombre: <textarea name="nombreSelec"  [(ngModel)]="nombreSelec" ></textarea><br/> 
+
+
+Precio de Venta: <input type="number" name="precioVentaSelec"  [(ngModel)]="precioVentaSelec" ><br/>
+
+
+   <br/>
+   <button (click)="crearPresentacionProducto()">Confirmar</button><br/>
+   <br/>

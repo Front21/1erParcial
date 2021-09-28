@@ -6,6 +6,8 @@ import { listadatos } from '../model/datos';
 import { PresentacionProducto } from '../model/presentacionproducto';
 import { tap } from 'rxjs/operators';
 import { SubCategoria } from '../model/subcategoria';
+import { Producto } from '../model/producto';
+import { ExistenciaProducto } from '../model/existenciaProducto';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +46,7 @@ export class PresentacionproductoService {
         idTipoProducto : {
           idTipoProducto: idP
         }
+        
       }
     }
     const ejemplo = JSON.stringify(filtro)
@@ -65,6 +68,37 @@ export class PresentacionproductoService {
   getsubcategorias(): Observable<listadatos<SubCategoria>> {
     return this.http.get<listadatos<SubCategoria>>(this.api);
   }
+
+  async deletePresentacionProducto(id: number): Promise<{}>{
+    return this.http.delete(this.api+'/'+id).toPromise();
+  }
+
+  putPresentacionProducto(body: any): Observable<PresentacionProducto>{
+    return this.http.put<PresentacionProducto>(this.api, body,{headers: this.headers}).pipe(
+      tap( // Log the result or error
+        data => console.log('editado '+data),
+        error => console.log("error: "+error)
+      )
+    );
+
+  }
+
+  private api1: string ="http://181.123.243.5:8080/stock-pwfe/producto";
+  getProductos(): Observable<listadatos<Producto>> {
+    return this.http.get<listadatos<Producto>>(this.api1);
+  }
+
+  private api2: string ="http://181.123.243.5:8080/stock-pwfe/existenciaProducto";
+  getExistenciaproductos(): Observable<listadatos<ExistenciaProducto>> {
+    return this.http.get<listadatos<ExistenciaProducto>>(this.api2);
+  }
+
+
+  getPresentacionProducto(idP:number): Observable<PresentacionProducto> {
+    
+    return this.http.get<PresentacionProducto>(this.api+'/'+idP);
+  }
+ 
 
 
 }
