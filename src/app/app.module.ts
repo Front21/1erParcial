@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { FichaComponent } from './ficha/ficha.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ServicefichaService } from './service/serviceficha.service';
-import { FormsModule } from '@angular/forms';
 import { AgregarfichaComponent } from './agregarficha/agregarficha.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { AgregarcategoriaComponent } from './categoria/agregarcategoria/agregarcategoria.component';
@@ -46,6 +45,11 @@ import { ReportedetalladoComponent } from './reporte/reportedetallado/reportedet
 import { LoginComponent } from './login/login.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
+import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
+import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminarpaciente.component';
+import { PacientesComponent } from './pacientes/pacientes.component';
 
 
 
@@ -88,7 +92,12 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     ReportedetalladoComponent,
 
     LoginComponent,
-    PopupComponent
+    PopupComponent,
+    PacientesComponent,
+    AgregarpacienteComponent,
+    EditarpacienteComponent,
+    EliminarpacienteComponent,
+    PacientesComponent
 
 
   ],
