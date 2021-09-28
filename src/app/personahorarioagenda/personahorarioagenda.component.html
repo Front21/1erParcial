@@ -1,3 +1,7 @@
+  <br/>
+    <button mat-button (click)="openDialog()">Buscar</button> ID Empleado Seleccionado: {{idE}} 
+  <br/>
+
 
 Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
               <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>

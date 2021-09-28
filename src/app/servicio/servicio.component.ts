@@ -11,6 +11,8 @@ import { ServiceclienteService } from '../service/servicecliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ServiceservicioService} from "../service/serviceservicio.service";
 import {Servicio} from "../model/servicio";
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -53,16 +55,25 @@ export class ServicioComponent implements OnInit {
   clickBuscar: boolean = false;
   chechFechaDesde: boolean = false;
   chechFechaHasta: boolean = false;
-
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
 
   constructor(private servicioServicio: ServiceservicioService,
               private servicioCategoria: ServiceCategoriaService,
               private serviciosubcategoria: ServicesubcategoriaService,
               private servicioEmpleado: ServiceempleadoService,
               private servicioCliente: ServiceclienteService,
-              private router: Router) { }
+              private router: Router,private route: ActivatedRoute,public dialog: MatDialog,) { }
 
   ngOnInit(): void {
+
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
+
 
     //Lista sin filtrar
     this.servicioServicio.getServicios().subscribe(
@@ -97,6 +108,11 @@ export class ServicioComponent implements OnInit {
   }
 
   async buscar(): Promise<void>{
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
 
     this.clickBuscar = true;
 
@@ -244,5 +260,17 @@ export class ServicioComponent implements OnInit {
       }
     }
   }
+
+
+
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'servicio', fechadesde: this.fechacadenad,fechahasta: this.fechacadenaf, 
+    idCategoria: this.categoriaSelec, idTipoProducto: this.subcategoriaSelec}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
+}
+
 
 }

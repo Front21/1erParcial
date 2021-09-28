@@ -4,13 +4,15 @@ import {ServiceCategoriaService} from "../../service/servicecategoria.service";
 import {ServicesubcategoriaService} from "../../service/servicesubcategoria.service";
 import {ServiceempleadoService} from "../../service/serviceempleado.service";
 import {ServiceclienteService} from "../../service/servicecliente.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Categoria} from "../../model/categoria";
 import {Servicio} from "../../model/servicio";
 import {SubCategoria} from "../../model/subcategoria";
 import {Persona} from "../../model/persona";
 import {Ficha} from "../../model/ficha";
 import { jsPDF } from  "jspdf"
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from 'src/app/popup/popup.component';
 
 @Component({
   selector: 'app-reporteresumido',
@@ -52,16 +54,24 @@ export class ReporteresumidoComponent implements OnInit {
   clickBuscar: boolean = false;
   chechFechaDesde: boolean = false;
   chechFechaHasta: boolean = false;
-
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
   constructor(private servicioServicio: ServiceservicioService,
               private servicioCategoria: ServiceCategoriaService,
               private serviciosubcategoria: ServicesubcategoriaService,
               private servicioEmpleado: ServiceempleadoService,
               private servicioCliente: ServiceclienteService,
-              private router: Router) { }
+              private router: Router, 
+              private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
+    
     //Lista sin filtrar
     this.servicioServicio.getServicios().subscribe(
       entity => this.servicios = entity.lista,
@@ -209,5 +219,15 @@ export class ReporteresumidoComponent implements OnInit {
       }
     });
   }
+
+
+ 
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'reportedetallado', fechacadenad: this.fechadesde, f: this.fechahasta}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
+}
 
 }

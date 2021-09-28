@@ -5,6 +5,8 @@ import { ServicehorarioexcepcionService } from '../service/servicehorarioexcepci
 import { ServiceempleadoService } from '../service/serviceempleado.service';
 import { ActivatedRoute } from '@angular/router';
 import {Sort} from "@angular/material/sort";
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -35,10 +37,20 @@ export class HorarioexcepcionComponent implements OnInit {
   chechFechaDesde: boolean = false;
   chechFechaHasta: boolean = false;
   public page: number =1;
-
-  constructor(private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService,private route: ActivatedRoute ) { }
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
+  constructor(private serviciohorarioexcepcion: ServicehorarioexcepcionService,private servicioEmpleado: ServiceempleadoService,
+    private route: ActivatedRoute,public dialog: MatDialog,
+    ) { }
 
   ngOnInit(): void {
+
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
 
     this.serviciohorarioexcepcion.getHorarioExcepcionP({
       orderBy: "idHorarioExcepcion",
@@ -113,16 +125,16 @@ export class HorarioexcepcionComponent implements OnInit {
           orderDir: direction,
           like: "S",
         }
-      }
+      }  
 
-      console.log(params);
+    }
+
+    console.log(params);
       await this.serviciohorarioexcepcion.getHorarioExcepcionP(params).then(
         entity => {this.horarios = entity.lista
           console.log("Resultado Actualziado")},
         error =>console.log('No se pudo acceder a la lista de Categorias')
       );
-
-    }
 
 
   }
@@ -145,5 +157,14 @@ export class HorarioexcepcionComponent implements OnInit {
     );
   }
 
+
+
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'horarioexcepcion', fecha: this.fechaSelec}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
 }
 
+}

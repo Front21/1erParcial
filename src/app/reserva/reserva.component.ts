@@ -8,6 +8,8 @@ import { ServiceempleadoService } from '../service/serviceempleado.service';
 import { ServicereservaService } from '../service/servicereserva.service';
 import {Sort} from "@angular/material/sort";
 import {ReservaFull} from "../model/reservaFull";
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from '../popup/popup.component';
 
 
 @Component({
@@ -79,13 +81,22 @@ export class ReservaComponent implements OnInit {
   //fechadehoy:new Date();
   fech:string="";
   mesh: string= "";
-
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
 
   constructor( private route: ActivatedRoute, private servicioReserva : ServicereservaService, private servicioEmpleado: ServiceempleadoService,
-    private servicioCliente: ServiceclienteService, private router: Router) { }
+    private servicioCliente: ServiceclienteService, private router: Router, public dialog: MatDialog,) { }
 
 
   async ngOnInit(): Promise<void> {
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
+
+
     let ejemplo;
     var month = this.fechadehoy.getUTCMonth() + 1; //months from 1-12
     this.meshoy= month.toString()
@@ -312,5 +323,15 @@ export class ReservaComponent implements OnInit {
       return this.router.navigateByUrl('reserva');
     }
 
+
+
+    
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'reserva', fechacadenad: this.fechadesde,  fechacadenaf: this.fechahasta}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
+}
 }
 

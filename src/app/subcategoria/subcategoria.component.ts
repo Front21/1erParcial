@@ -5,8 +5,10 @@ import { Persona } from '../model/persona';
 import { SubCategoria } from '../model/subcategoria';
 import { ServiceCategoriaService } from '../service/servicecategoria.service';
 import { ServicesubcategoriaService } from '../service/servicesubcategoria.service';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Sort} from "@angular/material/sort";
+import { MatDialog } from '@angular/material/dialog';
+
 
 
 @Component({
@@ -28,13 +30,16 @@ export class SubcategoriaComponent implements OnInit {
   clickBuscar: boolean = false;
   categoriaSelec: Categoria = new Categoria();
   categorias: Categoria[] = [];
-
+ 
   constructor(private servicioSubCategoria: ServicesubcategoriaService,
-    private servicioCategoria: ServiceCategoriaService,
-              private router: Router
+    private servicioCategoria: ServiceCategoriaService,public dialog: MatDialog,
+              private router: Router, private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
+
+   
+
     const param = {
       orderBy: "idTipoProducto",
       orderDir: "asc",

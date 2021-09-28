@@ -39,6 +39,7 @@ import { LoginComponent } from './login/login.component';
 import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
 import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
 import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
+import { PopupComponent } from './popup/popup.component';
 
 
 
@@ -157,6 +158,9 @@ const routes: Routes = [
   },
   {path:'reportedetallado',
     component:ReportedetalladoComponent
+  },
+  {path:'popup',
+    component:PopupComponent
   },
   /**  {
       //path:'nuevopais',

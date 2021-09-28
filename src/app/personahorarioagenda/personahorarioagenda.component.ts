@@ -11,6 +11,9 @@ import {ServicefichaService} from "../service/serviceficha.service";
 import {ServiceempleadoService} from "../service/serviceempleado.service";
 import {listadatos} from "../model/datos";
 import {Sort} from "@angular/material/sort";
+import { PopupComponent } from '../popup/popup.component';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-personahorarioagenda',
@@ -59,12 +62,22 @@ export class PersonahorarioagendaComponent implements OnInit {
   cont2: number = 0;
   clickBuscar: boolean = false;
   public page: number =1;
-
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
   constructor(private servicioPersonaHorarioAgenda: PersonahorarioagendaService,
-              public servicioEmpleado: ServiceempleadoService,
+              public servicioEmpleado: ServiceempleadoService,private route: ActivatedRoute,public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
+
+
+
     this.numeros = [0,1,2,3,4,5,6,7];
     this.dias = [" ", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
 
@@ -190,6 +203,17 @@ export class PersonahorarioagendaComponent implements OnInit {
     }
 
     refresh(): void { window.location.reload(); }*/
+
+    openDialog(): void{
+      const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'personahorarioagenda', dia: this.diaSelec}});
+      dialogRef.afterClosed().subscribe(res => {console.log(res);
+       
+      });
+  
+  }
+  
+
+
 }
 
 

@@ -4,6 +4,10 @@
       Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
       Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
 
+ <br/>
+    <button mat-button (click)="openDialog()">Buscar</button> ID Empleado Seleccionado: {{idE}} 
+  <br/>
+  
        Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
       <option>Empleados</option>
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>

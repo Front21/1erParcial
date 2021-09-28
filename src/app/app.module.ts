@@ -52,6 +52,10 @@ import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminar
 import { EditarpresentacionproductoComponent } from './presentacionproducto/editarpresentacionproducto/editarpresentacionproducto.component';
 import { EliminarpresentacionproductoComponent } from './presentacionproducto/eliminarpresentacionproducto/eliminarpresentacionproducto.component';
 import { AgregarpresentacionproductoComponent } from './presentacionproducto/agregarpresentacionproducto/agregarpresentacionproducto.component';
+import { MatCommonModule } from '@angular/material/core'
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -117,12 +121,16 @@ import { AgregarpresentacionproductoComponent } from './presentacionproducto/agr
     BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,
-    MatSortModule
-
+    MatSortModule,
+    MatCommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
 
   ],
-  providers: [ServicefichaService],
-  bootstrap: [AppComponent]
+  providers: [ServicefichaService, {provide:MAT_DIALOG_DATA,useValue:{}}],
+  bootstrap: [AppComponent],
+  entryComponents: [PopupComponent]
 })
 
 export class AppModule { }

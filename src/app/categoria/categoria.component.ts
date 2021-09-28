@@ -6,6 +6,9 @@ import { SubCategoria } from '../model/subcategoria';
 import { ServiceCategoriaService } from '../service/servicecategoria.service';
 import { ServicesubcategoriaService } from '../service/servicesubcategoria.service';
 import {Sort} from '@angular/material/sort';
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -47,11 +50,16 @@ export class CategoriaComponent implements OnInit {
   band2: boolean=false;
   cont: number=0;
   public page: number = 1;
+  idE: number = 0;
+  flagpopup: string = "";
   constructor(private servicioCategoria: ServiceCategoriaService,
-    private serviciosubcategoria: ServicesubcategoriaService,
+    private serviciosubcategoria: ServicesubcategoriaService,public dialog: MatDialog, private router: Router, private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
+   
+
+
     const param = {
       orderBy: "idCategoria",
       orderDir: "asc",
@@ -78,4 +86,3 @@ export class CategoriaComponent implements OnInit {
   }
 
 }
-

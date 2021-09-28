@@ -9,6 +9,8 @@ import { SubCategoria } from '../model/subcategoria';
 import { Persona } from '../model/persona';
 import { ServiceclienteService } from '../service/servicecliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopupComponent } from '../popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -48,15 +50,22 @@ export class FichaComponent implements OnInit {
   descripcionSelec: string = "";
   //id: number=0;
   mensaje: string="";
-
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
 
   constructor(private servicioFicha: ServicefichaService,
     private servicioCategoria: ServiceCategoriaService,
     private serviciosubcategoria: ServicesubcategoriaService,
     private servicioEmpleado: ServiceempleadoService,
-    private servicioCliente: ServiceclienteService) { }
+    private servicioCliente: ServiceclienteService,private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
 
     this.servicioFicha.getFichas().subscribe(
       entity => this.fichas = entity.lista,
@@ -216,5 +225,14 @@ export class FichaComponent implements OnInit {
 
   refresh(): void { window.location.reload(); }
 
+
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'ficha', fechadesde: this.fechacadenad,  fechahasta: this.fechacadenaf,
+     idCategoria: this.categoriaSelec, idTipoProducto: this.subcategoriaSelec}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
+}
 
 };

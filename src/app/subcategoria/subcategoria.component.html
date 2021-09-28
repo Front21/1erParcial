@@ -1,6 +1,11 @@
+ 
+
+
+
 Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
   <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.descripcion}}</option>
 </select><br>
+
 
 <br/>
 <button (click)="buscar()">Buscar</button><br/>
@@ -43,3 +48,5 @@ Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
 <br/>
 <button [routerLink]="['/agregarsubcategoria']" >Agregar Subcategoria</button><br/>
 <br/>
+
+

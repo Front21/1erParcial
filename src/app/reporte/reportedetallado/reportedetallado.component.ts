@@ -10,10 +10,12 @@ import {ServiceCategoriaService} from "../../service/servicecategoria.service";
 import {ServicesubcategoriaService} from "../../service/servicesubcategoria.service";
 import {ServiceempleadoService} from "../../service/serviceempleado.service";
 import {ServiceclienteService} from "../../service/servicecliente.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { PresentacionProducto } from 'src/app/model/presentacionproducto';
 import {PresentacionproductoService} from "../../service/presentacionproducto.service";
 import { jsPDF } from  "jspdf"
+import { PopupComponent } from 'src/app/popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reportedetallado',
@@ -59,6 +61,9 @@ export class ReportedetalladoComponent implements OnInit {
   presentaciones: PresentacionProducto[] = []
   presentacionSelec: PresentacionProducto = new PresentacionProducto();
   mensaje: string = "";
+  idE: number = 0;
+  flagpopup: string = "";
+  data: any;
 
   constructor(private servicioServicio: ServiceservicioService,
               private servicioCategoria: ServiceCategoriaService,
@@ -66,9 +71,15 @@ export class ReportedetalladoComponent implements OnInit {
               private servicioEmpleado: ServiceempleadoService,
               private servicioCliente: ServiceclienteService,
               private servicioPresentacion: PresentacionproductoService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {this.flagpopup = params['flagpopup'];});
+    this.route.queryParams.subscribe(params => {this.idE = params['idE'];});
+    console.log(this.flagpopup);
+    console.log(this.idE);
 
     //Lista detallada sin filtrar
     this.servicioServicio.getServiciosDetallados().subscribe(
@@ -409,5 +420,14 @@ export class ReportedetalladoComponent implements OnInit {
     });
   }
   
+  openDialog(): void{
+    const dialogRef = this.dialog.open(PopupComponent,{data:{direccion:'reportedetallado', fechacadenad: this.fechadesde, f: this.fechahasta,
+     idCategoria: this.categoriaSelec, idTipoProducto: this.subCategoriaSelec, idPresentacionProducto: this.presentacionSelec}});
+    dialogRef.afterClosed().subscribe(res => {console.log(res);
+     
+    });
+
+}
+
 
 }
