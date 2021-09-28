@@ -46,10 +46,6 @@ import { LoginComponent } from './login/login.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { AgregarpacienteComponent } from './pacientes/agregarpaciente/agregarpaciente.component';
-import { EditarpacienteComponent } from './pacientes/editarpaciente/editarpaciente.component';
-import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminarpaciente.component';
-import { PacientesComponent } from './pacientes/pacientes.component';
 
 
 
@@ -93,11 +89,6 @@ import { PacientesComponent } from './pacientes/pacientes.component';
 
     LoginComponent,
     PopupComponent,
-    PacientesComponent,
-    AgregarpacienteComponent,
-    EditarpacienteComponent,
-    EliminarpacienteComponent,
-    PacientesComponent
 
 
   ],

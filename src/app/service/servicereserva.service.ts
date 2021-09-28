@@ -97,17 +97,17 @@ export class ServicereservaService {
     return this.http.delete(this.api+'/'+idCat).toPromise();
   }
 
-  getReserva(id: number): Observable<Reserva>{
-    return this.http.get<Reserva>(this.api+'/'+id);
+  async getReserva(id: number): Promise<Reserva>{
+    return this.http.get<Reserva>(this.api+'/'+id).toPromise();
   }
 
-  putReserva(body: any): Observable<Reserva>{
+  async putReserva(body: any): Promise<Reserva>{
     return this.http.put<Reserva>(this.api, body,{headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
   }
 
   async putReservaCancelar(body: any): Promise<Reserva>{

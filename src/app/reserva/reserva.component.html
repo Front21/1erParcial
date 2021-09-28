@@ -40,17 +40,23 @@
       <td>{{c.idEmpleado.nombre+' '+c.idEmpleado.apellido}}</td>
       <td>{{c.idCliente.nombre+' '+c.idCliente.apellido}}</td>
       <td>{{c.flagEstado}}</td>
-      <td> <div *ngIf="c.flagAsistio=='N' || c.flagAsistio== null; else siNO">
-        <select name="miselect" [(ngModel)]="asistioSelec" (click)="asistioReserva(c,asistioSelec)">
-          <option>S</option>
-          <option>N</option>
-        </select></div>
-        <ng-template #siNO>{{c.flagAsistio}}
+      <td> <div *ngIf="c.flagAsistio== null; else siNO">
+        - </div>
+        <ng-template #siNO>
+          {{c.flagAsistio}}
         </ng-template>
       </td>
-      <td><input type="text" [(ngModel)]="c.observacion" (ngModelChange)="onChangeObservacion($event,c)"/> </td>
-      <td><a [routerLink]="['/eliminareserva']" [queryParams]="{ id: c.idReserva}" >Eliminar</a><br/>
-        <a [routerLink]="['/reserva']"   (click)="cancelarReserva(c)">Cancelar</a><br/>
+      <td><div *ngIf="c.observacion== null; else sino">
+        - </div>
+        <ng-template #sino>
+          {{c.observacion}}
+        </ng-template> </td>
+      <td>
+        <div *ngIf="c.flagAsistio== null && c.flagEstado== 'R'">
+          <a [routerLink]="['/editarreserva']" [queryParams]="{ id: c.idReserva}">Editar Reserva</a>
+          <br/></div>
+        <div *ngIf="c.flagEstado== 'R' && c.flagAsistio==null">
+          <a [routerLink]="['/eliminarreserva']" [queryParams]="{ id: c.idReserva}">Cancelar</a><br/></div>
         <a [routerLink]="['/agregarficha']" [queryParams]="{ id: c.idReserva}">Nueva Ficha</a></td>
     </tr>
   </table>
