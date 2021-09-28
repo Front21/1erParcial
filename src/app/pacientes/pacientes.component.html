@@ -2,11 +2,11 @@
   Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
       <option [ngValue]="item2" *ngFor="let item2 of listaPacientes">{{item2.nombre}}</option>
       </select>
-  
+
       Apellido: <select name="miselect" [(ngModel)]="pacienteApellidoSelec">
       <option [ngValue]="item3" *ngFor="let item3 of listaPacientes">{{item3.apellido}}</option>
       </select><br/>
-  
+
       <br/>
         <button (click)="buscar()">Buscar</button><br/>
       <br/>
@@ -62,28 +62,11 @@
                   <a [routerLink]="['/eliminarpaciente']"  [queryParams]="{ id: c.idPersona}" >
                     Eliminar Paciente
                   </a>
-                </td>   
+                </td>
               </tr>
             </table>
           </ng-template>
-          
+
         </ng-template>
-  
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Country</th>
-            <th scope="col">Area</th>
-            <th scope="col">Population</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Hola</td>
-            <td>Hola</td>
-            <td>Hola</td>
-            <td>Hola</td>
-          </tr>
-          </tbody>
-        </table>
+
+        
