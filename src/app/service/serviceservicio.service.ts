@@ -21,6 +21,10 @@ export class ServiceservicioService {
     return this.http.get<listadatos<Servicio>>(this.api);
   }
 
+  async getServiciosP(params: any): Promise<listadatos<Servicio>> {
+    return this.http.get<listadatos<Servicio>>(this.api, {params: params}).toPromise();
+  }
+
   getServiciosDetallados(): Observable<listadatos<Detalle>> {
     const detalle = "S";
     return this.http.get<listadatos<Detalle>>(this.api, {params:{detalle}});

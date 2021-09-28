@@ -8,6 +8,7 @@ import { ServicefichaService } from '../service/serviceficha.service';
 import { SubCategoria } from '../model/subcategoria';
 import { Persona } from '../model/persona';
 import { ServiceclienteService } from '../service/servicecliente.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-agregarficha',
@@ -46,38 +47,55 @@ export class AgregarfichaComponent implements OnInit {
   band2: boolean=false;
   cont: number=0;
 
-  constructor(private servicioFicha: ServicefichaService, 
-    private servicioCategoria: ServiceCategoriaService, 
+  constructor(private servicioFicha: ServicefichaService,
+    private servicioCategoria: ServiceCategoriaService,
     private serviciosubcategoria: ServicesubcategoriaService,
     private servicioEmpleado: ServiceempleadoService,
-    private servicioCliente: ServiceclienteService  ) { }
+    private servicioCliente: ServiceclienteService,
+              private router: Router) { }
 
 
   ngOnInit(): void {
-  
-       this.servicioCategoria.getCategorias().subscribe(
-        entity => this.categorias = entity.lista,
-        error =>console.log('No se pudo acceder a la lista de Categorias')
-      ); 
-      
-      this.serviciosubcategoria.getSubCategorias().subscribe(
-        entity => this.subcategorias= entity.lista,
-        error =>console.log('No se pudo acceder a la lista de SubCategorias')
-      );
-  
-      this.servicioEmpleado.getEmpleados().subscribe(
-        entity => this.empleados = entity.lista,
-        error =>console.log('No se pudo acceder a la lista de Empleados')
-      );
-  
-      this.servicioCliente.getClientes().subscribe(
-        entity => this.clientes = entity.lista,
-        error =>console.log('No se pudo acceder a la lista de Clientes')
-      );
-  
+
+    this.servicioCategoria.getCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S",
+    }).subscribe(
+      entity => this.categorias = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Categorias')
+    );
+
+    this.serviciosubcategoria.getSubCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S",
+    }).subscribe(
+      entity => this.subcategorias= entity.lista,
+      error =>console.log('No se pudo acceder a la lista de SubCategorias')
+    );
+
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
+      entity => this.empleados = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Empleados')
+    );
+
+    this.servicioCliente.getClientesP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
+      entity => this.clientes = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Clientes')
+    );
+
   }
 
-  crearFicha(): void{
+  async crearFicha(): Promise<void>{
 
     this.nuevaficha.idCliente = this.clienteSelec;
     this.nuevaficha.idEmpleado = this.empleadoSelec;
@@ -86,7 +104,7 @@ export class AgregarfichaComponent implements OnInit {
     this.nuevaficha.diagnostico = this.diagnostico;
     this.nuevaficha.observacion = this.observacion;
 
-    this.servicioFicha.postFicha({
+    await this.servicioFicha.postFicha({
       motivoConsulta: this.nuevaficha.motivoConsulta,
       diagnostico: this.nuevaficha.diagnostico,
       observacion: this.nuevaficha.observacion,
@@ -96,10 +114,28 @@ export class AgregarfichaComponent implements OnInit {
         idCliente:{
         idPersona: this.nuevaficha.idCliente.idPersona
         },
-          idTipoProducto: 
-          this.nuevaficha.idTipoProducto}).subscribe(
+          idTipoProducto:
+          this.nuevaficha.idTipoProducto}).then(
       () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 
+    await this.irListadoReservas();
+
+  }
+  async irListadoReservas(): Promise<boolean>{
+    return this.router.navigateByUrl('ficha');
+  }
+
+  onChangeCategoria(nuevoSelect: Categoria): void{
+    //this.subcategorias = [];
+    //this.mensaje = nuevoSelect.idCategoria;
+    this.serviciosubcategoria.getSubCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S"
+    }).subscribe(
+      entity => this.subcategorias = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de SubCategorias')
+    );
   }
 
 }

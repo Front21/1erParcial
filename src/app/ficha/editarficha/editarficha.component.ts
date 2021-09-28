@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Ficha } from 'src/app/model/ficha';
 import { ServicefichaService } from 'src/app/service/serviceficha.service';
 
@@ -14,7 +14,8 @@ export class EditarfichaComponent implements OnInit {
   id: number=0;
   ficha: Ficha = new Ficha();
   mensaje: string = "";
-  constructor(private route: ActivatedRoute, private servicioFicha: ServicefichaService) { }
+  constructor(private route: ActivatedRoute, private servicioFicha: ServicefichaService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -31,7 +32,7 @@ export class EditarfichaComponent implements OnInit {
   );
 
   }
-  editarFicha(): void{
+  async editarFicha(): Promise<void>{
     console.log(this.ficha.idFichaClinica)
     console.log(this.ficha.motivoConsulta)
     console.log(this.ficha.diagnostico)
@@ -40,12 +41,16 @@ export class EditarfichaComponent implements OnInit {
     console.log(this.ficha.idCliente.idPersona)
     console.log(this.ficha.idTipoProducto.idTipoProducto)
 
-     this.servicioFicha.putFicha({
+    await this.servicioFicha.putFicha({
       idFichaClinica : this.ficha.idFichaClinica,
-      observacion : this.ficha.observacion}).subscribe(
+      observacion : this.ficha.observacion}).then(
        () => {this.mensaje='Editado exitosamente'},error => console.log("error: "+error));
+    await this.irListadoReservas();
 
-   }
+  }
 
+  async irListadoReservas(): Promise<boolean>{
+    return this.router.navigateByUrl('ficha');
+  }
 
 }

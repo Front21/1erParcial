@@ -1,22 +1,25 @@
-      Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-      <option>Empleados</option>
-      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
-      </select>
+Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+" "+item2.apellido}}</option>
+</select>
 
-      Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
-      <option>Clientes</option>
-      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre+" "+item3.apellido}}</option>
+</select><br/>
+
+      Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
+        <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.descripcion}}</option>
       </select><br/>
 
-      Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
-      <option>Categoria</option>
-      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
-      </select>
-
-      SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
-      <option>SubCategoria</option>
-      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
-      </select><br/>
+      <div *ngIf="categoriaSelec.idCategoria==undefined; else conCate">
+        SubCategorias: <select name="miselect">
+        <option>Seleccione una categoria</option>
+      </select><br><br>
+      </div>
+      <ng-template #conCate>
+        SubCategorias: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+        <option [ngValue]="item2" *ngFor="let item2 of subcategorias">{{item2.descripcion}}</option>
+      </select><br><br>
+      </ng-template>
 
 
       Motivo: <textarea name="motivo" rows="10" cols="40" [(ngModel)]="motivo" ></textarea>
@@ -25,7 +28,6 @@
 
 
       <br/>
-       <a class="nav-link" [routerLink]="['/ficha']" (click)="crearFicha()">Crear</a>
+      <button (click)="crearFicha()">Crear</button>
       <br/>
 
-     

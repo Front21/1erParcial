@@ -283,7 +283,7 @@ export class ReservaComponent implements OnInit {
   }
 
   async Limpiar(): Promise<void>{
-    this.clickBuscar = true;
+    this.clickBuscar = false;
     await this.servicioReserva.getReservasP({
       orderBy: "idReserva",
       orderDir: "asc",

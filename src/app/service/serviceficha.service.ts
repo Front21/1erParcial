@@ -21,6 +21,10 @@ export class ServicefichaService {
     return this.http.get<listadatos<Ficha>>(this.api);
   }
 
+  async getFichasP(params: any): Promise<listadatos<Ficha>> {
+    return this.http.get<listadatos<Ficha>>(this.api, {params: params}).toPromise();
+  }
+
   getFichasCategoria(idC:number): Observable<listadatos<Ficha>> {
     const filtro = {
       idTipoProducto: {
@@ -74,25 +78,25 @@ export class ServicefichaService {
 
   headers = new HttpHeaders({ "Content-Type": "application/json", "usuario": "usuario2" });
 
-  postFicha(body: any): Observable<Ficha>{
+  async postFicha(body: any): Promise<Ficha>{
     return this.http.post<Ficha>(this.api, body,{
       headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('agregado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
 
   }
 
-  putFicha(body: any): Observable<Ficha>{
+  async putFicha(body: any): Promise<Ficha>{
     return this.http.put<Ficha>(this.api, body,{
       headers: this.headers}).pipe(
       tap( // Log the result or error
         data => console.log('editado '+data),
         error => console.log("error: "+error)
       )
-    );
+    ).toPromise();
 
   }
   deleteFicha(idCat: number): Observable<{}>{

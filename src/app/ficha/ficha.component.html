@@ -1,89 +1,79 @@
-
-
-
       Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
       Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
 
        Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-      <option>Empleados</option>
-      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+      <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+" "+item2.apellido}}</option>
       </select>
 
       Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
-      <option>Clientes</option>
-      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+      <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre+" "+item3.apellido}}</option>
       </select><br/>
 
-      Categoria: <select name="miselect" [(ngModel)]="categoriaSelec">
-      <option>Categoria</option>
-      <option [ngValue]="item" *ngFor="let item of categorias">{{item.idCategoria}}</option>
-      </select>
-
-      SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
-      <option>SubCategoria</option>
-      <option [ngValue]="item1" *ngFor="let item1 of subcategorias">{{item1.idTipoProducto}}</option>
+      Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
+        <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.descripcion}}</option>
       </select><br/>
 
+      <div *ngIf="categoriaSelec.idCategoria==undefined; else conCate">
+        SubCategorias: <select name="miselect">
+        <option>Seleccione una categoria</option>
+        </select><br><br>
+      </div>
+      <ng-template #conCate>
+        SubCategorias: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+        <option [ngValue]="item2" *ngFor="let item2 of subcategorias">{{item2.descripcion}}</option>
+      </select><br><br>
+      </ng-template>
+
       <br/>
-      <button (click)="buscar()">Buscar</button><br/>
+      <button (click)="buscarFicha('idFichaClinica', 'asc', false)">Buscar</button><br/>
+      <br/>
+
+      <br/>
+      <button (click)="Limpiar()">Limpiar</button><br/>
       <br/>
 
 
 
 
 
-<div *ngIf="fichasResultado.length>0; else sinresultado">
-    <table border="1">
-      <tr>
-        <td>idFichaClinica</td>
-        <td>motivoConsulta</td>
-        <td>diagnostico</td>
-        <td>observacion</td>
-        <td>idEmpleado</td>
-        <td>idCliente</td>
-        <td>idTipoProducto</td>
-         <td>Acciones</td>
-      </tr>
-      <tr *ngFor="let f of fichasResultado">
-        <td>{{f.idFichaClinica}}</td>
-        <td>{{f.motivoConsulta}}</td>
-        <td>{{f.diagnostico}}</td>
-        <td>{{f.observacion}}</td>
-        <td>{{f.idEmpleado.idPersona}}</td>
-        <td>{{f.idCliente.idPersona}}</td>
-        <td>{{f.idTipoProducto.idTipoProducto}}</td>
-         <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: f.idFichaClinica}">Editar</a>
-              <a [routerLink]="['/eliminarficha']" [queryParams]="{ id: f.idFichaClinica}" >Eliminar</a></td>
-      </tr>
-    </table>
+<div *ngIf="fichas.length>0; else sinresultado">
+  <table  (matSortChange)="sortData($event)" matSortActive="idFichaClinica" matSortDirection="asc" matSort>
+    <tr>
+      <th mat-sort-header="idFichaClinica">idFichaClinica</th>
+      <th mat-sort-header="fechaHora">Fecha Ficha</th>
+      <th mat-sort-header="motivoConsulta">Motivo Consulta</th>
+      <th mat-sort-header="diagnostico">Diagnostico</th>
+      <th mat-sort-header="observacion">Observacion</th>
+      <th mat-sort-header="idEmpleado.nombre">Empleado</th>
+      <th mat-sort-header="idCliente.nombre">Cliente</th>
+      <th>Subcategoria</th>
+      <th>Acciones</th>
+    </tr>
+    <tr *ngFor="let c of fichas">
+      <td>{{c.idFichaClinica}}</td>
+      <td>{{c.fechaHora}}</td>
+      <td>{{c.motivoConsulta}}</td>
+      <td>{{c.diagnostico}}</td>
+      <td>{{c.observacion}}</td>
+      <td>{{c.idEmpleado.nombre+" "+c.idEmpleado.apellido}}</td>
+      <td>{{c.idCliente.nombre+" "+c.idCliente.apellido}}</td>
+      <td>{{c.idTipoProducto.descripcion}}</td>
+      <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: c.idFichaClinica}">Editar</a><br/>
+        <a [routerLink]="['/ficha']" (click)="eliminarFicha(c.idFichaClinica)" [queryParams]="{ id: c.idFichaClinica}" >Eliminar</a></td>
+    </tr>
+  </table>
 </div>
-  <ng-template #sinresultado>
-    <table border="1">
-      <tr>
-        <td>idFichaClinica</td>
-        <td>motivoConsulta</td>
-        <td>diagnostico</td>
-        <td>observacion</td>
-        <td>idEmpleado</td>
-        <td>idCliente</td>
-        <td>idTipoProducto</td>
-         <td>Acciones</td>
-      </tr>
-      <tr *ngFor="let c of fichas">
-        <td>{{c.idFichaClinica}}</td>
-        <td>{{c.motivoConsulta}}</td>
-        <td>{{c.diagnostico}}</td>
-        <td>{{c.observacion}}</td>
-        <td>{{c.idEmpleado.idPersona}}</td>
-        <td>{{c.idCliente.idPersona}}</td>
-        <td>{{c.idTipoProducto.idTipoProducto}}</td>
-        <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: c.idFichaClinica}">Editar</a><br/>
-            <a [routerLink]="['/ficha']" (click)="eliminarFicha(c.idFichaClinica)" [queryParams]="{ id: c.idFichaClinica}" >Eliminar</a></td>
+    <ng-template #sinresultado>
+      <div *ngIf="clickBuscar == true; else noClickBuscar">
+        No existen resultados para la busqueda.
+      </div>
+      <ng-template #noClickBuscar>
+        No existen fichas.
+      </ng-template>
+    </ng-template>
 
-
-
-      </tr>
-    </table>
-  </ng-template>
+      <br/>
+      <button [routerLink]="['/agregarficha']" >Agregar Ficha</button><br/>
+      <br/>
 
 

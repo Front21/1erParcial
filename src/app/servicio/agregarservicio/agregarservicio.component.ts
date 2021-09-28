@@ -36,19 +36,32 @@ export class AgregarservicioComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.servicioFicha.getFichas().subscribe(
+    this.servicioFicha.getFichasP({
+      orderBy: "idFichaClinica",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.fichas = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Fichas')
     );
 
-    this.servicioEmpleado.getEmpleados().subscribe(
+
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Empleados')
     );
 
-    this.servicioCliente.getClientes().subscribe(
+    this.servicioCliente.getClientesP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.clientes = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Empleados')
+      error =>console.log('No se pudo acceder a la lista de Clientes')
     );
   }
 

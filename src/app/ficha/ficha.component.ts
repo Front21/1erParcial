@@ -9,6 +9,7 @@ import { SubCategoria } from '../model/subcategoria';
 import { Persona } from '../model/persona';
 import { ServiceclienteService } from '../service/servicecliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Sort} from "@angular/material/sort";
 
 
 @Component({
@@ -30,8 +31,8 @@ export class FichaComponent implements OnInit {
   clientes: Persona [] = [];
   clienteSelec: Persona = new Persona();
   FichaFiltroCliente: Ficha[] = [];
-  fechadesde: Date = new Date();
-  fechahasta: Date = new Date();
+  fechadesde: any;
+  fechahasta: any;
   diad : string="";
   mesd: string="";
   anod: string="";
@@ -48,173 +49,378 @@ export class FichaComponent implements OnInit {
   descripcionSelec: string = "";
   //id: number=0;
   mensaje: string="";
+  clickBuscar: boolean = false;
 
 
   constructor(private servicioFicha: ServicefichaService,
-    private servicioCategoria: ServiceCategoriaService,
-    private serviciosubcategoria: ServicesubcategoriaService,
-    private servicioEmpleado: ServiceempleadoService,
-    private servicioCliente: ServiceclienteService) { }
+              private servicioCategoria: ServiceCategoriaService,
+              private serviciosubcategoria: ServicesubcategoriaService,
+              private servicioEmpleado: ServiceempleadoService,
+              private servicioCliente: ServiceclienteService) { }
 
   ngOnInit(): void {
 
-    this.servicioFicha.getFichas().subscribe(
+    this.servicioFicha.getFichasP({
+      orderBy: "idFichaClinica",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.fichas = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Fichas')
     );
 
-     this.servicioCategoria.getCategorias().subscribe(
+    this.servicioCategoria.getCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S",
+    }).subscribe(
       entity => this.categorias = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
 
-    this.serviciosubcategoria.getSubCategorias().subscribe(
+    this.serviciosubcategoria.getSubCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S",
+    }).subscribe(
       entity => this.subcategorias= entity.lista,
       error =>console.log('No se pudo acceder a la lista de SubCategorias')
     );
 
-    this.servicioEmpleado.getEmpleados().subscribe(
+    this.servicioEmpleado.getEmpleadosP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Empleados')
     );
 
-    this.servicioCliente.getClientes().subscribe(
+    this.servicioCliente.getClientesP({
+      orderBy: "nombre",
+      orderDir: "asc",
+      like: "S",
+    }).then(
       entity => this.clientes = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Clientes')
     );
 
-    //this.route.queryParams.subscribe(params => {this.id = params['id'];})
-    //this.eliminarFicha();
-
   }
 
-  async buscar(): Promise<void>{
-    this.servicioFicha.getFichasCategoria(this.categoriaSelec.idCategoria).subscribe(
-      entity => this.FichaFiltroCategoria = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
+  async buscarFicha(active: string, direction: string, desdeSort: boolean): Promise<void>{
+
+    if(!desdeSort){
+      this.clickBuscar = true;
+    }
+
+    let params;
+    let filtro;
+
+    //Todos se marcan
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona != undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+        idCliente:{
+          idPersona:this.clienteSelec.idPersona
+        },
+        idEmpleado:{
+          idPersona:this.empleadoSelec.idPersona
+        },
+        fechaDesdeCadena:this.fechacadenad,
+        fechaHastaCadena:this.fechacadenaf,
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }
+
+    //No se marca empleado
+    if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona != undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf,
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona == undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf,
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona == undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      filtro = {
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }
+
+    //No se marca cleinte
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona == undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+        idEmpleado:{
+          idPersona:this.empleadoSelec.idPersona
+        },
+        fechaDesdeCadena:this.fechacadenad,
+        fechaHastaCadena:this.fechacadenaf,
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona == undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      filtro = {
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          },
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona == undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      filtro = {
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          }
+      }
+    }
+
+    //No se marca fecha
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona != undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          },
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona != undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          }
+      }
+
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona != undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto != undefined){
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+        idTipoProducto: {
+          idTipoProducto:this.subcategoriaSelec.idTipoProducto
+        }
+      }
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona != undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            }
+      }
+    }
+
+    //No se marca presentacion
+    if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona != undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          },
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf
+
+      }
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona != undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+            idCliente:{
+              idPersona:this.clienteSelec.idPersona
+            },
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf
+      }
+    }else if(this.empleadoSelec.idPersona != undefined && this.clienteSelec.idPersona == undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+          idEmpleado:{
+            idPersona:this.empleadoSelec.idPersona
+          },
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf
+      }
+    }else if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona == undefined && this.fechadesde != undefined && this.fechahasta != undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined){
+      this.anod= this.fechadesde.toString().substr(0,4);
+      this.mesd= this.fechadesde.toString().substr(5,2);
+      this.diad= this.fechadesde.toString().substr(8,2);
+      this.fechacadenad= this.anod+this.mesd+this.diad;
+      this.anof= this.fechahasta.toString().substr(0,4);
+      this.mesf= this.fechahasta.toString().substr(5,2);
+      this.diaf= this.fechahasta.toString().substr(8,2);
+      this.fechacadenaf= this.anof+this.mesf+this.diaf;
+      filtro = {
+          fechaDesdeCadena:this.fechacadenad,
+          fechaHastaCadena:this.fechacadenaf
+      }
+    }
+
+    console.log(this.empleadoSelec.idPersona);
+    console.log(this.clienteSelec.idPersona);
+    console.log(this.fechadesde);
+    console.log(this.fechahasta);
+    console.log(this.subcategoriaSelec.idTipoProducto);
+    console.log(this.clickBuscar);
+    if(this.empleadoSelec.idPersona == undefined && this.clienteSelec.idPersona == undefined && this.fechadesde == undefined && this.fechahasta == undefined &&
+      this.subcategoriaSelec.idTipoProducto == undefined && this.clickBuscar == true){
+      this.mensaje = "Es necesario marcar opciones de filtro";
+    }else{
+      if(this.clickBuscar){
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+          ejemplo: JSON.stringify(filtro)
+        }
+      }else{
+        params = {
+          orderBy: active,
+          orderDir: direction,
+          like: "S",
+        }
+      }
+
+      console.log(params);
+      await this.servicioFicha.getFichasP(params).then(
+        entity => {this.fichas = entity.lista
+          console.log("Resultado Actualziado")},
+        error =>console.log('No se pudo acceder a la lista de Categorias')
+      );
+    }
+  }
+
+
+  async sortData(sort: Sort): Promise<void> {
+    console.log(sort.active);
+    console.log(sort.direction);
+    this.buscarFicha(sort.active, sort.direction, true);
+  }
+
+  async Limpiar(): Promise<void>{
+    this.clickBuscar = false;
+    await this.servicioFicha.getFichasP({
+      orderBy: "idFichaClinica",
+      orderDir: "asc",
+      like: "S"
+    }).then(
+      entity => this.fichas = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de Categorias')
     );
-
-    this.servicioFicha.getFichasSubCategoria(this.subcategoriaSelec.idTipoProducto).subscribe(
-      entity => this.FichaFiltroSubcategoria = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Categorias'),
-    );
-
-    await this.servicioFicha.getFichasEmpleados(this.empleadoSelec.idPersona).then(
-      entity => this.FichaFiltroEmpleado = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Empleados'),
-    );
-
-    await this.servicioFicha.getFichasClientes(this.clienteSelec.idPersona).then(
-      entity => this.FichaFiltroCliente = entity.lista,
-      error =>console.log('No se pudo acceder a la lista de Fichas por Fechas'),
-    );
-
-    this.anod= this.fechadesde.toString().substr(0,4);
-    this.mesd= this.fechadesde.toString().substr(5,2);
-    this.diad= this.fechadesde.toString().substr(8,2);
-    this.fechacadenad= this.anod+this.mesd+this.diad;
-    this.anof= this.fechahasta.toString().substr(0,4);
-    this.mesf= this.fechahasta.toString().substr(5,2);
-    this.diaf= this.fechahasta.toString().substr(8,2);
-    this.fechacadenaf= this.anof+this.mesf+this.diaf;
-
-    this.servicioFicha.getFichasFechas(this.fechacadenad,this.fechacadenaf).subscribe(
-      entity => this.FichaFiltroFecha = entity.lista,
-      error =>console.log('1no se pudieron conseguir los paises'),
-    );
-    this.fichasResultado=[];
-    this.cont=0;
-
-
-    for (var ficha in this.fichas) {
-
-      if(this.FichaFiltroCategoria.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroCategoria){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroCategoria[f1].idFichaClinica){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-
-      if(this.FichaFiltroSubcategoria.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroSubcategoria){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroSubcategoria[f1].idFichaClinica){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-
-      if(this.FichaFiltroEmpleado.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroEmpleado){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroEmpleado[f1].idFichaClinica){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-
-      if(this.FichaFiltroCliente.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroCliente){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroCliente[f1].idFichaClinica){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-
-      if(this.FichaFiltroFecha.length>0){
-        this.band2=true;
-        this.band=false;
-        for (var f1 in this.FichaFiltroFecha){
-          if(this.fichas[ficha].idFichaClinica==this.FichaFiltroFecha[f1].idFichaClinica){
-              this.band=true;
-              break;
-          };
-        };
-        if(this.band==false){
-          continue;
-        };
-      };
-      if(this.band==true && this.band2==true){
-        this.fichasResultado[this.cont]=this.fichas[ficha];
-        this.cont=this.cont+1;
-      };
-      this.band2=false;
-      this.band=false;
-    };
-  };
-
+  }
 
   eliminarFicha(id: number): void{
     console.log('el id es '+id);
     this.servicioFicha.deleteFicha(id).subscribe(
       () => {this.mensaje='Eliminado exitosamente'},error => console.log("error: "+error));
-      this.refresh();
+    this.refresh();
   }
 
   refresh(): void { window.location.reload(); }
 
+  onChangeCategoria(nuevoSelect: Categoria): void{
+    //this.subcategorias = [];
+    //this.mensaje = nuevoSelect.idCategoria;
+    this.serviciosubcategoria.getSubCategoriasP({
+      orderBy: "descripcion",
+      orderDir: "asc",
+      like: "S"
+    }).subscribe(
+      entity => this.subcategorias = entity.lista,
+      error =>console.log('No se pudo acceder a la lista de SubCategorias')
+    );
+  }
 
-};
+
+
+}
