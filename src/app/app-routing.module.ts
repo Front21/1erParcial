@@ -44,6 +44,7 @@ import { EliminarpacienteComponent } from './pacientes/eliminarpaciente/eliminar
 
 
 
+
 const routes: Routes = [
   {
     path:'login',
@@ -147,9 +148,6 @@ const routes: Routes = [
   {path:'reporteresumido',
     component:ReporteresumidoComponent
   },
-  {path:'reportedetallado',
-    component:ReportedetalladoComponent
-  },
   {path:'paciente',
     component:PacientesComponent
   },
@@ -161,7 +159,8 @@ const routes: Routes = [
   },
   {path:'eliminarpaciente',
     component:EliminarpacienteComponent
-  },
+  }
+
   /**  {
       //path:'nuevopais',
       //component:PaisAgregarComponent
