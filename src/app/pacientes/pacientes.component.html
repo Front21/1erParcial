@@ -1,20 +1,20 @@
-
-  Nombre: <select name="miselect" [(ngModel)]="pacienteNombreSelec">
+ <h2 align="center">Lista de Pacientes</h2>
+   <h3  align="center">Nombre: </h3><select  style="display: block; margin: 0 auto;" name="miselect" [(ngModel)]="pacienteNombreSelec">
       <option [ngValue]="item2" *ngFor="let item2 of listaFull">{{item2.nombre}}</option>
       </select>
 
-      Apellido: <select name="miselect" [(ngModel)]="pacienteApellidoSelec">
+      <h3  align="center"> Apellido:</h3> <select  style="display: block; margin: 0 auto;" name="miselect" [(ngModel)]="pacienteApellidoSelec">
       <option [ngValue]="item3" *ngFor="let item3 of listaFull">{{item3.apellido}}</option>
       </select><br/>
 
       <br/>
-        <button (click)="buscar('idPersona', 'asc', false)">Buscar</button><br/>
+        <button  style="display: block; margin: 0 auto;" (click)="buscar('idPersona', 'asc', false)">Buscar</button><br/>
       <br/>
       <br/>
-        <button (click)="limpiar()">Limpiar lista</button><br/>
+        <button  style="display: block; margin: 0 auto;" (click)="limpiar()">Limpiar lista</button><br/>
       <br/>
       <br/>
-      <button [routerLink]="['/agregarpaciente']" >Agregar Paciente</button><br/>
+      <button  style="display: block; margin: 0 auto;" [routerLink]="['/agregarpaciente']" >Agregar Paciente</button><br/>
       <br/>
       <div *ngIf="listaPacientes.length>0; else sinresultado">
         <table  (matSortChange)="sortData($event)" matSortActive="idPersona" matSortDirection="asc" matSort>
@@ -24,7 +24,7 @@
             <th mat-sort-header="apellido">Apellido</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let c of listaPacientes">
+          <tr *ngFor="let c of listaPacientes | paginate: { itemsPerPage: 10, currentPage: page }">
             <td>{{c.idPersona}}</td>
             <td>{{c.nombre}}</td>
             <td>{{c.apellido}}</td>
@@ -48,3 +48,4 @@
     </ng-template>
   </ng-template>
 
+<pagination-controls align="center" (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

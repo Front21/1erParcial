@@ -1,25 +1,26 @@
+      <h2>Lista de Fichas</h2>
       Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="fechadesde">
       Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br/>
 
-       Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+       Empleado: <select name="miselect" [(ngModel)]="empleadoSelec">
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+" "+item2.apellido}}</option>
       </select>
 
-      Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
+      Cliente: <select name="miselect" [(ngModel)]="clienteSelec">
       <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre+" "+item3.apellido}}</option>
       </select><br/>
 
-      Categorias: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
+      Categoria: <select name="miselect" [(ngModel)]="categoriaSelec" (ngModelChange)="onChangeCategoria($event)">
         <option [ngValue]="item2" *ngFor="let item2 of categorias">{{item2.descripcion}}</option>
       </select><br/>
 
       <div *ngIf="categoriaSelec.idCategoria==undefined; else conCate">
-        SubCategorias: <select name="miselect">
+        SubCategoria: <select name="miselect">
         <option>Seleccione una categoria</option>
         </select><br><br>
       </div>
       <ng-template #conCate>
-        SubCategorias: <select name="miselect" [(ngModel)]="subcategoriaSelec">
+        SubCategoria: <select name="miselect" [(ngModel)]="subcategoriaSelec">
         <option [ngValue]="item2" *ngFor="let item2 of subcategorias">{{item2.descripcion}}</option>
       </select><br><br>
       </ng-template>
@@ -27,19 +28,19 @@
       <br/>
       <button (click)="buscarFicha('idFichaClinica', 'asc', false)">Buscar</button><br/>
       <br/>
-
-      <br/>
       <button (click)="Limpiar()">Limpiar</button><br/>
       <br/>
-
+      <br/>
+      <button style="display: block; margin: 0 auto;"  [routerLink]="['/agregarficha']" >Agregar Ficha</button><br/>
+      <br/>
 
 
 
 
 <div *ngIf="fichas.length>0; else sinresultado">
-  <table  (matSortChange)="sortData($event)" matSortActive="idFichaClinica" matSortDirection="asc" matSort>
+  <table align="center" (matSortChange)="sortData($event)" matSortActive="idFichaClinica" matSortDirection="asc" matSort>
     <tr>
-      <th mat-sort-header="idFichaClinica">idFichaClinica</th>
+      <th mat-sort-header="idFichaClinica" >idFichaClinica</th>
       <th mat-sort-header="fechaHora">Fecha Ficha</th>
       <th mat-sort-header="motivoConsulta">Motivo Consulta</th>
       <th mat-sort-header="diagnostico">Diagnostico</th>
@@ -50,7 +51,7 @@
       <th>Acciones</th>
     </tr>
     <tr *ngFor="let c of fichas">
-      <td>{{c.idFichaClinica}}</td>
+      <td align="center">{{c.idFichaClinica}}</td>
       <td>{{c.fechaHora}}</td>
       <td>{{c.motivoConsulta}}</td>
       <td>{{c.diagnostico}}</td>
@@ -58,7 +59,7 @@
       <td>{{c.idEmpleado.nombre+" "+c.idEmpleado.apellido}}</td>
       <td>{{c.idCliente.nombre+" "+c.idCliente.apellido}}</td>
       <td>{{c.idTipoProducto.descripcion}}</td>
-      <td><a [routerLink]="['/editarficha']" [queryParams]="{ id: c.idFichaClinica}">Editar</a><br/>
+      <td align="center" ><a [routerLink]="['/editarficha']" [queryParams]="{ id: c.idFichaClinica}">Editar</a><br/>
         <a [routerLink]="['/ficha']" (click)="eliminarFicha(c.idFichaClinica)" [queryParams]="{ id: c.idFichaClinica}" >Eliminar</a></td>
     </tr>
   </table>
@@ -72,8 +73,6 @@
       </ng-template>
     </ng-template>
 
-      <br/>
-      <button [routerLink]="['/agregarficha']" >Agregar Ficha</button><br/>
-      <br/>
+    
 
 

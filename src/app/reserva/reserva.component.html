@@ -56,8 +56,8 @@
           <a [routerLink]="['/editarreserva']" [queryParams]="{ id: c.idReserva}">Editar Reserva</a>
           <br/></div>
         <div *ngIf="c.flagEstado== 'R' && c.flagAsistio==null">
-          <a [routerLink]="['/eliminarreserva']" [queryParams]="{ id: c.idReserva}">Cancelar</a><br/></div>
-        <a [routerLink]="['/agregarficha']" [queryParams]="{ id: c.idReserva}">Nueva Ficha</a></td>
+          <a [routerLink]="['/eliminarreserva']" [queryParams]="{ id: c.idReserva}">Cancelar</a><br/>
+     </div></td>
     </tr>
   </table>
 </div>

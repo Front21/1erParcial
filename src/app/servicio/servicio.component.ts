@@ -64,6 +64,9 @@ export class ServicioComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    let ejemplo2={
+      soloUsuariosDelSistema: true
+    }
 
     //Lista sin filtrar
     this.servicioServicio.getServiciosP({
@@ -97,6 +100,7 @@ export class ServicioComponent implements OnInit {
       orderBy: "nombre",
       orderDir: "asc",
       like: "S",
+      ejemplo : JSON.stringify(ejemplo2)
     }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Empleados')

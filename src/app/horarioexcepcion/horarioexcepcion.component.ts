@@ -40,6 +40,11 @@ export class HorarioexcepcionComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let ejemplo={
+      soloUsuariosDelSistema: true
+    }
+
+    
     this.serviciohorarioexcepcion.getHorarioExcepcionP({
       orderBy: "idHorarioExcepcion",
       orderDir: "asc",
@@ -52,7 +57,8 @@ export class HorarioexcepcionComponent implements OnInit {
     this.servicioEmpleado.getEmpleadosP({
       orderBy: "nombre",
       orderDir: "asc",
-      like: "S"
+      like: "S",
+      ejemplo : JSON.stringify(ejemplo)
     }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
@@ -115,14 +121,15 @@ export class HorarioexcepcionComponent implements OnInit {
         }
       }
 
-      console.log(params);
+      
+
+    }
+    console.log(params);
       await this.serviciohorarioexcepcion.getHorarioExcepcionP(params).then(
         entity => {this.horarios = entity.lista
           console.log("Resultado Actualziado")},
         error =>console.log('No se pudo acceder a la lista de Categorias')
       );
-
-    }
 
 
   }

@@ -96,7 +96,7 @@ export class AgregarfichaComponent implements OnInit {
   }
 
   async crearFicha(): Promise<void>{
-
+console.log("yaporfa")
     this.nuevaficha.idCliente = this.clienteSelec;
     this.nuevaficha.idEmpleado = this.empleadoSelec;
     this.nuevaficha.idTipoProducto = this.subcategoriaSelec;
@@ -118,7 +118,7 @@ export class AgregarfichaComponent implements OnInit {
           this.nuevaficha.idTipoProducto}).then(
       () => {this.mensaje='Agregado exitosamente'},error => console.log("error: "+error));
 
-    await this.irListadoReservas();
+    //await this.irListadoReservas();
 
   }
   async irListadoReservas(): Promise<boolean>{

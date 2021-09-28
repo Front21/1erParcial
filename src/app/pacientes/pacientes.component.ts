@@ -25,13 +25,19 @@ export class PacientesComponent implements OnInit {
   nombres: string[] = [];
   apellidos: string[] = [];
   listaFull: Persona[] = [];
+  public page: number = 1;
   constructor(private servicioPaciente:ServicepacientesService) { }
 
   async ngOnInit(): Promise<void> {
+  let ejemplo={
+    soloUsuariosDelSistema: false
+  }
+
     await this.servicioPaciente.getPacienteFiltro({
       orderBy: "nombre",
       orderDir: "asc",
       like: "S",
+      ejemplo : JSON.stringify(ejemplo)
     }).then(
       entity => this.listaPacientes = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Fichas')

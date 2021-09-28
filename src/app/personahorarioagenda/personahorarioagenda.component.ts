@@ -65,6 +65,11 @@ export class PersonahorarioagendaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    let ejemplo={
+      soloUsuariosDelSistema: true
+    }
+
     this.numeros = [0,1,2,3,4,5,6,7];
     this.dias = [" ", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
 
@@ -80,7 +85,8 @@ export class PersonahorarioagendaComponent implements OnInit {
     this.servicioEmpleado.getEmpleadosP({
       orderBy: "nombre",
       orderDir: "asc",
-      like: "S"
+      like: "S",
+      ejemplo : JSON.stringify(ejemplo)
     }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')

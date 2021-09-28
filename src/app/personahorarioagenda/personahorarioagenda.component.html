@@ -16,7 +16,7 @@ Dias: <select name="miselect" [(ngModel)]="diaSelec">
 
 
 <div *ngIf="agendas.length>0; else sinresultado">
-  agenda
+
   <table  (matSortChange)="sortData($event)" matSortActive="idPersonaHorarioAgenda" matSortDirection="asc" matSort>
     <tr>
       <th mat-sort-header="idPersonaHorarioAgenda">idPersonaHorarioAgenda</th>

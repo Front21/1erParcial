@@ -86,6 +86,11 @@ export class ReservaComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    let ejemplo2={
+      soloUsuariosDelSistema: true
+    }
+
+
     let ejemplo;
     var month = this.fechadehoy.getUTCMonth() + 1; //months from 1-12
     this.meshoy= month.toString()
@@ -116,7 +121,8 @@ export class ReservaComponent implements OnInit {
     this.servicioEmpleado.getEmpleadosP({
       orderBy: "nombre",
       orderDir: "asc",
-      like: "S"
+      like: "S",
+      ejemplo : JSON.stringify(ejemplo2)
     }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
@@ -127,7 +133,7 @@ export class ReservaComponent implements OnInit {
       orderDir: "asc",
       like: "S"
     }).then(
-      entity => this.empleados = entity.lista,
+      entity => this.clientes = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Categorias')
     );
     //this.route.queryParams.subscribe(params => {this.id = params['id'];})
@@ -311,6 +317,15 @@ export class ReservaComponent implements OnInit {
     async irReservas(): Promise<boolean>{
       return this.router.navigateByUrl('reserva');
     }
+
+   async  marcarasistido(id: number): Promise<void>{
+      await this.servicioReserva.putReserva(
+        {idReserva:id, flagAsistio: "S"}).then(
+        () => {this.mensaje='Asistio exitosamente'},error => console.log("error: "+error));
+  
+ 
+    }
+
 
 }
 

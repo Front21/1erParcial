@@ -25,9 +25,9 @@ export class ServiceempleadoService {
     return this.http.get<listadatos<Persona>>(this.api, {params: paramas}).toPromise();
   }
 
-  getEmpleado(id: number): Observable<Persona>{
-    this.api = `${this.api}/${id}`;
-    return this.http.get<Persona>(this.api);
+  async getEmpleado(id: number): Promise<Persona>{
+    //this.api = `${this.api}/${id}`;
+    return this.http.get<Persona>(this.api+'/'+id).toPromise();
   }
 
 }

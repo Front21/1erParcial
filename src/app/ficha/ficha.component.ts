@@ -60,6 +60,9 @@ export class FichaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let ejemplo2={
+      soloUsuariosDelSistema: true
+    }
     this.servicioFicha.getFichasP({
       orderBy: "idFichaClinica",
       orderDir: "asc",
@@ -91,6 +94,7 @@ export class FichaComponent implements OnInit {
       orderBy: "nombre",
       orderDir: "asc",
       like: "S",
+      ejemplo : JSON.stringify(ejemplo2)
     }).then(
       entity => this.empleados = entity.lista,
       error =>console.log('No se pudo acceder a la lista de Empleados')

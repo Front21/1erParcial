@@ -8,7 +8,7 @@ import { ServiceempleadoService } from 'src/app/service/serviceempleado.service'
 import { ServicereservaService } from 'src/app/service/servicereserva.service';
 import {FormsModule, NgForm} from '@angular/forms';
 import {Agenda} from "../../model/agenda";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -71,13 +71,14 @@ export class AgregarreservaComponent implements OnInit {
   mensajeBuscar: string = "";
   agendaIdSelec: number = 0;
   repetido: boolean = false;
-
-
+  
+  
   constructor(private servicioReserva : ServicereservaService, private servicioEmpleado: ServiceempleadoService,
     private servicioCliente: ServiceclienteService,
-    private router: Router) { }
+    private router: Router,private route: ActivatedRoute,) { }
 
   async ngOnInit(): Promise<void> {
+  
     this.id = 2; //xd
     this.fecha = "20190905"; //xd
     this.servicioReserva.getReservas().subscribe(

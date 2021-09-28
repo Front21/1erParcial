@@ -2,12 +2,12 @@ Fecha Desde: <input [(ngModel)]="fechadesde" type="date" id="fechadesde" name="f
 Fecha Hasta: <input [(ngModel)]="fechahasta" type="date" id="fechahasta" name="fechahasta"><br />
 
 Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.idPersona}}</option>
+  <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+' '+item2.apellido}}</option>
 </select>
 
 Clientes: <select name="miselect" [(ngModel)]="clienteSelec">
   <option>Clientes</option>
-  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.idPersona}}</option>
+  <option [ngValue]="item3" *ngFor="let item3 of clientes">{{item3.nombre+' '+item3.apellido}}</option>
 </select><br />
 
 <br />

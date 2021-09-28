@@ -1,20 +1,22 @@
-  Fecha: <input [(ngModel)]="fechaSelec" type="date" id="fecha" name="fecha"><br/>
+    <h2  align="center">Lista de Horario Excepcion</h2>  
+  
+  <h3  align="center">Fecha:</h3> <input  style="display: block; margin: 0 auto;" [(ngModel)]="fechaSelec" type="date" id="fecha" name="fecha"><br/>
 
-  Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
-  <option>Empleados</option>
+  <h3  align="center">Empleado: </h3><select style="display: block; margin: 0 auto;" name="miselect" [(ngModel)]="empleadoSelec">
+ 
   <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre+' '+item2.apellido}}</option>
   </select>
 
 
   <br/>
-  <button (click)="buscar('idHorarioExcepcion', 'asc', false)">Buscar</button><br/>
+  <button style="display: block; margin: 0 auto;" (click)="buscar('idHorarioExcepcion', 'asc', false)">Buscar</button><br/>
 
   <br/>
-  <button (click)="Limpiar()">Limpiar</button><br/>
+  <button style="display: block; margin: 0 auto;" (click)="Limpiar()">Limpiar</button><br/>
   <br/>
 
 <div *ngIf="horarios.length>0; else sinresultado">
-  <table  (matSortChange)="sortData($event)" matSortActive="idPersonaHorarioAgenda" matSortDirection="asc" matSort>
+  <table align="center" (matSortChange)="sortData($event)" matSortActive="idPersonaHorarioAgenda" matSortDirection="asc" matSort>
     <tr>
       <th mat-sort-header="idHorarioExcepcion">id Horario Excepcion</th>
       <th mat-sort-header="fecha">Fecha</th>
@@ -26,14 +28,14 @@
       <td>Acciones</td>
     </tr>
     <tr *ngFor="let c of horarios | paginate: { itemsPerPage: 10, currentPage: page }">
-      <td>{{c.idHorarioExcepcion}}</td>
-      <td>{{c.fechaCadena}}</td>
-      <td>{{c.horaAperturaCadena}}</td>
-      <td>{{c.horaCierreCadena}}</td>
-      <td>{{c.flagEsHabilitar}}</td>
-      <td>{{c.idEmpleado.nombre+' '+c.idEmpleado.apellido}}</td>
-      <td>{{c.intervaloMinutos}}</td>
-      <td><a class="nav-link" [routerLink]="['/editarhorarioexcepcion']" [queryParams]="{ id: c.idHorarioExcepcion}">Editar</a><br/>
+      <td align="center">{{c.idHorarioExcepcion}}</td>
+      <td align="center" >{{c.fechaCadena}}</td>
+      <td align="center" >{{c.horaAperturaCadena}}</td>
+      <td  align="center">{{c.horaCierreCadena}}</td>
+      <td align="center" >{{c.flagEsHabilitar}}</td>
+      <td align="center" >{{c.idEmpleado.nombre+' '+c.idEmpleado.apellido}}</td>
+      <td align="center" >{{c.intervaloMinutos}}</td>
+      <td  align="center" ><a class="nav-link" [routerLink]="['/editarhorarioexcepcion']" [queryParams]="{ id: c.idHorarioExcepcion}">Editar</a><br/>
         <a class="nav-link" [routerLink]="['/eliminarhorarioexcepcion']" [queryParams]="{ id: c.idHorarioExcepcion}">Eliminar</a></td>
     </tr>
   </table>
@@ -49,9 +51,11 @@
 
 
 
-<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+    <br/>
+<pagination-controls  align="center" (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 
 
 <br/>
-<button [routerLink]="['/agregarhorarioexcepcion']" >Agregar Horario Excepcion</button><br/>
+    <br/>
+<button style="display: block; margin: 0 auto;" [routerLink]="['/agregarhorarioexcepcion']" >Agregar Horario Excepcion</button><br/>
 <br/>

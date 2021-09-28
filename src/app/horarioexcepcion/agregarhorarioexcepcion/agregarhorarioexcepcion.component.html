@@ -1,19 +1,20 @@
-    Fecha: <input [(ngModel)]="fechaSelecc" type="date" id="fechaSelecc" name="fechaSelecc"><br/><br/>
-    Hora de Apertura: <input [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/><br/>
-    Hora de Cierre: <input [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/><br/>
+     <h2 align="center" >Complete los campos para agregar un Nuevo Horario Execpcion</h2>
+    <h3  align="center">Fecha:</h3> <input  style="display: block; margin: 0 auto;" [(ngModel)]="fechaSelecc" type="date" id="fechaSelecc" name="fechaSelecc"><br/><br/>
+    <h3  align="center">Hora de Apertura:</h3> <input  style="display: block; margin: 0 auto;" [(ngModel)]="horaAperturaSelec" type="time" id="horaAperturaSelec" name="horaAperturaSelec"><br/><br/>
+    <h3  align="center">Hora de Cierre:</h3> <input  style="display: block; margin: 0 auto;" [(ngModel)]="horaCierreSelec" type="time" id="horaCierreSelec" name="horaCierreSelec"><br/><br/>
 
-    Habilitado: <select name="miselect" [(ngModel)]="flagEsHabilitarSelec">
+    <h3  align="center">Habilitado:</h3> <select  style="display: block; margin: 0 auto;" name="miselect" [(ngModel)]="flagEsHabilitarSelec">
       <option >S</option>
       <option >N</option>
       </select><br/><br/>
 
-    Empleados: <select name="miselect" [(ngModel)]="empleadoSelec">
+    <h3  align="center">Empleado:</h3> <select  style="display: block; margin: 0 auto;" name="miselect" [(ngModel)]="empleadoSelec">
       <option [ngValue]="item2" *ngFor="let item2 of empleados">{{item2.nombre}}</option>
       </select><br/><br/>
 
-    Intervalo en Minutos: <input [(ngModel)]="minutosSelec" type="number" id="minutosSelec" name="minutosSelec"><br/><br/>
+    <h3  align="center">Intervalo en Minutos:</h3> <input  style="display: block; margin: 0 auto;" [(ngModel)]="minutosSelec" type="number" id="minutosSelec" name="minutosSelec"><br/><br/>
 
       <br/>
-       <button class="nav-link" [routerLink]="['/horarioExcepcion']" (click)="crearHorarioexcepcion()">Crear</button>
+       <button  style="display: block; margin: 0 auto;" class="nav-link" [routerLink]="['/horarioExcepcion']" (click)="crearHorarioexcepcion()">Crear</button>
       <br/>
 

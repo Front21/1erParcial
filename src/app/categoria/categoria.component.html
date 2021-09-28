@@ -1,15 +1,15 @@
-
-<div *ngIf="categorias.length>0; else sinresultado">
-    <table  (matSortChange)="sortData($event)" matSortActive="idCategoria" matSortDirection="asc" matSort>
+ <h2 align="center">Lista de Categorias</h2>
+<div  *ngIf="categorias.length>0; else sinresultado">
+    <table align="center" (matSortChange)="sortData($event)" matSortActive="idCategoria" matSortDirection="asc" matSort>
       <tr>
         <th mat-sort-header="idCategoria">id Categoria</th>
         <th mat-sort-header="descripcion">Descripcion</th>
         <th>Acciones</th>
       </tr>
       <tr *ngFor="let f of categorias | paginate: { itemsPerPage: 10, currentPage: page }">
-        <td>{{f.idCategoria}}</td>
+        <td align="center">{{f.idCategoria}}</td>
         <td>{{f.descripcion}}</td>
-        <td><a [routerLink]="['/editarcategoria']" [queryParams]="{ id: f.idCategoria}">Editar</a><br>
+        <td align="center"><a [routerLink]="['/editarcategoria']" [queryParams]="{ id: f.idCategoria}">Editar</a><br>
         <a class="nav-link" [routerLink]="['/eliminarcategoria']" [queryParams]="{ id: f.idCategoria}" >Eliminar</a></td>
       </tr>
     </table>
@@ -18,9 +18,9 @@
     No existen Categorias
   </ng-template>
 
-<pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+<pagination-controls align="center" (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 
 
 <br/>
-<button [routerLink]="['/agregarcategoria']" >Agregar Categoria</button><br/>
+<button  style="display: block; margin: 0 auto;"[routerLink]="['/agregarcategoria']" >Agregar Categoria</button><br/>
 <br/>
